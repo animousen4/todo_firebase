@@ -18,33 +18,39 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(ThemeModel themeModel) updateTheme,
+    required TResult Function(Locale locale) updateLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(ThemeModel themeModel)? updateTheme,
+    TResult? Function(Locale locale)? updateLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(ThemeModel themeModel)? updateTheme,
+    TResult Function(Locale locale)? updateLocale,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(_UpdateTheme value) updateTheme,
+    required TResult Function(_UpdateLocale value) updateLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateTheme value)? updateTheme,
+    TResult? Function(_UpdateLocale value)? updateLocale,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(_UpdateTheme value)? updateTheme,
+    TResult Function(_UpdateLocale value)? updateLocale,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,64 +75,94 @@ class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
 }
 
 /// @nodoc
-abstract class _$$StartedImplCopyWith<$Res> {
-  factory _$$StartedImplCopyWith(
-          _$StartedImpl value, $Res Function(_$StartedImpl) then) =
-      __$$StartedImplCopyWithImpl<$Res>;
+abstract class _$$UpdateThemeImplCopyWith<$Res> {
+  factory _$$UpdateThemeImplCopyWith(
+          _$UpdateThemeImpl value, $Res Function(_$UpdateThemeImpl) then) =
+      __$$UpdateThemeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ThemeModel themeModel});
 }
 
 /// @nodoc
-class __$$StartedImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res, _$StartedImpl>
-    implements _$$StartedImplCopyWith<$Res> {
-  __$$StartedImplCopyWithImpl(
-      _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
+class __$$UpdateThemeImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$UpdateThemeImpl>
+    implements _$$UpdateThemeImplCopyWith<$Res> {
+  __$$UpdateThemeImplCopyWithImpl(
+      _$UpdateThemeImpl _value, $Res Function(_$UpdateThemeImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? themeModel = null,
+  }) {
+    return _then(_$UpdateThemeImpl(
+      null == themeModel
+          ? _value.themeModel
+          : themeModel // ignore: cast_nullable_to_non_nullable
+              as ThemeModel,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
-  const _$StartedImpl();
+class _$UpdateThemeImpl implements _UpdateTheme {
+  const _$UpdateThemeImpl(this.themeModel);
+
+  @override
+  final ThemeModel themeModel;
 
   @override
   String toString() {
-    return 'SettingsEvent.started()';
+    return 'SettingsEvent.updateTheme(themeModel: $themeModel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$StartedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateThemeImpl &&
+            (identical(other.themeModel, themeModel) ||
+                other.themeModel == themeModel));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, themeModel);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateThemeImplCopyWith<_$UpdateThemeImpl> get copyWith =>
+      __$$UpdateThemeImplCopyWithImpl<_$UpdateThemeImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() started,
+    required TResult Function(ThemeModel themeModel) updateTheme,
+    required TResult Function(Locale locale) updateLocale,
   }) {
-    return started();
+    return updateTheme(themeModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
+    TResult? Function(ThemeModel themeModel)? updateTheme,
+    TResult? Function(Locale locale)? updateLocale,
   }) {
-    return started?.call();
+    return updateTheme?.call(themeModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
+    TResult Function(ThemeModel themeModel)? updateTheme,
+    TResult Function(Locale locale)? updateLocale,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started();
+    if (updateTheme != null) {
+      return updateTheme(themeModel);
     }
     return orElse();
   }
@@ -134,67 +170,208 @@ class _$StartedImpl implements _Started {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
+    required TResult Function(_UpdateTheme value) updateTheme,
+    required TResult Function(_UpdateLocale value) updateLocale,
   }) {
-    return started(this);
+    return updateTheme(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
+    TResult? Function(_UpdateTheme value)? updateTheme,
+    TResult? Function(_UpdateLocale value)? updateLocale,
   }) {
-    return started?.call(this);
+    return updateTheme?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
+    TResult Function(_UpdateTheme value)? updateTheme,
+    TResult Function(_UpdateLocale value)? updateLocale,
     required TResult orElse(),
   }) {
-    if (started != null) {
-      return started(this);
+    if (updateTheme != null) {
+      return updateTheme(this);
     }
     return orElse();
   }
 }
 
-abstract class _Started implements SettingsEvent {
-  const factory _Started() = _$StartedImpl;
+abstract class _UpdateTheme implements SettingsEvent {
+  const factory _UpdateTheme(final ThemeModel themeModel) = _$UpdateThemeImpl;
+
+  ThemeModel get themeModel;
+  @JsonKey(ignore: true)
+  _$$UpdateThemeImplCopyWith<_$UpdateThemeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateLocaleImplCopyWith<$Res> {
+  factory _$$UpdateLocaleImplCopyWith(
+          _$UpdateLocaleImpl value, $Res Function(_$UpdateLocaleImpl) then) =
+      __$$UpdateLocaleImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Locale locale});
+}
+
+/// @nodoc
+class __$$UpdateLocaleImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$UpdateLocaleImpl>
+    implements _$$UpdateLocaleImplCopyWith<$Res> {
+  __$$UpdateLocaleImplCopyWithImpl(
+      _$UpdateLocaleImpl _value, $Res Function(_$UpdateLocaleImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? locale = null,
+  }) {
+    return _then(_$UpdateLocaleImpl(
+      null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as Locale,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateLocaleImpl implements _UpdateLocale {
+  const _$UpdateLocaleImpl(this.locale);
+
+  @override
+  final Locale locale;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.updateLocale(locale: $locale)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateLocaleImpl &&
+            (identical(other.locale, locale) || other.locale == locale));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, locale);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateLocaleImplCopyWith<_$UpdateLocaleImpl> get copyWith =>
+      __$$UpdateLocaleImplCopyWithImpl<_$UpdateLocaleImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ThemeModel themeModel) updateTheme,
+    required TResult Function(Locale locale) updateLocale,
+  }) {
+    return updateLocale(locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ThemeModel themeModel)? updateTheme,
+    TResult? Function(Locale locale)? updateLocale,
+  }) {
+    return updateLocale?.call(locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ThemeModel themeModel)? updateTheme,
+    TResult Function(Locale locale)? updateLocale,
+    required TResult orElse(),
+  }) {
+    if (updateLocale != null) {
+      return updateLocale(locale);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateTheme value) updateTheme,
+    required TResult Function(_UpdateLocale value) updateLocale,
+  }) {
+    return updateLocale(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateTheme value)? updateTheme,
+    TResult? Function(_UpdateLocale value)? updateLocale,
+  }) {
+    return updateLocale?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateTheme value)? updateTheme,
+    TResult Function(_UpdateLocale value)? updateLocale,
+    required TResult orElse(),
+  }) {
+    if (updateLocale != null) {
+      return updateLocale(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateLocale implements SettingsEvent {
+  const factory _UpdateLocale(final Locale locale) = _$UpdateLocaleImpl;
+
+  Locale get locale;
+  @JsonKey(ignore: true)
+  _$$UpdateLocaleImplCopyWith<_$UpdateLocaleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$SettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function() idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
+    TResult? Function()? idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
+    TResult Function()? idle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(_Idle value) idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Idle value)? idle,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(_Idle value)? idle,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -219,35 +396,34 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
+abstract class _$$IdleImplCopyWith<$Res> {
+  factory _$$IdleImplCopyWith(
+          _$IdleImpl value, $Res Function(_$IdleImpl) then) =
+      __$$IdleImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+class __$$IdleImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$IdleImpl>
+    implements _$$IdleImplCopyWith<$Res> {
+  __$$IdleImplCopyWithImpl(_$IdleImpl _value, $Res Function(_$IdleImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
+class _$IdleImpl implements _Idle {
+  const _$IdleImpl();
 
   @override
   String toString() {
-    return 'SettingsState.initial()';
+    return 'SettingsState.idle()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType && other is _$IdleImpl);
   }
 
   @override
@@ -256,27 +432,27 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function() idle,
   }) {
-    return initial();
+    return idle();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
+    TResult? Function()? idle,
   }) {
-    return initial?.call();
+    return idle?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
+    TResult Function()? idle,
     required TResult orElse(),
   }) {
-    if (initial != null) {
-      return initial();
+    if (idle != null) {
+      return idle();
     }
     return orElse();
   }
@@ -284,32 +460,32 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
+    required TResult Function(_Idle value) idle,
   }) {
-    return initial(this);
+    return idle(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Idle value)? idle,
   }) {
-    return initial?.call(this);
+    return idle?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
+    TResult Function(_Idle value)? idle,
     required TResult orElse(),
   }) {
-    if (initial != null) {
-      return initial(this);
+    if (idle != null) {
+      return idle(this);
     }
     return orElse();
   }
 }
 
-abstract class _Initial implements SettingsState {
-  const factory _Initial() = _$InitialImpl;
+abstract class _Idle implements SettingsState {
+  const factory _Idle() = _$IdleImpl;
 }

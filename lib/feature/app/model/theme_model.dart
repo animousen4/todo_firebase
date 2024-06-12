@@ -2,26 +2,27 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ThemeModel {
-  ThemeModel({required this.themeMode})
-      : darkTheme = ThemeData.dark(useMaterial3: true),
-        lightTheme = ThemeData.light(useMaterial3: true);
+  ThemeModel({required ThemeMode themeMode})
+      : _themeMode = themeMode, _darkTheme = ThemeData.dark(useMaterial3: true),
+        _lightTheme = ThemeData.light(useMaterial3: true);
 
-  final ThemeMode themeMode;
+  final ThemeMode _themeMode;
 
-  final ThemeData darkTheme;
+  final ThemeData _darkTheme;
 
-  final ThemeData lightTheme;
+  final ThemeData _lightTheme;
 
+  /// Theme calculation based on ThemeMode
   ThemeData calculateTheme() {
-    switch (themeMode) {
+    switch (_themeMode) {
       case ThemeMode.dark:
-        return darkTheme;
+        return _darkTheme;
       case ThemeMode.light:
-        return lightTheme;
+        return _lightTheme;
       case ThemeMode.system:
         return PlatformDispatcher.instance.platformBrightness == Brightness.dark
-            ? darkTheme
-            : lightTheme;
+            ? _darkTheme
+            : _lightTheme;
     }
   }
 }
