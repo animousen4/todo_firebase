@@ -343,37 +343,55 @@ abstract class _UpdateLocale implements SettingsEvent {
 
 /// @nodoc
 mixin _$SettingsState {
+  ThemeModel? get theme => throw _privateConstructorUsedError;
+  Locale? get locale => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) progress,
+    required TResult Function(ThemeModel? theme, Locale? locale) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult? Function(ThemeModel? theme, Locale? locale)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult Function(ThemeModel? theme, Locale? locale)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SettingsStateCopyWith<SettingsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -382,6 +400,8 @@ abstract class $SettingsStateCopyWith<$Res> {
   factory $SettingsStateCopyWith(
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
+  @useResult
+  $Res call({ThemeModel? theme, Locale? locale});
 }
 
 /// @nodoc
@@ -393,13 +413,35 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? theme = freezed,
+    Object? locale = freezed,
+  }) {
+    return _then(_value.copyWith(
+      theme: freezed == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as ThemeModel?,
+      locale: freezed == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as Locale?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$IdleImplCopyWith<$Res> {
+abstract class _$$IdleImplCopyWith<$Res>
+    implements $SettingsStateCopyWith<$Res> {
   factory _$$IdleImplCopyWith(
           _$IdleImpl value, $Res Function(_$IdleImpl) then) =
       __$$IdleImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ThemeModel? theme, Locale? locale});
 }
 
 /// @nodoc
@@ -408,51 +450,89 @@ class __$$IdleImplCopyWithImpl<$Res>
     implements _$$IdleImplCopyWith<$Res> {
   __$$IdleImplCopyWithImpl(_$IdleImpl _value, $Res Function(_$IdleImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? theme = freezed,
+    Object? locale = freezed,
+  }) {
+    return _then(_$IdleImpl(
+      theme: freezed == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as ThemeModel?,
+      locale: freezed == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as Locale?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$IdleImpl implements _Idle {
-  const _$IdleImpl();
+  const _$IdleImpl({this.theme, this.locale});
+
+  @override
+  final ThemeModel? theme;
+  @override
+  final Locale? locale;
 
   @override
   String toString() {
-    return 'SettingsState.idle()';
+    return 'SettingsState.idle(theme: $theme, locale: $locale)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$IdleImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$IdleImpl &&
+            (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.locale, locale) || other.locale == locale));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, theme, locale);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
+      __$$IdleImplCopyWithImpl<_$IdleImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) progress,
+    required TResult Function(ThemeModel? theme, Locale? locale) error,
   }) {
-    return idle();
+    return idle(theme, locale);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult? Function(ThemeModel? theme, Locale? locale)? error,
   }) {
-    return idle?.call();
+    return idle?.call(theme, locale);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult Function(ThemeModel? theme, Locale? locale)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle();
+      return idle(theme, locale);
     }
     return orElse();
   }
@@ -461,6 +541,8 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Error value) error,
   }) {
     return idle(this);
   }
@@ -469,6 +551,8 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Error value)? error,
   }) {
     return idle?.call(this);
   }
@@ -477,6 +561,8 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -487,5 +573,323 @@ class _$IdleImpl implements _Idle {
 }
 
 abstract class _Idle implements SettingsState {
-  const factory _Idle() = _$IdleImpl;
+  const factory _Idle({final ThemeModel? theme, final Locale? locale}) =
+      _$IdleImpl;
+
+  @override
+  ThemeModel? get theme;
+  @override
+  Locale? get locale;
+  @override
+  @JsonKey(ignore: true)
+  _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProgressImplCopyWith<$Res>
+    implements $SettingsStateCopyWith<$Res> {
+  factory _$$ProgressImplCopyWith(
+          _$ProgressImpl value, $Res Function(_$ProgressImpl) then) =
+      __$$ProgressImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ThemeModel? theme, Locale? locale});
+}
+
+/// @nodoc
+class __$$ProgressImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$ProgressImpl>
+    implements _$$ProgressImplCopyWith<$Res> {
+  __$$ProgressImplCopyWithImpl(
+      _$ProgressImpl _value, $Res Function(_$ProgressImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? theme = freezed,
+    Object? locale = freezed,
+  }) {
+    return _then(_$ProgressImpl(
+      theme: freezed == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as ThemeModel?,
+      locale: freezed == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as Locale?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProgressImpl implements _Progress {
+  const _$ProgressImpl({this.theme, this.locale});
+
+  @override
+  final ThemeModel? theme;
+  @override
+  final Locale? locale;
+
+  @override
+  String toString() {
+    return 'SettingsState.progress(theme: $theme, locale: $locale)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProgressImpl &&
+            (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.locale, locale) || other.locale == locale));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, theme, locale);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProgressImplCopyWith<_$ProgressImpl> get copyWith =>
+      __$$ProgressImplCopyWithImpl<_$ProgressImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) progress,
+    required TResult Function(ThemeModel? theme, Locale? locale) error,
+  }) {
+    return progress(theme, locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult? Function(ThemeModel? theme, Locale? locale)? error,
+  }) {
+    return progress?.call(theme, locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult Function(ThemeModel? theme, Locale? locale)? error,
+    required TResult orElse(),
+  }) {
+    if (progress != null) {
+      return progress(theme, locale);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Error value) error,
+  }) {
+    return progress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Error value)? error,
+  }) {
+    return progress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (progress != null) {
+      return progress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Progress implements SettingsState {
+  const factory _Progress({final ThemeModel? theme, final Locale? locale}) =
+      _$ProgressImpl;
+
+  @override
+  ThemeModel? get theme;
+  @override
+  Locale? get locale;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProgressImplCopyWith<_$ProgressImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ErrorImplCopyWith<$Res>
+    implements $SettingsStateCopyWith<$Res> {
+  factory _$$ErrorImplCopyWith(
+          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
+      __$$ErrorImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ThemeModel? theme, Locale? locale});
+}
+
+/// @nodoc
+class __$$ErrorImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$ErrorImpl>
+    implements _$$ErrorImplCopyWith<$Res> {
+  __$$ErrorImplCopyWithImpl(
+      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? theme = freezed,
+    Object? locale = freezed,
+  }) {
+    return _then(_$ErrorImpl(
+      theme: freezed == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as ThemeModel?,
+      locale: freezed == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as Locale?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ErrorImpl implements _Error {
+  const _$ErrorImpl({this.theme, this.locale});
+
+  @override
+  final ThemeModel? theme;
+  @override
+  final Locale? locale;
+
+  @override
+  String toString() {
+    return 'SettingsState.error(theme: $theme, locale: $locale)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ErrorImpl &&
+            (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.locale, locale) || other.locale == locale));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, theme, locale);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) progress,
+    required TResult Function(ThemeModel? theme, Locale? locale) error,
+  }) {
+    return error(theme, locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult? Function(ThemeModel? theme, Locale? locale)? error,
+  }) {
+    return error?.call(theme, locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult Function(ThemeModel? theme, Locale? locale)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(theme, locale);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Error value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Error value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error implements SettingsState {
+  const factory _Error({final ThemeModel? theme, final Locale? locale}) =
+      _$ErrorImpl;
+
+  @override
+  ThemeModel? get theme;
+  @override
+  Locale? get locale;
+  @override
+  @JsonKey(ignore: true)
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
