@@ -1,20 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
+import 'package:todo_firebase/core/app_log.dart';
+import 'package:todo_firebase/feature/app/logic/app_runner.dart';
 
 void main() {
-  runApp(const MainApp());
-}
+  final logger = Logger("main");
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final appLog = AppLogConfig();
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
+  appLog.setup();
+
+  runZonedGuarded(
+    () => AppRunner().run(),
+    (object, stackTrace) => logger.severe("Error occured: $object", object, stackTrace),
+  );
 }

@@ -6,18 +6,30 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:todo_firebase/core/app_bloc_observer.dart';
 import 'package:todo_firebase/feature/app/widget/app.dart';
+import 'package:todo_firebase/feature/initialization/logic/dependencies_initializer.dart';
 
 class AppRunner {
   final logger = Logger("AppRunner");
 
-  Future<void> initialize() async {
+  final DependenciesInitializer _dependenciesInitializer;
+
+  AppRunner() : _dependenciesInitializer = DefaultDependenciesInitializer();
+
+  Future<void> _initializeOverrides() async {
     Bloc.observer = AppBlocObserver();
     Bloc.transformer = bloc_concurrency.sequential();
   }
 
   Future<void> run() async {
+    final dependencies = await _dependenciesInitializer.initialize();
+    _initializeOverrides();
+    
     try {
-      runApp(const App());
+      runApp(
+        App(
+          dependencies: dependencies,
+        ),
+      );
     } catch (error, stackTrace) {
       _onError(error, stackTrace);
     }

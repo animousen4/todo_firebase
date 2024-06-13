@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_firebase/core/utils/build_context_extension.dart';
 import 'package:todo_firebase/feature/app/model/theme_model.dart';
 import 'package:todo_firebase/feature/settings/bloc/settings_bloc.dart';
 import 'package:todo_firebase/feature/settings/widget/controllers.dart';
@@ -16,6 +17,18 @@ class SettingsScope extends StatefulWidget {
 
   /// Settings bloc
   final SettingsBloc settingsBloc;
+
+  static ThemeScopeController themeControllerOf(BuildContext context) => context
+      .inheritFrom<SettingsAspect, _InheritedSettingsScope>(
+          aspect: SettingsAspect.theme)
+      .controller;
+
+  static LocaleScopeController localeControllerOf(BuildContext context) =>
+      context
+          .inheritFrom<SettingsAspect, _InheritedSettingsScope>(
+              aspect: SettingsAspect.locale)
+          .controller;
+
   @override
   State<SettingsScope> createState() => _SettingsScopeState();
 }
@@ -54,7 +67,14 @@ class _SettingsScopeState extends State<SettingsScope>
   }
 }
 
-enum SettingsAspect { theme, locale }
+/// Aspect for [_InheritedSettingsScope]
+enum SettingsAspect {
+  /// Theme aspect
+  theme,
+
+  /// Locale aspect
+  locale
+}
 
 class _InheritedSettingsScope extends InheritedModel<SettingsAspect> {
   const _InheritedSettingsScope({
