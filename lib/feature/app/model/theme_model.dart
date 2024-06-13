@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 class ThemeModel {
   ThemeModel({required this.themeMode})
       : darkTheme = ThemeData.dark(useMaterial3: true),
-        lightTheme = ThemeData.light(useMaterial3: true);
+        lightTheme = ThemeData.light(useMaterial3: true).copyWith(
+            inputDecorationTheme: InputDecorationTheme(
+                border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+        )));
 
   final ThemeMode themeMode;
 
