@@ -15,7 +15,7 @@ class MaterialContext extends StatelessWidget {
         darkTheme: theme.darkTheme,
         locale: locale,
         home: Scaffold(
-          body: Text("FFFF"),
+          body: SafeArea(child: Text("FFFF")),
         ));
   }
 }
