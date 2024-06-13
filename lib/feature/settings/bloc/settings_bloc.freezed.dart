@@ -348,28 +348,33 @@ mixin _$SettingsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) success,
     required TResult Function(ThemeModel? theme, Locale? locale) progress,
-    required TResult Function(ThemeModel? theme, Locale? locale) error,
+    required TResult Function(ThemeModel? theme, Locale? locale, Object? error)
+        error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? success,
     TResult? Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult? Function(ThemeModel? theme, Locale? locale)? error,
+    TResult? Function(ThemeModel? theme, Locale? locale, Object? error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? success,
     TResult Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult Function(ThemeModel? theme, Locale? locale)? error,
+    TResult Function(ThemeModel? theme, Locale? locale, Object? error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Error value) error,
   }) =>
@@ -377,6 +382,7 @@ mixin _$SettingsState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Error value)? error,
   }) =>
@@ -384,6 +390,7 @@ mixin _$SettingsState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Progress value)? progress,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -507,8 +514,10 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) success,
     required TResult Function(ThemeModel? theme, Locale? locale) progress,
-    required TResult Function(ThemeModel? theme, Locale? locale) error,
+    required TResult Function(ThemeModel? theme, Locale? locale, Object? error)
+        error,
   }) {
     return idle(theme, locale);
   }
@@ -517,8 +526,9 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? success,
     TResult? Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult? Function(ThemeModel? theme, Locale? locale)? error,
+    TResult? Function(ThemeModel? theme, Locale? locale, Object? error)? error,
   }) {
     return idle?.call(theme, locale);
   }
@@ -527,8 +537,9 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? success,
     TResult Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult Function(ThemeModel? theme, Locale? locale)? error,
+    TResult Function(ThemeModel? theme, Locale? locale, Object? error)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -541,6 +552,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Error value) error,
   }) {
@@ -551,6 +563,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Error value)? error,
   }) {
@@ -561,6 +574,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Progress value)? progress,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -583,6 +597,167 @@ abstract class _Idle implements SettingsState {
   @override
   @JsonKey(ignore: true)
   _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessImplCopyWith<$Res>
+    implements $SettingsStateCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
+      __$$SuccessImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ThemeModel? theme, Locale? locale});
+}
+
+/// @nodoc
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? theme = freezed,
+    Object? locale = freezed,
+  }) {
+    return _then(_$SuccessImpl(
+      theme: freezed == theme
+          ? _value.theme
+          : theme // ignore: cast_nullable_to_non_nullable
+              as ThemeModel?,
+      locale: freezed == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as Locale?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessImpl implements _Success {
+  const _$SuccessImpl({this.theme, this.locale});
+
+  @override
+  final ThemeModel? theme;
+  @override
+  final Locale? locale;
+
+  @override
+  String toString() {
+    return 'SettingsState.success(theme: $theme, locale: $locale)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.locale, locale) || other.locale == locale));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, theme, locale);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) success,
+    required TResult Function(ThemeModel? theme, Locale? locale) progress,
+    required TResult Function(ThemeModel? theme, Locale? locale, Object? error)
+        error,
+  }) {
+    return success(theme, locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? success,
+    TResult? Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult? Function(ThemeModel? theme, Locale? locale, Object? error)? error,
+  }) {
+    return success?.call(theme, locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? success,
+    TResult Function(ThemeModel? theme, Locale? locale)? progress,
+    TResult Function(ThemeModel? theme, Locale? locale, Object? error)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(theme, locale);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Error value) error,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Error value)? error,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Success implements SettingsState {
+  const factory _Success({final ThemeModel? theme, final Locale? locale}) =
+      _$SuccessImpl;
+
+  @override
+  ThemeModel? get theme;
+  @override
+  Locale? get locale;
+  @override
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -661,8 +836,10 @@ class _$ProgressImpl implements _Progress {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) success,
     required TResult Function(ThemeModel? theme, Locale? locale) progress,
-    required TResult Function(ThemeModel? theme, Locale? locale) error,
+    required TResult Function(ThemeModel? theme, Locale? locale, Object? error)
+        error,
   }) {
     return progress(theme, locale);
   }
@@ -671,8 +848,9 @@ class _$ProgressImpl implements _Progress {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? success,
     TResult? Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult? Function(ThemeModel? theme, Locale? locale)? error,
+    TResult? Function(ThemeModel? theme, Locale? locale, Object? error)? error,
   }) {
     return progress?.call(theme, locale);
   }
@@ -681,8 +859,9 @@ class _$ProgressImpl implements _Progress {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? success,
     TResult Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult Function(ThemeModel? theme, Locale? locale)? error,
+    TResult Function(ThemeModel? theme, Locale? locale, Object? error)? error,
     required TResult orElse(),
   }) {
     if (progress != null) {
@@ -695,6 +874,7 @@ class _$ProgressImpl implements _Progress {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Error value) error,
   }) {
@@ -705,6 +885,7 @@ class _$ProgressImpl implements _Progress {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Error value)? error,
   }) {
@@ -715,6 +896,7 @@ class _$ProgressImpl implements _Progress {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Progress value)? progress,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -748,7 +930,7 @@ abstract class _$$ErrorImplCopyWith<$Res>
       __$$ErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeModel? theme, Locale? locale});
+  $Res call({ThemeModel? theme, Locale? locale, Object? error});
 }
 
 /// @nodoc
@@ -764,6 +946,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? theme = freezed,
     Object? locale = freezed,
+    Object? error = freezed,
   }) {
     return _then(_$ErrorImpl(
       theme: freezed == theme
@@ -774,6 +957,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as Locale?,
+      error: freezed == error ? _value.error : error,
     ));
   }
 }
@@ -781,16 +965,18 @@ class __$$ErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl({this.theme, this.locale});
+  const _$ErrorImpl({this.theme, this.locale, this.error});
 
   @override
   final ThemeModel? theme;
   @override
   final Locale? locale;
+  @override
+  final Object? error;
 
   @override
   String toString() {
-    return 'SettingsState.error(theme: $theme, locale: $locale)';
+    return 'SettingsState.error(theme: $theme, locale: $locale, error: $error)';
   }
 
   @override
@@ -799,11 +985,13 @@ class _$ErrorImpl implements _Error {
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
             (identical(other.theme, theme) || other.theme == theme) &&
-            (identical(other.locale, locale) || other.locale == locale));
+            (identical(other.locale, locale) || other.locale == locale) &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, theme, locale);
+  int get hashCode => Object.hash(
+      runtimeType, theme, locale, const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -815,32 +1003,36 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ThemeModel? theme, Locale? locale) idle,
+    required TResult Function(ThemeModel? theme, Locale? locale) success,
     required TResult Function(ThemeModel? theme, Locale? locale) progress,
-    required TResult Function(ThemeModel? theme, Locale? locale) error,
+    required TResult Function(ThemeModel? theme, Locale? locale, Object? error)
+        error,
   }) {
-    return error(theme, locale);
+    return error(theme, locale, this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult? Function(ThemeModel? theme, Locale? locale)? success,
     TResult? Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult? Function(ThemeModel? theme, Locale? locale)? error,
+    TResult? Function(ThemeModel? theme, Locale? locale, Object? error)? error,
   }) {
-    return error?.call(theme, locale);
+    return error?.call(theme, locale, this.error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ThemeModel? theme, Locale? locale)? idle,
+    TResult Function(ThemeModel? theme, Locale? locale)? success,
     TResult Function(ThemeModel? theme, Locale? locale)? progress,
-    TResult Function(ThemeModel? theme, Locale? locale)? error,
+    TResult Function(ThemeModel? theme, Locale? locale, Object? error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(theme, locale);
+      return error(theme, locale, this.error);
     }
     return orElse();
   }
@@ -849,6 +1041,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Error value) error,
   }) {
@@ -859,6 +1052,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Error value)? error,
   }) {
@@ -869,6 +1063,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Progress value)? progress,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -881,13 +1076,16 @@ class _$ErrorImpl implements _Error {
 }
 
 abstract class _Error implements SettingsState {
-  const factory _Error({final ThemeModel? theme, final Locale? locale}) =
-      _$ErrorImpl;
+  const factory _Error(
+      {final ThemeModel? theme,
+      final Locale? locale,
+      final Object? error}) = _$ErrorImpl;
 
   @override
   ThemeModel? get theme;
   @override
   Locale? get locale;
+  Object? get error;
   @override
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>

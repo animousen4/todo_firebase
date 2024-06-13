@@ -5,11 +5,17 @@ import 'package:todo_firebase/feature/settings/bloc/settings_bloc.dart';
 import 'package:todo_firebase/feature/settings/widget/controllers.dart';
 
 class SettingsScope extends StatefulWidget {
-  const SettingsScope({super.key, required this.child});
+  const SettingsScope({
+    super.key,
+    required this.settingsBloc,
+    required this.child,
+  });
 
   /// Child of the scope
   final Widget child;
 
+  /// Settings bloc
+  final SettingsBloc settingsBloc;
   @override
   State<SettingsScope> createState() => _SettingsScopeState();
 }
@@ -19,37 +25,68 @@ class _SettingsScopeState extends State<SettingsScope>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-        builder: (context, state) =>
-            _InheritedSettingsScope(child: widget.child, controller: this));
+      bloc: widget.settingsBloc,
+      builder: (context, state) => _InheritedSettingsScope(
+        state: state,
+        controller: this,
+        child: widget.child,
+      ),
+    );
   }
 
   @override
-  // TODO: implement locale
-  Locale get locale => throw UnimplementedError();
+  Locale get locale => widget.settingsBloc.state.locale ?? const Locale("en");
+
+  @override
+  ThemeModel get theme =>
+      widget.settingsBloc.state.theme ??
+      ThemeModel(themeMode: ThemeMode.system);
 
   @override
   void setLocale(Locale locale) {
-    // TODO: implement setLocale
+    widget.settingsBloc.add(SettingsEvent.updateLocale(locale));
   }
 
   @override
   void setThemeMode(ThemeMode themeMode) {
-    // TODO: implement setThemeMode
+    widget.settingsBloc
+        .add(SettingsEvent.updateTheme(ThemeModel(themeMode: themeMode)));
   }
-
-  @override
-  // TODO: implement theme
-  ThemeModel get theme => throw UnimplementedError();
 }
 
-class _InheritedSettingsScope extends InheritedWidget {
-  const _InheritedSettingsScope(
-      {super.key, required super.child, required this.controller});
+enum SettingsAspect { theme, locale }
+
+class _InheritedSettingsScope extends InheritedModel<SettingsAspect> {
+  const _InheritedSettingsScope({
+    required super.child,
+    required this.controller,
+    required this.state,
+  });
 
   final SettingsScopeController controller;
 
+  final SettingsState state;
+
   @override
   bool updateShouldNotify(_InheritedSettingsScope oldWidget) {
-    return true;
+    return state != oldWidget.state;
+  }
+
+  @override
+  bool updateShouldNotifyDependent(
+    _InheritedSettingsScope oldWidget,
+    Set<SettingsAspect> dependencies,
+  ) {
+    if (dependencies.contains(SettingsAspect.theme) &&
+        state.theme != oldWidget.state.theme) {
+      return true;
+    }
+
+    if (dependencies.contains(SettingsAspect.locale) &&
+        state.locale?.languageCode != oldWidget.state.locale?.languageCode) {
+      return true;
+    }
+
+    return false;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:todo_firebase/feature/app/model/theme_model.dart';
-import 'package:todo_firebase/feature/settings/data/data_source/theme_data_source.dart';
+import 'package:todo_firebase/feature/settings/data/data_provider/theme_data_source.dart';
 
 abstract interface class ThemeRepository {
   Future<ThemeModel?> getTheme();
