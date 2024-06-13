@@ -1,8 +1,8 @@
 import 'package:todo_firebase/feature/app/model/theme_model.dart';
-import 'package:todo_firebase/feature/settings/data/data_provider/theme_data_source.dart';
+import 'package:todo_firebase/feature/settings/data/data_source/theme_data_source.dart';
 
 abstract interface class ThemeRepository {
-  Future<ThemeModel> getTheme();
+  Future<ThemeModel?> getTheme();
   Future<void> setTheme(ThemeModel theme);
 }
 
@@ -13,15 +13,13 @@ class ThemeRepositoryImpl implements ThemeRepository {
   ThemeRepositoryImpl({required ThemeDataSource themeDataSource}) : _themeDataSource = themeDataSource;
 
   @override
-  Future<ThemeModel> getTheme() {
-    // TODO: implement getTheme
-    throw UnimplementedError();
+  Future<ThemeModel?> getTheme() {
+    return _themeDataSource.getTheme();
   }
 
   @override
-  Future<void> setTheme(ThemeModel theme) {
-    // TODO: implement setTheme
-    throw UnimplementedError();
+  Future<void> setTheme(ThemeModel theme) async {
+    _themeDataSource.setTheme(theme);
   }
 
 }
