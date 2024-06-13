@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_firebase/feature/auth/bloc/auth_bloc.dart';
+import 'package:todo_firebase/feature/auth/data/converter/user_converter.dart';
+import 'package:todo_firebase/feature/auth/data/provider/auth_data_provider.dart';
+import 'package:todo_firebase/feature/auth/data/repository/auth_repository.dart';
 import 'package:todo_firebase/feature/initialization/model/dependencies.dart';
+import 'package:todo_firebase/feature/routes/app_router.dart';
 import 'package:todo_firebase/feature/settings/bloc/settings_bloc.dart';
 import 'package:todo_firebase/feature/settings/data/codec/locale_codec.dart';
 import 'package:todo_firebase/feature/settings/data/codec/theme_mode_codec.dart';
@@ -18,8 +23,11 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
   Future<Dependencies> initialize(FirebaseAuth firebaseAuth) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     final settingsBloc = await _initSettingsBloc(sharedPreferences);
+    final authBloc = await _initAuthBloc(firebaseAuth);
 
-    return Dependencies(settingsBloc: settingsBloc);
+    final appRouter = AppRouter();
+
+    return Dependencies(settingsBloc: settingsBloc, authBloc: authBloc, appRouter: appRouter);
   }
 
   Future<SettingsBloc> _initSettingsBloc(
@@ -49,5 +57,20 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
       localeRepository: localeRepository,
       themeRepository: themeRepository,
     );
+  }
+
+  Future<AuthBloc> _initAuthBloc(FirebaseAuth firebaseAuth) async {
+    final authRepository = AuthRepositoryImpl(
+      authDataProvider: AuthDataProviderFirebase(
+        firebaseAuth: firebaseAuth,
+        userConverter: UserConverter(),
+      ),
+    );
+
+    final initState = AuthState.idle(
+      userModel: await authRepository.getUser(),
+    );
+
+    return AuthBloc(authRepository: authRepository, initState: initState);
   }
 }

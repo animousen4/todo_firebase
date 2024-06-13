@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/settings/widget/settings_scope.dart';
 
 class MaterialContext extends StatelessWidget {
@@ -9,13 +10,14 @@ class MaterialContext extends StatelessWidget {
     final theme = SettingsScope.themeControllerOf(context).theme;
     final locale = SettingsScope.localeControllerOf(context).locale;
 
-    return MaterialApp(
-        themeMode: theme.themeMode,
-        theme: theme.lightTheme,
-        darkTheme: theme.darkTheme,
-        locale: locale,
-        home: Scaffold(
-          body: SafeArea(child: Text("FFFF")),
-        ));
+    final router = DependenciesScope.of(context).appRouter;
+
+    return MaterialApp.router(
+      routerConfig: router.config(),
+      themeMode: theme.themeMode,
+      theme: theme.lightTheme,
+      darkTheme: theme.darkTheme,
+      locale: locale,
+    );
   }
 }
