@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
-import 'package:todo_firebase/feature/auth/data/repository/sign_in_repository.dart';
+import 'package:todo_firebase/feature/sign_in/data/sign_in_repository.dart';
 import 'package:todo_firebase/feature/server_communication/server_error.dart';
 
 part 'sign_in_event.dart';
@@ -18,11 +18,15 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         super(initState) {
     on<SignInEvent>((event, emit) async {
       await event.map(
-          defaultSignIn: (event) async => await _defaultSignIn(event, emit));
+        defaultSignIn: (event) => _defaultSignIn(event, emit),
+      );
     });
   }
 
-  Future<void> _defaultSignIn(_DefaultSignIn event, Emitter<SignInState> emit) async {
+  Future<void> _defaultSignIn(
+    _DefaultSignIn event,
+    Emitter<SignInState> emit,
+  ) async {
     emit(SignInState.processing(validationError: state.validationError));
     final result =
         await _signInRepository.signInWithEmailAndPassword(event.signInData);

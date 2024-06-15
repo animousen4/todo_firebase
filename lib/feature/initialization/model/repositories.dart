@@ -1,7 +1,9 @@
-import 'package:todo_firebase/feature/auth/data/repository/sign_in_repository.dart';
+import 'package:todo_firebase/feature/sign_in/data/sign_in_repository.dart';
+import 'package:todo_firebase/feature/sign_up/data/sign_up_repository.dart';
 
 class Repositories {
   final SignInRepository signInRepository;
-
-  Repositories({required this.signInRepository});
+  final SignUpRepository signUpRepository;
+  
+  Repositories({required this.signInRepository, required this.signUpRepository});
 }

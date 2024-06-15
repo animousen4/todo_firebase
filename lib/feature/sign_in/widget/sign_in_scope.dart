@@ -8,7 +8,7 @@ import 'package:todo_firebase/feature/sign_in/bloc/sign_in_bloc.dart';
 abstract interface class SignInScopeController {
   SignInState get state;
 
-  void defaultSignIn(DefaultSignInData signInData);
+  void defaultSignIn(DefaultAuthUserData signInData);
 }
 
 class SignInScope extends StatefulWidget {
@@ -37,7 +37,7 @@ class _SignInScopeState extends State<SignInScope>
   }
 
   @override
-  void defaultSignIn(DefaultSignInData signInData) {
+  void defaultSignIn(DefaultAuthUserData signInData) {
     widget.signInBloc.add(SignInEvent.defaultSignIn(signInData: signInData));
   }
 

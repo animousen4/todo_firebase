@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
-import 'package:todo_firebase/feature/auth/data/provider/sign_in_data_provider.dart';
-import 'package:todo_firebase/feature/auth/data/repository/sign_in_repository.dart';
+import 'package:todo_firebase/feature/sign_in/data/sign_in_data_provider.dart';
+import 'package:todo_firebase/feature/sign_in/data/sign_in_repository.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/server_communication/server_error.dart';
 import 'package:todo_firebase/feature/sign_in/bloc/sign_in_bloc.dart';
@@ -58,7 +58,7 @@ class _SignInViewState extends State<_SignInView> {
 
   late final ValueNotifier<bool> _signInValid = ValueNotifier(false);
 
-  late final List<String? Function(DefaultSignInData data)> _validations;
+  late final List<String? Function(DefaultAuthUserData data)> _validations;
 
   late final List<TextEditingController> _controllers;
   late final List<ValueNotifier<String?>> _errors;
@@ -125,7 +125,7 @@ class _SignInViewState extends State<_SignInView> {
   }
 
   void _onInputDataChanged() {
-    final data = DefaultSignInData(
+    final data = DefaultAuthUserData(
       email: _loginController.text,
       password: _passwordController.text,
     );
@@ -133,7 +133,7 @@ class _SignInViewState extends State<_SignInView> {
     _signInValid.value = _validate(data);
   }
 
-  bool _validate(DefaultSignInData data) {
+  bool _validate(DefaultAuthUserData data) {
     for (final validation in _validations) {
       final result = validation(data);
 
@@ -206,7 +206,7 @@ class _SignInButton extends StatelessWidget {
           onPressed: _signInValid.value
               ? () {
                   _signInScopeController.defaultSignIn(
-                    DefaultSignInData(
+                    DefaultAuthUserData(
                       email: _loginController.text,
                       password: _passwordController.text,
                     ),

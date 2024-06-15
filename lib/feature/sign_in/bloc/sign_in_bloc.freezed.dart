@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignInEvent {
-  DefaultSignInData get signInData => throw _privateConstructorUsedError;
+  DefaultAuthUserData get signInData => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DefaultSignInData signInData) defaultSignIn,
+    required TResult Function(DefaultAuthUserData signInData) defaultSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DefaultSignInData signInData)? defaultSignIn,
+    TResult? Function(DefaultAuthUserData signInData)? defaultSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DefaultSignInData signInData)? defaultSignIn,
+    TResult Function(DefaultAuthUserData signInData)? defaultSignIn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ abstract class $SignInEventCopyWith<$Res> {
           SignInEvent value, $Res Function(SignInEvent) then) =
       _$SignInEventCopyWithImpl<$Res, SignInEvent>;
   @useResult
-  $Res call({DefaultSignInData signInData});
+  $Res call({DefaultAuthUserData signInData});
 }
 
 /// @nodoc
@@ -83,7 +83,7 @@ class _$SignInEventCopyWithImpl<$Res, $Val extends SignInEvent>
       signInData: null == signInData
           ? _value.signInData
           : signInData // ignore: cast_nullable_to_non_nullable
-              as DefaultSignInData,
+              as DefaultAuthUserData,
     ) as $Val);
   }
 }
@@ -96,7 +96,7 @@ abstract class _$$DefaultSignInImplCopyWith<$Res>
       __$$DefaultSignInImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DefaultSignInData signInData});
+  $Res call({DefaultAuthUserData signInData});
 }
 
 /// @nodoc
@@ -116,7 +116,7 @@ class __$$DefaultSignInImplCopyWithImpl<$Res>
       signInData: null == signInData
           ? _value.signInData
           : signInData // ignore: cast_nullable_to_non_nullable
-              as DefaultSignInData,
+              as DefaultAuthUserData,
     ));
   }
 }
@@ -127,7 +127,7 @@ class _$DefaultSignInImpl implements _DefaultSignIn {
   const _$DefaultSignInImpl({required this.signInData});
 
   @override
-  final DefaultSignInData signInData;
+  final DefaultAuthUserData signInData;
 
   @override
   String toString() {
@@ -155,7 +155,7 @@ class _$DefaultSignInImpl implements _DefaultSignIn {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DefaultSignInData signInData) defaultSignIn,
+    required TResult Function(DefaultAuthUserData signInData) defaultSignIn,
   }) {
     return defaultSignIn(signInData);
   }
@@ -163,7 +163,7 @@ class _$DefaultSignInImpl implements _DefaultSignIn {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DefaultSignInData signInData)? defaultSignIn,
+    TResult? Function(DefaultAuthUserData signInData)? defaultSignIn,
   }) {
     return defaultSignIn?.call(signInData);
   }
@@ -171,7 +171,7 @@ class _$DefaultSignInImpl implements _DefaultSignIn {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DefaultSignInData signInData)? defaultSignIn,
+    TResult Function(DefaultAuthUserData signInData)? defaultSignIn,
     required TResult orElse(),
   }) {
     if (defaultSignIn != null) {
@@ -210,11 +210,11 @@ class _$DefaultSignInImpl implements _DefaultSignIn {
 }
 
 abstract class _DefaultSignIn implements SignInEvent {
-  const factory _DefaultSignIn({required final DefaultSignInData signInData}) =
-      _$DefaultSignInImpl;
+  const factory _DefaultSignIn(
+      {required final DefaultAuthUserData signInData}) = _$DefaultSignInImpl;
 
   @override
-  DefaultSignInData get signInData;
+  DefaultAuthUserData get signInData;
   @override
   @JsonKey(ignore: true)
   _$$DefaultSignInImplCopyWith<_$DefaultSignInImpl> get copyWith =>

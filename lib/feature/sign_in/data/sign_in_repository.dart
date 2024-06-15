@@ -1,10 +1,10 @@
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
-import 'package:todo_firebase/feature/auth/data/model/results.dart';
-import 'package:todo_firebase/feature/auth/data/provider/sign_in_data_provider.dart';
+import 'package:todo_firebase/feature/sign_in/data/results.dart';
+import 'package:todo_firebase/feature/sign_in/data/sign_in_data_provider.dart';
 
 abstract interface class SignInRepository {
   Future<DefaultSignInResult> signInWithEmailAndPassword(
-    DefaultSignInData data,
+    DefaultAuthUserData data,
   );
 }
 
@@ -16,7 +16,7 @@ class SignInRepositoryImpl implements SignInRepository {
 
   @override
   Future<DefaultSignInResult> signInWithEmailAndPassword(
-    DefaultSignInData data,
+    DefaultAuthUserData data,
   ) {
     return _signInDataProvider.signInWithEmailAndPassword(data);
   }

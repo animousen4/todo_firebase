@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 
 class ThemeModel {
   ThemeModel({required this.themeMode})
-      : darkTheme = ThemeData.dark(useMaterial3: true),
-        lightTheme = ThemeData.light(useMaterial3: true).copyWith(
-            inputDecorationTheme: InputDecorationTheme(
-                border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-        )));
+      : darkTheme = ThemeData.dark().copyWith(
+          brightness: Brightness.dark,
+          inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+          )),
+        ),
+        lightTheme = ThemeData.light().copyWith(
+          brightness: Brightness.light,
+          inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+          )),
+        );
 
   final ThemeMode themeMode;
 

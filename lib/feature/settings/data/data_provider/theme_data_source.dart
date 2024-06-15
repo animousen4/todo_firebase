@@ -28,7 +28,8 @@ class ThemeDataSourceImpl implements ThemeDataSource {
     final themeModeString = _sharedPreferences.getString(_themeModeKey);
 
     if (themeModeString != null) {
-      return ThemeModel(themeMode: _codec.decode(themeModeString));
+      return ThemeModel(
+          themeMode: _codec.decode(themeModeString),);
     }
 
     return null;

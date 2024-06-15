@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_firebase/feature/auth/bloc/auth_bloc.dart';
 import 'package:todo_firebase/feature/auth/data/converter/user_converter.dart';
 import 'package:todo_firebase/feature/auth/data/provider/auth_data_provider.dart';
-import 'package:todo_firebase/feature/auth/data/provider/sign_in_data_provider.dart';
+import 'package:todo_firebase/feature/sign_in/data/sign_in_data_provider.dart';
 import 'package:todo_firebase/feature/auth/data/repository/auth_repository.dart';
-import 'package:todo_firebase/feature/auth/data/repository/sign_in_repository.dart';
+import 'package:todo_firebase/feature/sign_in/data/sign_in_repository.dart';
 import 'package:todo_firebase/feature/initialization/model/dependencies.dart';
 import 'package:todo_firebase/feature/initialization/model/repositories.dart';
 import 'package:todo_firebase/feature/routes/app_router.dart';
@@ -16,6 +16,8 @@ import 'package:todo_firebase/feature/settings/data/data_provider/locale_data_so
 import 'package:todo_firebase/feature/settings/data/data_provider/theme_data_source.dart';
 import 'package:todo_firebase/feature/settings/data/repository/locale_repository.dart';
 import 'package:todo_firebase/feature/settings/data/repository/theme_repository.dart';
+import 'package:todo_firebase/feature/sign_up/data/sign_up_data_provider.dart';
+import 'package:todo_firebase/feature/sign_up/data/sign_up_repository.dart';
 
 abstract interface class DependenciesInitializer {
   Future<Dependencies> initialize(FirebaseAuth firebaseAuth);
@@ -29,7 +31,9 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
     final authBloc = await _initAuthBloc(firebaseAuth);
 
     final repositories = Repositories(
-        signInRepository: await _initSignInRepository(firebaseAuth));
+      signUpRepository: await _initSignUpRepository(firebaseAuth),
+      signInRepository: await _initSignInRepository(firebaseAuth),
+    );
     final appRouter = AppRouter();
 
     return Dependencies(
@@ -89,6 +93,14 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
   ) async {
     return SignInRepositoryImpl(
       signInDataProvider: SignInDataProviderImpl(firebaseAuth: firebaseAuth),
+    );
+  }
+
+  Future<SignUpRepository> _initSignUpRepository(
+    FirebaseAuth firebaseAuth,
+  ) async {
+    return SignUpRepositoryImpl(
+      signUpDataProvider: SignUpDataProviderImpl(firebaseAuth: firebaseAuth),
     );
   }
 }
