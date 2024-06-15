@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
@@ -11,7 +13,8 @@ part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
-
+  late final StreamSubscription<UserModel?> _subscription;
+  
   AuthBloc({
     required AuthRepository authRepository,
     required AuthState initState,
@@ -42,6 +45,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   _onLogout(_Logout event, Emitter<AuthState> emit) {
     _authRepository.logout();
+  }
+
+  @override
+  Future<void> close() {
+    _subscription.cancel();
+    return super.close();
   }
   
 }

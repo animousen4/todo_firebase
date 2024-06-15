@@ -22,7 +22,9 @@ class SignInDataProviderImpl implements SignInDataProvider {
   ) async {
     try {
       final response = await _firebaseAuth.signInWithEmailAndPassword(
-          email: data.email, password: data.password);
+        email: data.email,
+        password: data.password,
+      );
       if (response.credential != null) {
         return DefaultSignInResult.success(entity: UserCredentialModel());
       } else {

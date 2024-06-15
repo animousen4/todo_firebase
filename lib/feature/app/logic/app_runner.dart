@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:todo_firebase/core/app_bloc_observer.dart';
 import 'package:todo_firebase/feature/app/widget/app.dart';
+import 'package:todo_firebase/feature/app/widget/fail_app.dart';
 import 'package:todo_firebase/feature/initialization/logic/dependencies_initializer.dart';
 import 'package:todo_firebase/firebase_options.dart';
 
@@ -24,7 +25,6 @@ class AppRunner {
   }
 
   Future<FirebaseAuth> _initializeFirebase() async {
-    
     final app = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
@@ -33,15 +33,15 @@ class AppRunner {
   }
 
   Future<void> run() async {
-    WidgetsFlutterBinding.ensureInitialized();
-
-    final firebaseAuth = await _initializeFirebase();
-    await _initializeOverrides();
-    
-    final dependencies = await _dependenciesInitializer.initialize(firebaseAuth);
-    
-
     try {
+      WidgetsFlutterBinding.ensureInitialized();
+
+      final firebaseAuth = await _initializeFirebase();
+      await _initializeOverrides();
+
+      final dependencies =
+          await _dependenciesInitializer.initialize(firebaseAuth);
+
       runApp(
         App(
           dependencies: dependencies,
@@ -49,13 +49,15 @@ class AppRunner {
       );
     } catch (error, stackTrace) {
       _onError(error, stackTrace);
+      
+      runApp(FailApp(reason: error,));
     }
   }
 
   void _onError(Object object, StackTrace stackTrace) {
     final stringBuffer = StringBuffer();
 
-    stringBuffer.write("InitializationFailed");
+    stringBuffer.write("InitializationFailed: $object");
     logger.severe(stringBuffer.toString(), object, stackTrace);
   }
 }

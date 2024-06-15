@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignInEvent {
+  DefaultSignInData get signInData => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() defaultSignIn,
+    required TResult Function(DefaultSignInData signInData) defaultSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? defaultSignIn,
+    TResult? Function(DefaultSignInData signInData)? defaultSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? defaultSignIn,
+    TResult Function(DefaultSignInData signInData)? defaultSignIn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$SignInEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SignInEventCopyWith<SignInEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $SignInEventCopyWith<$Res> {
   factory $SignInEventCopyWith(
           SignInEvent value, $Res Function(SignInEvent) then) =
       _$SignInEventCopyWithImpl<$Res, SignInEvent>;
+  @useResult
+  $Res call({DefaultSignInData signInData});
 }
 
 /// @nodoc
@@ -66,13 +73,30 @@ class _$SignInEventCopyWithImpl<$Res, $Val extends SignInEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? signInData = null,
+  }) {
+    return _then(_value.copyWith(
+      signInData: null == signInData
+          ? _value.signInData
+          : signInData // ignore: cast_nullable_to_non_nullable
+              as DefaultSignInData,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$DefaultSignInImplCopyWith<$Res> {
+abstract class _$$DefaultSignInImplCopyWith<$Res>
+    implements $SignInEventCopyWith<$Res> {
   factory _$$DefaultSignInImplCopyWith(
           _$DefaultSignInImpl value, $Res Function(_$DefaultSignInImpl) then) =
       __$$DefaultSignInImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({DefaultSignInData signInData});
 }
 
 /// @nodoc
@@ -82,51 +106,76 @@ class __$$DefaultSignInImplCopyWithImpl<$Res>
   __$$DefaultSignInImplCopyWithImpl(
       _$DefaultSignInImpl _value, $Res Function(_$DefaultSignInImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? signInData = null,
+  }) {
+    return _then(_$DefaultSignInImpl(
+      signInData: null == signInData
+          ? _value.signInData
+          : signInData // ignore: cast_nullable_to_non_nullable
+              as DefaultSignInData,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$DefaultSignInImpl implements _DefaultSignIn {
-  const _$DefaultSignInImpl();
+  const _$DefaultSignInImpl({required this.signInData});
+
+  @override
+  final DefaultSignInData signInData;
 
   @override
   String toString() {
-    return 'SignInEvent.defaultSignIn()';
+    return 'SignInEvent.defaultSignIn(signInData: $signInData)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DefaultSignInImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$DefaultSignInImpl &&
+            (identical(other.signInData, signInData) ||
+                other.signInData == signInData));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, signInData);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DefaultSignInImplCopyWith<_$DefaultSignInImpl> get copyWith =>
+      __$$DefaultSignInImplCopyWithImpl<_$DefaultSignInImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() defaultSignIn,
+    required TResult Function(DefaultSignInData signInData) defaultSignIn,
   }) {
-    return defaultSignIn();
+    return defaultSignIn(signInData);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? defaultSignIn,
+    TResult? Function(DefaultSignInData signInData)? defaultSignIn,
   }) {
-    return defaultSignIn?.call();
+    return defaultSignIn?.call(signInData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? defaultSignIn,
+    TResult Function(DefaultSignInData signInData)? defaultSignIn,
     required TResult orElse(),
   }) {
     if (defaultSignIn != null) {
-      return defaultSignIn();
+      return defaultSignIn(signInData);
     }
     return orElse();
   }
@@ -161,42 +210,67 @@ class _$DefaultSignInImpl implements _DefaultSignIn {
 }
 
 abstract class _DefaultSignIn implements SignInEvent {
-  const factory _DefaultSignIn() = _$DefaultSignInImpl;
+  const factory _DefaultSignIn({required final DefaultSignInData signInData}) =
+      _$DefaultSignInImpl;
+
+  @override
+  DefaultSignInData get signInData;
+  @override
+  @JsonKey(ignore: true)
+  _$$DefaultSignInImplCopyWith<_$DefaultSignInImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$SignInState {
+  ServerError get validationError => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
+    required TResult Function(ServerError validationError) idle,
+    required TResult Function(ServerError validationError) processing,
+    required TResult Function(ServerError validationError) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
+    TResult? Function(ServerError validationError)? idle,
+    TResult? Function(ServerError validationError)? processing,
+    TResult? Function(ServerError validationError)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(ServerError validationError)? idle,
+    TResult Function(ServerError validationError)? processing,
+    TResult Function(ServerError validationError)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Processing value) processing,
+    required TResult Function(_Failed value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Processing value)? processing,
+    TResult? Function(_Failed value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Processing value)? processing,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SignInStateCopyWith<SignInState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -205,6 +279,8 @@ abstract class $SignInStateCopyWith<$Res> {
   factory $SignInStateCopyWith(
           SignInState value, $Res Function(SignInState) then) =
       _$SignInStateCopyWithImpl<$Res, SignInState>;
+  @useResult
+  $Res call({ServerError validationError});
 }
 
 /// @nodoc
@@ -216,13 +292,29 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? validationError = null,
+  }) {
+    return _then(_value.copyWith(
+      validationError: null == validationError
+          ? _value.validationError
+          : validationError // ignore: cast_nullable_to_non_nullable
+              as ServerError,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$IdleImplCopyWith<$Res> {
+abstract class _$$IdleImplCopyWith<$Res> implements $SignInStateCopyWith<$Res> {
   factory _$$IdleImplCopyWith(
           _$IdleImpl value, $Res Function(_$IdleImpl) then) =
       __$$IdleImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ServerError validationError});
 }
 
 /// @nodoc
@@ -231,51 +323,82 @@ class __$$IdleImplCopyWithImpl<$Res>
     implements _$$IdleImplCopyWith<$Res> {
   __$$IdleImplCopyWithImpl(_$IdleImpl _value, $Res Function(_$IdleImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? validationError = null,
+  }) {
+    return _then(_$IdleImpl(
+      validationError: null == validationError
+          ? _value.validationError
+          : validationError // ignore: cast_nullable_to_non_nullable
+              as ServerError,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$IdleImpl implements _Idle {
-  const _$IdleImpl();
+  const _$IdleImpl({required this.validationError});
+
+  @override
+  final ServerError validationError;
 
   @override
   String toString() {
-    return 'SignInState.idle()';
+    return 'SignInState.idle(validationError: $validationError)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$IdleImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$IdleImpl &&
+            (identical(other.validationError, validationError) ||
+                other.validationError == validationError));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, validationError);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
+      __$$IdleImplCopyWithImpl<_$IdleImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idle,
+    required TResult Function(ServerError validationError) idle,
+    required TResult Function(ServerError validationError) processing,
+    required TResult Function(ServerError validationError) failed,
   }) {
-    return idle();
+    return idle(validationError);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? idle,
+    TResult? Function(ServerError validationError)? idle,
+    TResult? Function(ServerError validationError)? processing,
+    TResult? Function(ServerError validationError)? failed,
   }) {
-    return idle?.call();
+    return idle?.call(validationError);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idle,
+    TResult Function(ServerError validationError)? idle,
+    TResult Function(ServerError validationError)? processing,
+    TResult Function(ServerError validationError)? failed,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle();
+      return idle(validationError);
     }
     return orElse();
   }
@@ -284,6 +407,8 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Processing value) processing,
+    required TResult Function(_Failed value) failed,
   }) {
     return idle(this);
   }
@@ -292,6 +417,8 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Processing value)? processing,
+    TResult? Function(_Failed value)? failed,
   }) {
     return idle?.call(this);
   }
@@ -300,6 +427,8 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Processing value)? processing,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -310,5 +439,303 @@ class _$IdleImpl implements _Idle {
 }
 
 abstract class _Idle implements SignInState {
-  const factory _Idle() = _$IdleImpl;
+  const factory _Idle({required final ServerError validationError}) =
+      _$IdleImpl;
+
+  @override
+  ServerError get validationError;
+  @override
+  @JsonKey(ignore: true)
+  _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProcessingImplCopyWith<$Res>
+    implements $SignInStateCopyWith<$Res> {
+  factory _$$ProcessingImplCopyWith(
+          _$ProcessingImpl value, $Res Function(_$ProcessingImpl) then) =
+      __$$ProcessingImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ServerError validationError});
+}
+
+/// @nodoc
+class __$$ProcessingImplCopyWithImpl<$Res>
+    extends _$SignInStateCopyWithImpl<$Res, _$ProcessingImpl>
+    implements _$$ProcessingImplCopyWith<$Res> {
+  __$$ProcessingImplCopyWithImpl(
+      _$ProcessingImpl _value, $Res Function(_$ProcessingImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? validationError = null,
+  }) {
+    return _then(_$ProcessingImpl(
+      validationError: null == validationError
+          ? _value.validationError
+          : validationError // ignore: cast_nullable_to_non_nullable
+              as ServerError,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProcessingImpl implements _Processing {
+  const _$ProcessingImpl({required this.validationError});
+
+  @override
+  final ServerError validationError;
+
+  @override
+  String toString() {
+    return 'SignInState.processing(validationError: $validationError)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProcessingImpl &&
+            (identical(other.validationError, validationError) ||
+                other.validationError == validationError));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, validationError);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProcessingImplCopyWith<_$ProcessingImpl> get copyWith =>
+      __$$ProcessingImplCopyWithImpl<_$ProcessingImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ServerError validationError) idle,
+    required TResult Function(ServerError validationError) processing,
+    required TResult Function(ServerError validationError) failed,
+  }) {
+    return processing(validationError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ServerError validationError)? idle,
+    TResult? Function(ServerError validationError)? processing,
+    TResult? Function(ServerError validationError)? failed,
+  }) {
+    return processing?.call(validationError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ServerError validationError)? idle,
+    TResult Function(ServerError validationError)? processing,
+    TResult Function(ServerError validationError)? failed,
+    required TResult orElse(),
+  }) {
+    if (processing != null) {
+      return processing(validationError);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Processing value) processing,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return processing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Processing value)? processing,
+    TResult? Function(_Failed value)? failed,
+  }) {
+    return processing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Processing value)? processing,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (processing != null) {
+      return processing(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Processing implements SignInState {
+  const factory _Processing({required final ServerError validationError}) =
+      _$ProcessingImpl;
+
+  @override
+  ServerError get validationError;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProcessingImplCopyWith<_$ProcessingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FailedImplCopyWith<$Res>
+    implements $SignInStateCopyWith<$Res> {
+  factory _$$FailedImplCopyWith(
+          _$FailedImpl value, $Res Function(_$FailedImpl) then) =
+      __$$FailedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ServerError validationError});
+}
+
+/// @nodoc
+class __$$FailedImplCopyWithImpl<$Res>
+    extends _$SignInStateCopyWithImpl<$Res, _$FailedImpl>
+    implements _$$FailedImplCopyWith<$Res> {
+  __$$FailedImplCopyWithImpl(
+      _$FailedImpl _value, $Res Function(_$FailedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? validationError = null,
+  }) {
+    return _then(_$FailedImpl(
+      validationError: null == validationError
+          ? _value.validationError
+          : validationError // ignore: cast_nullable_to_non_nullable
+              as ServerError,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FailedImpl implements _Failed {
+  const _$FailedImpl({required this.validationError});
+
+  @override
+  final ServerError validationError;
+
+  @override
+  String toString() {
+    return 'SignInState.failed(validationError: $validationError)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FailedImpl &&
+            (identical(other.validationError, validationError) ||
+                other.validationError == validationError));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, validationError);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
+      __$$FailedImplCopyWithImpl<_$FailedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ServerError validationError) idle,
+    required TResult Function(ServerError validationError) processing,
+    required TResult Function(ServerError validationError) failed,
+  }) {
+    return failed(validationError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ServerError validationError)? idle,
+    TResult? Function(ServerError validationError)? processing,
+    TResult? Function(ServerError validationError)? failed,
+  }) {
+    return failed?.call(validationError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ServerError validationError)? idle,
+    TResult Function(ServerError validationError)? processing,
+    TResult Function(ServerError validationError)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(validationError);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Processing value) processing,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return failed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Processing value)? processing,
+    TResult? Function(_Failed value)? failed,
+  }) {
+    return failed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Processing value)? processing,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Failed implements SignInState {
+  const factory _Failed({required final ServerError validationError}) =
+      _$FailedImpl;
+
+  @override
+  ServerError get validationError;
+  @override
+  @JsonKey(ignore: true)
+  _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
