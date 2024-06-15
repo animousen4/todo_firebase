@@ -32,7 +32,7 @@ class SignInDataProviderImpl implements SignInDataProvider {
       }
     } on FirebaseAuthException catch (error) {
       return DefaultSignInResult.failed(
-        errors: List.of({ServerError(message: error.code)}),
+        error: ServerError(message: error.code),
       );
     }
   }

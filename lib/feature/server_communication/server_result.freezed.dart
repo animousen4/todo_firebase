@@ -19,19 +19,19 @@ mixin _$ServerResult<E> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(E entity) success,
-    required TResult Function(List<ServerError> errors) failed,
+    required TResult Function(ServerError error) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(E entity)? success,
-    TResult? Function(List<ServerError> errors)? failed,
+    TResult? Function(ServerError error)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(E entity)? success,
-    TResult Function(List<ServerError> errors)? failed,
+    TResult Function(ServerError error)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -141,7 +141,7 @@ class _$SuccessServerResultImpl<E> implements _SuccessServerResult<E> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(E entity) success,
-    required TResult Function(List<ServerError> errors) failed,
+    required TResult Function(ServerError error) failed,
   }) {
     return success(entity);
   }
@@ -150,7 +150,7 @@ class _$SuccessServerResultImpl<E> implements _SuccessServerResult<E> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(E entity)? success,
-    TResult? Function(List<ServerError> errors)? failed,
+    TResult? Function(ServerError error)? failed,
   }) {
     return success?.call(entity);
   }
@@ -159,7 +159,7 @@ class _$SuccessServerResultImpl<E> implements _SuccessServerResult<E> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(E entity)? success,
-    TResult Function(List<ServerError> errors)? failed,
+    TResult Function(ServerError error)? failed,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -216,7 +216,7 @@ abstract class _$$FailedServerResultImplCopyWith<E, $Res> {
           $Res Function(_$FailedServerResultImpl<E>) then) =
       __$$FailedServerResultImplCopyWithImpl<E, $Res>;
   @useResult
-  $Res call({List<ServerError> errors});
+  $Res call({ServerError error});
 }
 
 /// @nodoc
@@ -230,13 +230,13 @@ class __$$FailedServerResultImplCopyWithImpl<E, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errors = null,
+    Object? error = null,
   }) {
     return _then(_$FailedServerResultImpl<E>(
-      errors: null == errors
-          ? _value._errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as List<ServerError>,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as ServerError,
     ));
   }
 }
@@ -244,20 +244,14 @@ class __$$FailedServerResultImplCopyWithImpl<E, $Res>
 /// @nodoc
 
 class _$FailedServerResultImpl<E> implements _FailedServerResult<E> {
-  const _$FailedServerResultImpl({required final List<ServerError> errors})
-      : _errors = errors;
+  const _$FailedServerResultImpl({required this.error});
 
-  final List<ServerError> _errors;
   @override
-  List<ServerError> get errors {
-    if (_errors is EqualUnmodifiableListView) return _errors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_errors);
-  }
+  final ServerError error;
 
   @override
   String toString() {
-    return 'ServerResult<$E>.failed(errors: $errors)';
+    return 'ServerResult<$E>.failed(error: $error)';
   }
 
   @override
@@ -265,12 +259,11 @@ class _$FailedServerResultImpl<E> implements _FailedServerResult<E> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FailedServerResultImpl<E> &&
-            const DeepCollectionEquality().equals(other._errors, _errors));
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_errors));
+  int get hashCode => Object.hash(runtimeType, error);
 
   @JsonKey(ignore: true)
   @override
@@ -283,29 +276,29 @@ class _$FailedServerResultImpl<E> implements _FailedServerResult<E> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(E entity) success,
-    required TResult Function(List<ServerError> errors) failed,
+    required TResult Function(ServerError error) failed,
   }) {
-    return failed(errors);
+    return failed(error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(E entity)? success,
-    TResult? Function(List<ServerError> errors)? failed,
+    TResult? Function(ServerError error)? failed,
   }) {
-    return failed?.call(errors);
+    return failed?.call(error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(E entity)? success,
-    TResult Function(List<ServerError> errors)? failed,
+    TResult Function(ServerError error)? failed,
     required TResult orElse(),
   }) {
     if (failed != null) {
-      return failed(errors);
+      return failed(error);
     }
     return orElse();
   }
@@ -343,10 +336,10 @@ class _$FailedServerResultImpl<E> implements _FailedServerResult<E> {
 }
 
 abstract class _FailedServerResult<E> implements ServerResult<E> {
-  const factory _FailedServerResult({required final List<ServerError> errors}) =
+  const factory _FailedServerResult({required final ServerError error}) =
       _$FailedServerResultImpl<E>;
 
-  List<ServerError> get errors;
+  ServerError get error;
   @JsonKey(ignore: true)
   _$$FailedServerResultImplCopyWith<E, _$FailedServerResultImpl<E>>
       get copyWith => throw _privateConstructorUsedError;

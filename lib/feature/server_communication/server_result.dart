@@ -7,5 +7,5 @@ part 'server_result.freezed.dart';
 class ServerResult<E> with _$ServerResult{
 
   const factory ServerResult.success({required E entity}) = _SuccessServerResult;
-  const factory ServerResult.failed({required List<ServerError> errors}) = _FailedServerResult;
+  const factory ServerResult.failed({required ServerError error}) = _FailedServerResult;
 }

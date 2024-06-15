@@ -223,26 +223,26 @@ abstract class _DefaultSignIn implements SignInEvent {
 
 /// @nodoc
 mixin _$SignInState {
-  ServerError get validationError => throw _privateConstructorUsedError;
+  ServerError? get validationError => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ServerError validationError) idle,
-    required TResult Function(ServerError validationError) processing,
-    required TResult Function(ServerError validationError) failed,
+    required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) processing,
+    required TResult Function(ServerError? validationError) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ServerError validationError)? idle,
-    TResult? Function(ServerError validationError)? processing,
-    TResult? Function(ServerError validationError)? failed,
+    TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? processing,
+    TResult? Function(ServerError? validationError)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ServerError validationError)? idle,
-    TResult Function(ServerError validationError)? processing,
-    TResult Function(ServerError validationError)? failed,
+    TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? processing,
+    TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -280,7 +280,7 @@ abstract class $SignInStateCopyWith<$Res> {
           SignInState value, $Res Function(SignInState) then) =
       _$SignInStateCopyWithImpl<$Res, SignInState>;
   @useResult
-  $Res call({ServerError validationError});
+  $Res call({ServerError? validationError});
 }
 
 /// @nodoc
@@ -296,13 +296,13 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? validationError = null,
+    Object? validationError = freezed,
   }) {
     return _then(_value.copyWith(
-      validationError: null == validationError
+      validationError: freezed == validationError
           ? _value.validationError
           : validationError // ignore: cast_nullable_to_non_nullable
-              as ServerError,
+              as ServerError?,
     ) as $Val);
   }
 }
@@ -314,7 +314,7 @@ abstract class _$$IdleImplCopyWith<$Res> implements $SignInStateCopyWith<$Res> {
       __$$IdleImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ServerError validationError});
+  $Res call({ServerError? validationError});
 }
 
 /// @nodoc
@@ -327,13 +327,13 @@ class __$$IdleImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? validationError = null,
+    Object? validationError = freezed,
   }) {
     return _then(_$IdleImpl(
-      validationError: null == validationError
+      validationError: freezed == validationError
           ? _value.validationError
           : validationError // ignore: cast_nullable_to_non_nullable
-              as ServerError,
+              as ServerError?,
     ));
   }
 }
@@ -341,10 +341,10 @@ class __$$IdleImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$IdleImpl implements _Idle {
-  const _$IdleImpl({required this.validationError});
+  const _$IdleImpl({this.validationError});
 
   @override
-  final ServerError validationError;
+  final ServerError? validationError;
 
   @override
   String toString() {
@@ -372,9 +372,9 @@ class _$IdleImpl implements _Idle {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ServerError validationError) idle,
-    required TResult Function(ServerError validationError) processing,
-    required TResult Function(ServerError validationError) failed,
+    required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) processing,
+    required TResult Function(ServerError? validationError) failed,
   }) {
     return idle(validationError);
   }
@@ -382,9 +382,9 @@ class _$IdleImpl implements _Idle {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ServerError validationError)? idle,
-    TResult? Function(ServerError validationError)? processing,
-    TResult? Function(ServerError validationError)? failed,
+    TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? processing,
+    TResult? Function(ServerError? validationError)? failed,
   }) {
     return idle?.call(validationError);
   }
@@ -392,9 +392,9 @@ class _$IdleImpl implements _Idle {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ServerError validationError)? idle,
-    TResult Function(ServerError validationError)? processing,
-    TResult Function(ServerError validationError)? failed,
+    TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? processing,
+    TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -439,11 +439,10 @@ class _$IdleImpl implements _Idle {
 }
 
 abstract class _Idle implements SignInState {
-  const factory _Idle({required final ServerError validationError}) =
-      _$IdleImpl;
+  const factory _Idle({final ServerError? validationError}) = _$IdleImpl;
 
   @override
-  ServerError get validationError;
+  ServerError? get validationError;
   @override
   @JsonKey(ignore: true)
   _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
@@ -458,7 +457,7 @@ abstract class _$$ProcessingImplCopyWith<$Res>
       __$$ProcessingImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ServerError validationError});
+  $Res call({ServerError? validationError});
 }
 
 /// @nodoc
@@ -472,13 +471,13 @@ class __$$ProcessingImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? validationError = null,
+    Object? validationError = freezed,
   }) {
     return _then(_$ProcessingImpl(
-      validationError: null == validationError
+      validationError: freezed == validationError
           ? _value.validationError
           : validationError // ignore: cast_nullable_to_non_nullable
-              as ServerError,
+              as ServerError?,
     ));
   }
 }
@@ -486,10 +485,10 @@ class __$$ProcessingImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProcessingImpl implements _Processing {
-  const _$ProcessingImpl({required this.validationError});
+  const _$ProcessingImpl({this.validationError});
 
   @override
-  final ServerError validationError;
+  final ServerError? validationError;
 
   @override
   String toString() {
@@ -517,9 +516,9 @@ class _$ProcessingImpl implements _Processing {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ServerError validationError) idle,
-    required TResult Function(ServerError validationError) processing,
-    required TResult Function(ServerError validationError) failed,
+    required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) processing,
+    required TResult Function(ServerError? validationError) failed,
   }) {
     return processing(validationError);
   }
@@ -527,9 +526,9 @@ class _$ProcessingImpl implements _Processing {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ServerError validationError)? idle,
-    TResult? Function(ServerError validationError)? processing,
-    TResult? Function(ServerError validationError)? failed,
+    TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? processing,
+    TResult? Function(ServerError? validationError)? failed,
   }) {
     return processing?.call(validationError);
   }
@@ -537,9 +536,9 @@ class _$ProcessingImpl implements _Processing {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ServerError validationError)? idle,
-    TResult Function(ServerError validationError)? processing,
-    TResult Function(ServerError validationError)? failed,
+    TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? processing,
+    TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
   }) {
     if (processing != null) {
@@ -584,11 +583,11 @@ class _$ProcessingImpl implements _Processing {
 }
 
 abstract class _Processing implements SignInState {
-  const factory _Processing({required final ServerError validationError}) =
+  const factory _Processing({final ServerError? validationError}) =
       _$ProcessingImpl;
 
   @override
-  ServerError get validationError;
+  ServerError? get validationError;
   @override
   @JsonKey(ignore: true)
   _$$ProcessingImplCopyWith<_$ProcessingImpl> get copyWith =>
@@ -603,7 +602,7 @@ abstract class _$$FailedImplCopyWith<$Res>
       __$$FailedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ServerError validationError});
+  $Res call({ServerError? validationError});
 }
 
 /// @nodoc
@@ -617,13 +616,13 @@ class __$$FailedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? validationError = null,
+    Object? validationError = freezed,
   }) {
     return _then(_$FailedImpl(
-      validationError: null == validationError
+      validationError: freezed == validationError
           ? _value.validationError
           : validationError // ignore: cast_nullable_to_non_nullable
-              as ServerError,
+              as ServerError?,
     ));
   }
 }
@@ -631,10 +630,10 @@ class __$$FailedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FailedImpl implements _Failed {
-  const _$FailedImpl({required this.validationError});
+  const _$FailedImpl({this.validationError});
 
   @override
-  final ServerError validationError;
+  final ServerError? validationError;
 
   @override
   String toString() {
@@ -662,9 +661,9 @@ class _$FailedImpl implements _Failed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(ServerError validationError) idle,
-    required TResult Function(ServerError validationError) processing,
-    required TResult Function(ServerError validationError) failed,
+    required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) processing,
+    required TResult Function(ServerError? validationError) failed,
   }) {
     return failed(validationError);
   }
@@ -672,9 +671,9 @@ class _$FailedImpl implements _Failed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ServerError validationError)? idle,
-    TResult? Function(ServerError validationError)? processing,
-    TResult? Function(ServerError validationError)? failed,
+    TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? processing,
+    TResult? Function(ServerError? validationError)? failed,
   }) {
     return failed?.call(validationError);
   }
@@ -682,9 +681,9 @@ class _$FailedImpl implements _Failed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ServerError validationError)? idle,
-    TResult Function(ServerError validationError)? processing,
-    TResult Function(ServerError validationError)? failed,
+    TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? processing,
+    TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -729,11 +728,10 @@ class _$FailedImpl implements _Failed {
 }
 
 abstract class _Failed implements SignInState {
-  const factory _Failed({required final ServerError validationError}) =
-      _$FailedImpl;
+  const factory _Failed({final ServerError? validationError}) = _$FailedImpl;
 
   @override
-  ServerError get validationError;
+  ServerError? get validationError;
   @override
   @JsonKey(ignore: true)
   _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>

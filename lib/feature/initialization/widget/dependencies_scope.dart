@@ -14,7 +14,7 @@ class DependenciesScope extends InheritedWidget {
   });
 
   static Dependencies of(BuildContext context) =>
-      context.inhOf<DependenciesScope>().dependencies;
+      context.inhOf<DependenciesScope>(listen: false).dependencies;
 
   /// Dependencies container never changes
   @override

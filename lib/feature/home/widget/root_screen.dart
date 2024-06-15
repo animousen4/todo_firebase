@@ -13,7 +13,7 @@ class RootScreen extends StatelessWidget {
 
     return AutoRouter.declarative(
       routes: (handler) =>
-          [if (user == null) const AuthRoute() else const HomeRoute()],
+          [if (user == null) const SignInRoute() else const HomeRoute()],
     );
   }
 }

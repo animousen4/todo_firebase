@@ -21,7 +21,7 @@ class SignInScope extends StatefulWidget {
   @override
   State<SignInScope> createState() => _SignInScopeState();
 
-  SignInScopeController of(BuildContext context) =>
+  static SignInScopeController of(BuildContext context) =>
       context.inhOf<_InheritSignInScope>().controller;
 }
 

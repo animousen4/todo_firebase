@@ -16,14 +16,22 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       required SignInState initState})
       : _signInRepository = signInRepository,
         super(initState) {
-    on<SignInEvent>((event, emit) {
-      event.map(defaultSignIn: (event) => _defaultSignIn(event, emit));
+    on<SignInEvent>((event, emit) async {
+      await event.map(
+          defaultSignIn: (event) async => await _defaultSignIn(event, emit));
     });
   }
 
-  _defaultSignIn(_DefaultSignIn event, Emitter<SignInState> emit) async {
+  Future<void> _defaultSignIn(_DefaultSignIn event, Emitter<SignInState> emit) async {
     emit(SignInState.processing(validationError: state.validationError));
     final result =
         await _signInRepository.signInWithEmailAndPassword(event.signInData);
+
+    result.map(
+      success: (result) =>
+          emit(SignInState.idle(validationError: state.validationError)),
+      failed: (result) =>
+          emit(SignInState.failed(validationError: result.error)),
+    );
   }
 }
