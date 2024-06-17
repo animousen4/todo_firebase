@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
+import 'package:todo_firebase/feature/overlay_loading/widget/overlay_loading.dart';
 import 'package:todo_firebase/feature/sign_in/widget/validation_text_field.dart';
 import 'package:todo_firebase/feature/sign_up/bloc/sign_up_bloc.dart';
 import 'package:todo_firebase/feature/sign_up/widget/sign_up_scope.dart';
@@ -22,7 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return SignUpScope(
       signUpBloc: _signUpBloc,
-      child: const SignUpScreenView(),
+      child: const _SignUpLoader(),
     );
   }
 
@@ -40,14 +41,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }
 
-class SignUpScreenView extends StatefulWidget {
-  const SignUpScreenView({super.key});
+class _SignUpLoader extends StatelessWidget {
+  const _SignUpLoader({super.key});
 
   @override
-  State<SignUpScreenView> createState() => _SignUpScreenViewState();
+  Widget build(BuildContext context) {
+    final isLoading = SignUpScope.of(context).state.inProgress;
+    return OverlayLoading(
+        isLoading: isLoading,
+        loadingWidget: const Card(
+            child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircularProgressIndicator(),
+        )),
+        child: const _SignUpScreenView());
+  }
 }
 
-class _SignUpScreenViewState extends State<SignUpScreenView> {
+class _SignUpScreenView extends StatefulWidget {
+  const _SignUpScreenView({super.key});
+
+  @override
+  State<_SignUpScreenView> createState() => _SignUpScreenViewState();
+}
+
+class _SignUpScreenViewState extends State<_SignUpScreenView> {
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -90,8 +108,9 @@ class _SignUpScreenViewState extends State<SignUpScreenView> {
                       controller: _passwordController,
                     ),
                     const Align(
-                        alignment: Alignment.centerLeft,
-                        child: _ErrorAreaWidget()),
+                      alignment: Alignment.centerLeft,
+                      child: _ErrorAreaWidget(),
+                    ),
                     _SignUpButton(
                       signUpValid: _signUpValid,
                       loginController: _loginController,

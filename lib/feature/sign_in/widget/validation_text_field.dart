@@ -19,7 +19,7 @@ class ValidationTextField extends StatelessWidget {
           decoration: InputDecoration(
             label: child,
             errorText: _error.value,
-            helperText: "",
+            //helperText: "",
           ),
           controller: _controller,
         ),

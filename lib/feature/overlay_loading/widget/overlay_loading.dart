@@ -59,14 +59,11 @@ class _OverlayLoadingState extends State<OverlayLoading>
 
   @override
   void didUpdateWidget(OverlayLoading oldWidget) {
-    print('didUpd');
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.isLoading == widget.isLoading) {
       return;
     }
-
-    print('changed');
 
     isLoading = widget.isLoading;
 
