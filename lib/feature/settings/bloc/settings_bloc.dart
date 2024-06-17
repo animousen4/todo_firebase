@@ -64,7 +64,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   Future<void> _updateLocale(
-      _UpdateLocale event, Emitter<SettingsState> emit) async {
+      _UpdateLocale event, Emitter<SettingsState> emit,) async {
     emit(
       SettingsState.progress(
         theme: state.theme,

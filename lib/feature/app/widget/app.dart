@@ -17,7 +17,9 @@ class App extends StatelessWidget {
       child: SettingsScope(
         settingsBloc: dependencies.settingsBloc,
         child: AuthScope(
-            authBloc: dependencies.authBloc, child: const MaterialContext()),
+          authBloc: dependencies.authBloc,
+          child: const MaterialContext(),
+        ),
       ),
     );
   }

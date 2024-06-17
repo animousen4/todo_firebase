@@ -123,15 +123,25 @@ class __$$DefaultSignUpImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DefaultSignUpImpl implements _DefaultSignUp {
+class _$DefaultSignUpImpl
+    with DiagnosticableTreeMixin
+    implements _DefaultSignUp {
   const _$DefaultSignUpImpl({required this.data});
 
   @override
   final DefaultAuthUserData data;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SignUpEvent.defaultSignUp(data: $data)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignUpEvent.defaultSignUp'))
+      ..add(DiagnosticsProperty('data', data));
   }
 
   @override
@@ -226,6 +236,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? error) idle,
+    required TResult Function(ServerError? error) progress,
     required TResult Function(ServerError? error) failed,
     required TResult Function(ServerError? error) error,
     required TResult Function(ServerError? error) success,
@@ -234,6 +245,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? error)? idle,
+    TResult? Function(ServerError? error)? progress,
     TResult? Function(ServerError? error)? failed,
     TResult? Function(ServerError? error)? error,
     TResult? Function(ServerError? error)? success,
@@ -242,6 +254,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? error)? idle,
+    TResult Function(ServerError? error)? progress,
     TResult Function(ServerError? error)? failed,
     TResult Function(ServerError? error)? error,
     TResult Function(ServerError? error)? success,
@@ -251,6 +264,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
@@ -259,6 +273,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
@@ -267,6 +282,7 @@ mixin _$SignUpState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
@@ -345,15 +361,23 @@ class __$$IdleImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$IdleImpl implements _Idle {
-  const _$IdleImpl({this.error});
+class _$IdleImpl extends _Idle with DiagnosticableTreeMixin {
+  const _$IdleImpl({this.error}) : super._();
 
   @override
   final ServerError? error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SignUpState.idle(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignUpState.idle'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -377,6 +401,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? error) idle,
+    required TResult Function(ServerError? error) progress,
     required TResult Function(ServerError? error) failed,
     required TResult Function(ServerError? error) error,
     required TResult Function(ServerError? error) success,
@@ -388,6 +413,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? error)? idle,
+    TResult? Function(ServerError? error)? progress,
     TResult? Function(ServerError? error)? failed,
     TResult? Function(ServerError? error)? error,
     TResult? Function(ServerError? error)? success,
@@ -399,6 +425,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? error)? idle,
+    TResult Function(ServerError? error)? progress,
     TResult Function(ServerError? error)? failed,
     TResult Function(ServerError? error)? error,
     TResult Function(ServerError? error)? success,
@@ -414,6 +441,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
@@ -425,6 +453,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
@@ -436,6 +465,7 @@ class _$IdleImpl implements _Idle {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
@@ -448,14 +478,179 @@ class _$IdleImpl implements _Idle {
   }
 }
 
-abstract class _Idle implements SignUpState {
+abstract class _Idle extends SignUpState {
   const factory _Idle({final ServerError? error}) = _$IdleImpl;
+  const _Idle._() : super._();
 
   @override
   ServerError? get error;
   @override
   @JsonKey(ignore: true)
   _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProgressImplCopyWith<$Res>
+    implements $SignUpStateCopyWith<$Res> {
+  factory _$$ProgressImplCopyWith(
+          _$ProgressImpl value, $Res Function(_$ProgressImpl) then) =
+      __$$ProgressImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ServerError? error});
+}
+
+/// @nodoc
+class __$$ProgressImplCopyWithImpl<$Res>
+    extends _$SignUpStateCopyWithImpl<$Res, _$ProgressImpl>
+    implements _$$ProgressImplCopyWith<$Res> {
+  __$$ProgressImplCopyWithImpl(
+      _$ProgressImpl _value, $Res Function(_$ProgressImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = freezed,
+  }) {
+    return _then(_$ProgressImpl(
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as ServerError?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProgressImpl extends _Progress with DiagnosticableTreeMixin {
+  const _$ProgressImpl({this.error}) : super._();
+
+  @override
+  final ServerError? error;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SignUpState.progress(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignUpState.progress'))
+      ..add(DiagnosticsProperty('error', error));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProgressImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProgressImplCopyWith<_$ProgressImpl> get copyWith =>
+      __$$ProgressImplCopyWithImpl<_$ProgressImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ServerError? error) idle,
+    required TResult Function(ServerError? error) progress,
+    required TResult Function(ServerError? error) failed,
+    required TResult Function(ServerError? error) error,
+    required TResult Function(ServerError? error) success,
+  }) {
+    return progress(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ServerError? error)? idle,
+    TResult? Function(ServerError? error)? progress,
+    TResult? Function(ServerError? error)? failed,
+    TResult? Function(ServerError? error)? error,
+    TResult? Function(ServerError? error)? success,
+  }) {
+    return progress?.call(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ServerError? error)? idle,
+    TResult Function(ServerError? error)? progress,
+    TResult Function(ServerError? error)? failed,
+    TResult Function(ServerError? error)? error,
+    TResult Function(ServerError? error)? success,
+    required TResult orElse(),
+  }) {
+    if (progress != null) {
+      return progress(this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Failed value) failed,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Success value) success,
+  }) {
+    return progress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Success value)? success,
+  }) {
+    return progress?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Failed value)? failed,
+    TResult Function(_Error value)? error,
+    TResult Function(_Success value)? success,
+    required TResult orElse(),
+  }) {
+    if (progress != null) {
+      return progress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Progress extends SignUpState {
+  const factory _Progress({final ServerError? error}) = _$ProgressImpl;
+  const _Progress._() : super._();
+
+  @override
+  ServerError? get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProgressImplCopyWith<_$ProgressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -494,15 +689,23 @@ class __$$FailedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FailedImpl implements _Failed {
-  const _$FailedImpl({this.error});
+class _$FailedImpl extends _Failed with DiagnosticableTreeMixin {
+  const _$FailedImpl({this.error}) : super._();
 
   @override
   final ServerError? error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SignUpState.failed(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignUpState.failed'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -526,6 +729,7 @@ class _$FailedImpl implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? error) idle,
+    required TResult Function(ServerError? error) progress,
     required TResult Function(ServerError? error) failed,
     required TResult Function(ServerError? error) error,
     required TResult Function(ServerError? error) success,
@@ -537,6 +741,7 @@ class _$FailedImpl implements _Failed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? error)? idle,
+    TResult? Function(ServerError? error)? progress,
     TResult? Function(ServerError? error)? failed,
     TResult? Function(ServerError? error)? error,
     TResult? Function(ServerError? error)? success,
@@ -548,6 +753,7 @@ class _$FailedImpl implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? error)? idle,
+    TResult Function(ServerError? error)? progress,
     TResult Function(ServerError? error)? failed,
     TResult Function(ServerError? error)? error,
     TResult Function(ServerError? error)? success,
@@ -563,6 +769,7 @@ class _$FailedImpl implements _Failed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
@@ -574,6 +781,7 @@ class _$FailedImpl implements _Failed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
@@ -585,6 +793,7 @@ class _$FailedImpl implements _Failed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
@@ -597,8 +806,9 @@ class _$FailedImpl implements _Failed {
   }
 }
 
-abstract class _Failed implements SignUpState {
+abstract class _Failed extends SignUpState {
   const factory _Failed({final ServerError? error}) = _$FailedImpl;
+  const _Failed._() : super._();
 
   @override
   ServerError? get error;
@@ -643,15 +853,23 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
-  const _$ErrorImpl({this.error});
+class _$ErrorImpl extends _Error with DiagnosticableTreeMixin {
+  const _$ErrorImpl({this.error}) : super._();
 
   @override
   final ServerError? error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SignUpState.error(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignUpState.error'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -675,6 +893,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? error) idle,
+    required TResult Function(ServerError? error) progress,
     required TResult Function(ServerError? error) failed,
     required TResult Function(ServerError? error) error,
     required TResult Function(ServerError? error) success,
@@ -686,6 +905,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? error)? idle,
+    TResult? Function(ServerError? error)? progress,
     TResult? Function(ServerError? error)? failed,
     TResult? Function(ServerError? error)? error,
     TResult? Function(ServerError? error)? success,
@@ -697,6 +917,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? error)? idle,
+    TResult Function(ServerError? error)? progress,
     TResult Function(ServerError? error)? failed,
     TResult Function(ServerError? error)? error,
     TResult Function(ServerError? error)? success,
@@ -712,6 +933,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
@@ -723,6 +945,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
@@ -734,6 +957,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
@@ -746,8 +970,9 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements SignUpState {
+abstract class _Error extends SignUpState {
   const factory _Error({final ServerError? error}) = _$ErrorImpl;
+  const _Error._() : super._();
 
   @override
   ServerError? get error;
@@ -792,15 +1017,23 @@ class __$$SuccessImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SuccessImpl implements _Success {
-  const _$SuccessImpl({this.error});
+class _$SuccessImpl extends _Success with DiagnosticableTreeMixin {
+  const _$SuccessImpl({this.error}) : super._();
 
   @override
   final ServerError? error;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'SignUpState.success(error: $error)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignUpState.success'))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -824,6 +1057,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? error) idle,
+    required TResult Function(ServerError? error) progress,
     required TResult Function(ServerError? error) failed,
     required TResult Function(ServerError? error) error,
     required TResult Function(ServerError? error) success,
@@ -835,6 +1069,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? error)? idle,
+    TResult? Function(ServerError? error)? progress,
     TResult? Function(ServerError? error)? failed,
     TResult? Function(ServerError? error)? error,
     TResult? Function(ServerError? error)? success,
@@ -846,6 +1081,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? error)? idle,
+    TResult Function(ServerError? error)? progress,
     TResult Function(ServerError? error)? failed,
     TResult Function(ServerError? error)? error,
     TResult Function(ServerError? error)? success,
@@ -861,6 +1097,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
@@ -872,6 +1109,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
@@ -883,6 +1121,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
@@ -895,8 +1134,9 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements SignUpState {
+abstract class _Success extends SignUpState {
   const factory _Success({final ServerError? error}) = _$SuccessImpl;
+  const _Success._() : super._();
 
   @override
   ServerError? get error;

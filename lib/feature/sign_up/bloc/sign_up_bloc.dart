@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/server_communication/server_error.dart';
@@ -25,6 +26,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     _DefaultSignUp event,
     Emitter<SignUpState> emit,
   ) async {
+    emit(const SignUpState.progress());
     final result = await _signUpRepository.defaultSignUp(event.data);
 
     result.map(

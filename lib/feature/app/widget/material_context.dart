@@ -12,6 +12,7 @@ class MaterialContext extends StatelessWidget {
 
     final router = DependenciesScope.of(context).appRouter;
 
+    print("build-material-context");
     return MaterialApp.router(
       routerConfig: router.config(),
       themeMode: theme.themeMode,
