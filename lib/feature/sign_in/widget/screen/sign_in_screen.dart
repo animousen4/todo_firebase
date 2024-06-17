@@ -34,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
     signInBloc = SignInBloc(
       signInRepository:
           DependenciesScope.of(context).repositories.signInRepository,
-      initState: SignInState.idle(),
+      initState: const SignInState.idle(),
     );
   }
 }

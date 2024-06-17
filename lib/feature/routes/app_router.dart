@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:todo_firebase/feature/home/widget/home_screen.dart';
-import 'package:todo_firebase/feature/home/widget/root_screen.dart';
+import 'package:todo_firebase/feature/routes/widget/root_screen.dart';
 import 'package:todo_firebase/feature/routes/widget/auth_screen.dart';
 import 'package:todo_firebase/feature/sign_in/widget/screen/sign_in_screen.dart';
 import 'package:todo_firebase/feature/sign_up/widget/screen/sign_up_screen.dart';
