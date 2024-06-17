@@ -14,12 +14,19 @@ import 'package:todo_firebase/feature/app/widget/fail_app.dart';
 import 'package:todo_firebase/feature/initialization/logic/dependencies_initializer.dart';
 import 'package:todo_firebase/firebase_options.dart';
 
-class AppRunner {
+abstract interface class AppRunner {
+  Future<void> run();
+}
+
+class AppRunnerImpl implements AppRunner {
   final logger = Logger("AppRunner");
 
   final DependenciesInitializer _dependenciesInitializer;
 
-  AppRunner() : _dependenciesInitializer = DefaultDependenciesInitializer();
+  final bool kDebugUseFirebaseEmulator;
+
+  AppRunnerImpl({required this.kDebugUseFirebaseEmulator})
+      : _dependenciesInitializer = DefaultDependenciesInitializer();
 
   Future<void> _initializeBlocOverrides() async {
     Bloc.observer = AppBlocObserver();
@@ -31,7 +38,7 @@ class AppRunner {
       FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
       await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
     } catch (e) {
-      print(e);
+      logger.severe("Failed to override firebase emulators");
     }
   }
 
@@ -43,13 +50,16 @@ class AppRunner {
     return FirebaseAuth.instanceFor(app: app);
   }
 
+  @override
   Future<void> run() async {
+    logger.info("Running app...");
     try {
       WidgetsFlutterBinding.ensureInitialized();
 
       final firebaseAuth = await _initializeFirebase();
 
-      if (kDebugMode) {
+      if (kDebugMode && kDebugUseFirebaseEmulator) {
+        logger.info("USING FIREBASE EMULATOR");
         await _initializeDebugFirebaseOverrides();
       }
 
@@ -63,6 +73,8 @@ class AppRunner {
           dependencies: dependencies,
         ),
       );
+
+      logger.info("Successfully started!");
     } catch (error, stackTrace) {
       _onError(error, stackTrace);
 

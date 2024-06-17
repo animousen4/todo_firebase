@@ -8,14 +8,13 @@ import 'package:todo_firebase/feature/app/logic/app_runner.dart';
 import 'package:todo_firebase/firebase_options.dart';
 
 Future<void> main() async {
-  
   final logger = Logger("main");
 
   final appLog = AppLogConfig();
   appLog.setup();
 
   runZonedGuarded(
-    () => AppRunner().run(),
+    () => AppRunnerImpl(kDebugUseFirebaseEmulator: false).run(),
     (object, stackTrace) =>
         logger.severe("Error occured: $object", object, stackTrace),
   );

@@ -170,18 +170,21 @@ mixin _$TodoState {
   TResult when<TResult extends Object?>({
     required TResult Function(List<TodoModel> todoModels) idle,
     required TResult Function(List<TodoModel> todoModels) progress,
+    required TResult Function(List<TodoModel> todoModels) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<TodoModel> todoModels)? idle,
     TResult? Function(List<TodoModel> todoModels)? progress,
+    TResult? Function(List<TodoModel> todoModels)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TodoModel> todoModels)? idle,
     TResult Function(List<TodoModel> todoModels)? progress,
+    TResult Function(List<TodoModel> todoModels)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -189,18 +192,21 @@ mixin _$TodoState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
     required TResult Function(_Progress value) progress,
+    required TResult Function(_Failed value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Progress value)? progress,
+    TResult? Function(_Failed value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
     TResult Function(_Progress value)? progress,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -316,6 +322,7 @@ class _$IdleImpl implements _Idle {
   TResult when<TResult extends Object?>({
     required TResult Function(List<TodoModel> todoModels) idle,
     required TResult Function(List<TodoModel> todoModels) progress,
+    required TResult Function(List<TodoModel> todoModels) failed,
   }) {
     return idle(todoModels);
   }
@@ -325,6 +332,7 @@ class _$IdleImpl implements _Idle {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<TodoModel> todoModels)? idle,
     TResult? Function(List<TodoModel> todoModels)? progress,
+    TResult? Function(List<TodoModel> todoModels)? failed,
   }) {
     return idle?.call(todoModels);
   }
@@ -334,6 +342,7 @@ class _$IdleImpl implements _Idle {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TodoModel> todoModels)? idle,
     TResult Function(List<TodoModel> todoModels)? progress,
+    TResult Function(List<TodoModel> todoModels)? failed,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -347,6 +356,7 @@ class _$IdleImpl implements _Idle {
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
     required TResult Function(_Progress value) progress,
+    required TResult Function(_Failed value) failed,
   }) {
     return idle(this);
   }
@@ -356,6 +366,7 @@ class _$IdleImpl implements _Idle {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Progress value)? progress,
+    TResult? Function(_Failed value)? failed,
   }) {
     return idle?.call(this);
   }
@@ -365,6 +376,7 @@ class _$IdleImpl implements _Idle {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
     TResult Function(_Progress value)? progress,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -461,6 +473,7 @@ class _$ProgressImpl implements _Progress {
   TResult when<TResult extends Object?>({
     required TResult Function(List<TodoModel> todoModels) idle,
     required TResult Function(List<TodoModel> todoModels) progress,
+    required TResult Function(List<TodoModel> todoModels) failed,
   }) {
     return progress(todoModels);
   }
@@ -470,6 +483,7 @@ class _$ProgressImpl implements _Progress {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<TodoModel> todoModels)? idle,
     TResult? Function(List<TodoModel> todoModels)? progress,
+    TResult? Function(List<TodoModel> todoModels)? failed,
   }) {
     return progress?.call(todoModels);
   }
@@ -479,6 +493,7 @@ class _$ProgressImpl implements _Progress {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<TodoModel> todoModels)? idle,
     TResult Function(List<TodoModel> todoModels)? progress,
+    TResult Function(List<TodoModel> todoModels)? failed,
     required TResult orElse(),
   }) {
     if (progress != null) {
@@ -492,6 +507,7 @@ class _$ProgressImpl implements _Progress {
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
     required TResult Function(_Progress value) progress,
+    required TResult Function(_Failed value) failed,
   }) {
     return progress(this);
   }
@@ -501,6 +517,7 @@ class _$ProgressImpl implements _Progress {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Progress value)? progress,
+    TResult? Function(_Failed value)? failed,
   }) {
     return progress?.call(this);
   }
@@ -510,6 +527,7 @@ class _$ProgressImpl implements _Progress {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
     TResult Function(_Progress value)? progress,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (progress != null) {
@@ -528,5 +546,156 @@ abstract class _Progress implements TodoState {
   @override
   @JsonKey(ignore: true)
   _$$ProgressImplCopyWith<_$ProgressImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FailedImplCopyWith<$Res> implements $TodoStateCopyWith<$Res> {
+  factory _$$FailedImplCopyWith(
+          _$FailedImpl value, $Res Function(_$FailedImpl) then) =
+      __$$FailedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<TodoModel> todoModels});
+}
+
+/// @nodoc
+class __$$FailedImplCopyWithImpl<$Res>
+    extends _$TodoStateCopyWithImpl<$Res, _$FailedImpl>
+    implements _$$FailedImplCopyWith<$Res> {
+  __$$FailedImplCopyWithImpl(
+      _$FailedImpl _value, $Res Function(_$FailedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? todoModels = null,
+  }) {
+    return _then(_$FailedImpl(
+      todoModels: null == todoModels
+          ? _value._todoModels
+          : todoModels // ignore: cast_nullable_to_non_nullable
+              as List<TodoModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$FailedImpl implements _Failed {
+  const _$FailedImpl({required final List<TodoModel> todoModels})
+      : _todoModels = todoModels;
+
+  final List<TodoModel> _todoModels;
+  @override
+  List<TodoModel> get todoModels {
+    if (_todoModels is EqualUnmodifiableListView) return _todoModels;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_todoModels);
+  }
+
+  @override
+  String toString() {
+    return 'TodoState.failed(todoModels: $todoModels)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FailedImpl &&
+            const DeepCollectionEquality()
+                .equals(other._todoModels, _todoModels));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_todoModels));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
+      __$$FailedImplCopyWithImpl<_$FailedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<TodoModel> todoModels) idle,
+    required TResult Function(List<TodoModel> todoModels) progress,
+    required TResult Function(List<TodoModel> todoModels) failed,
+  }) {
+    return failed(todoModels);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<TodoModel> todoModels)? idle,
+    TResult? Function(List<TodoModel> todoModels)? progress,
+    TResult? Function(List<TodoModel> todoModels)? failed,
+  }) {
+    return failed?.call(todoModels);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<TodoModel> todoModels)? idle,
+    TResult Function(List<TodoModel> todoModels)? progress,
+    TResult Function(List<TodoModel> todoModels)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(todoModels);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return failed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Failed value)? failed,
+  }) {
+    return failed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Failed implements TodoState {
+  const factory _Failed({required final List<TodoModel> todoModels}) =
+      _$FailedImpl;
+
+  @override
+  List<TodoModel> get todoModels;
+  @override
+  @JsonKey(ignore: true)
+  _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

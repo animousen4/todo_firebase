@@ -17,12 +17,18 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   })  : _todoRepository = todoRepository,
         super(initialState) {
     on<TodoEvent>(
-      (event, emit) =>
-          event.mapOrNull(loadTodos: (event) => _loadTodos(event, emit)),
+      (event, emit) async =>
+          event.mapOrNull(loadTodos: (event) async => _loadTodos(event, emit)),
     );
   }
 
-  void _loadTodos(_LoadTodos event, Emitter<TodoState> emit) {
-    _todoRepository.loadTasks();
+  void _loadTodos(_LoadTodos event, Emitter<TodoState> emit) async {
+    emit(TodoState.progress(todoModels: state.todoModels));
+
+    final todos = await _todoRepository.loadTasks();
+
+    todos.map(
+        success: (result) => emit(TodoState.idle(todoModels: result.entity)),
+        failed: (_) => emit(TodoState.failed(todoModels: state.todoModels)));
   }
 }

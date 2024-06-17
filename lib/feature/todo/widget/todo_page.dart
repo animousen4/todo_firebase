@@ -6,6 +6,7 @@ import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.d
 import 'package:todo_firebase/feature/todo/bloc/todo_bloc.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
 
+@RoutePage()
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
 
@@ -27,8 +28,11 @@ class _TodoPageState extends State<TodoPage> {
   void initState() {
     super.initState();
 
-    final todoRepository = DependenciesScope.of(context).repositories.todoRepository;
-    todoBloc = TodoBloc(initialState: const TodoState.idle(todoModels: []), todoRepository: todoRepository);
+    final todoRepository =
+        DependenciesScope.of(context).repositories.todoRepository;
+    todoBloc = TodoBloc(
+        initialState: const TodoState.idle(todoModels: []),
+        todoRepository: todoRepository);
   }
 }
 
@@ -64,7 +68,7 @@ class _TodoPageViewState extends State<_TodoPageView> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             sliver: SliverStickyHeader(
               header: Text(
-                "Tasks",
+                "Todos",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               sliver: SliverList.builder(
@@ -92,6 +96,6 @@ class _TodoPageViewState extends State<_TodoPageView> {
   void initState() {
     super.initState();
 
-    TodoScope.of(context).loadTodos();
+    TodoScope.of(context, listen: false).loadTodos();
   }
 }

@@ -17,8 +17,8 @@ class TodoScope extends StatefulWidget {
 
   final Widget child;
 
-  static TodoScopeController of(BuildContext context) =>
-      context.inhOf<_InheritToDoScope>(listen: false).controller;
+  static TodoScopeController of(BuildContext context, {bool listen = true}) =>
+      context.inhOf<_InheritToDoScope>(listen: listen).controller;
   @override
   State<TodoScope> createState() => _TodoScopeState();
 }
@@ -57,7 +57,6 @@ class _InheritToDoScope extends InheritedWidget {
   });
   @override
   bool updateShouldNotify(_InheritToDoScope oldWidget) {
-    // TODO: implement updateShouldNotify
-    throw UnimplementedError();
+    return state != oldWidget.state;
   }
 }

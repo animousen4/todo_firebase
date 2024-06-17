@@ -9,16 +9,19 @@ part of 'todo_model.dart';
 TodoModel _$TodoModelFromJson(Map<String, dynamic> json) => TodoModel(
       title: json['title'] as String,
       description: json['description'] as String,
-      createDate: DateTime.parse(json['createDate'] as String),
-      deadlineDate: DateTime.parse(json['deadlineDate'] as String),
+      createDate: const TimestampJsonConverter()
+          .fromJson(json['createDate'] as Timestamp),
+      deadlineDate: const TimestampJsonConverter()
+          .fromJson(json['deadlineDate'] as Timestamp),
       todoStatus: const TodoStatusJsonConverter()
-          .fromJson(json['todoStatus'] as Map<String, dynamic>),
+          .fromJson(json['todoStatus'] as String?),
     );
 
 Map<String, dynamic> _$TodoModelToJson(TodoModel instance) => <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
-      'createDate': instance.createDate.toIso8601String(),
-      'deadlineDate': instance.deadlineDate.toIso8601String(),
+      'createDate': const TimestampJsonConverter().toJson(instance.createDate),
+      'deadlineDate':
+          const TimestampJsonConverter().toJson(instance.deadlineDate),
       'todoStatus': const TodoStatusJsonConverter().toJson(instance.todoStatus),
     };
