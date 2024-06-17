@@ -2,5 +2,5 @@ part of 'todo_bloc.dart';
 
 @freezed
 class TodoEvent with _$TodoEvent {
-  const factory TodoEvent.refreshTasks() = _RefreshTasks;
+  const factory TodoEvent.loadTasks() = _LoadTasks;
 }

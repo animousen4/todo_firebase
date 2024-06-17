@@ -18,33 +18,33 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TodoEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() refreshTasks,
+    required TResult Function() loadTasks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? refreshTasks,
+    TResult? Function()? loadTasks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? refreshTasks,
+    TResult Function()? loadTasks,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RefreshTasks value) refreshTasks,
+    required TResult Function(_LoadTasks value) loadTasks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RefreshTasks value)? refreshTasks,
+    TResult? Function(_LoadTasks value)? loadTasks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RefreshTasks value)? refreshTasks,
+    TResult Function(_LoadTasks value)? loadTasks,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -68,35 +68,35 @@ class _$TodoEventCopyWithImpl<$Res, $Val extends TodoEvent>
 }
 
 /// @nodoc
-abstract class _$$RefreshTasksImplCopyWith<$Res> {
-  factory _$$RefreshTasksImplCopyWith(
-          _$RefreshTasksImpl value, $Res Function(_$RefreshTasksImpl) then) =
-      __$$RefreshTasksImplCopyWithImpl<$Res>;
+abstract class _$$LoadTasksImplCopyWith<$Res> {
+  factory _$$LoadTasksImplCopyWith(
+          _$LoadTasksImpl value, $Res Function(_$LoadTasksImpl) then) =
+      __$$LoadTasksImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RefreshTasksImplCopyWithImpl<$Res>
-    extends _$TodoEventCopyWithImpl<$Res, _$RefreshTasksImpl>
-    implements _$$RefreshTasksImplCopyWith<$Res> {
-  __$$RefreshTasksImplCopyWithImpl(
-      _$RefreshTasksImpl _value, $Res Function(_$RefreshTasksImpl) _then)
+class __$$LoadTasksImplCopyWithImpl<$Res>
+    extends _$TodoEventCopyWithImpl<$Res, _$LoadTasksImpl>
+    implements _$$LoadTasksImplCopyWith<$Res> {
+  __$$LoadTasksImplCopyWithImpl(
+      _$LoadTasksImpl _value, $Res Function(_$LoadTasksImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RefreshTasksImpl implements _RefreshTasks {
-  const _$RefreshTasksImpl();
+class _$LoadTasksImpl implements _LoadTasks {
+  const _$LoadTasksImpl();
 
   @override
   String toString() {
-    return 'TodoEvent.refreshTasks()';
+    return 'TodoEvent.loadTasks()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RefreshTasksImpl);
+        (other.runtimeType == runtimeType && other is _$LoadTasksImpl);
   }
 
   @override
@@ -105,27 +105,27 @@ class _$RefreshTasksImpl implements _RefreshTasks {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() refreshTasks,
+    required TResult Function() loadTasks,
   }) {
-    return refreshTasks();
+    return loadTasks();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? refreshTasks,
+    TResult? Function()? loadTasks,
   }) {
-    return refreshTasks?.call();
+    return loadTasks?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? refreshTasks,
+    TResult Function()? loadTasks,
     required TResult orElse(),
   }) {
-    if (refreshTasks != null) {
-      return refreshTasks();
+    if (loadTasks != null) {
+      return loadTasks();
     }
     return orElse();
   }
@@ -133,34 +133,34 @@ class _$RefreshTasksImpl implements _RefreshTasks {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_RefreshTasks value) refreshTasks,
+    required TResult Function(_LoadTasks value) loadTasks,
   }) {
-    return refreshTasks(this);
+    return loadTasks(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RefreshTasks value)? refreshTasks,
+    TResult? Function(_LoadTasks value)? loadTasks,
   }) {
-    return refreshTasks?.call(this);
+    return loadTasks?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RefreshTasks value)? refreshTasks,
+    TResult Function(_LoadTasks value)? loadTasks,
     required TResult orElse(),
   }) {
-    if (refreshTasks != null) {
-      return refreshTasks(this);
+    if (loadTasks != null) {
+      return loadTasks(this);
     }
     return orElse();
   }
 }
 
-abstract class _RefreshTasks implements TodoEvent {
-  const factory _RefreshTasks() = _$RefreshTasksImpl;
+abstract class _LoadTasks implements TodoEvent {
+  const factory _LoadTasks() = _$LoadTasksImpl;
 }
 
 /// @nodoc

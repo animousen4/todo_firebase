@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:todo_firebase/feature/auth/data/model/user_model.dart';
+import 'package:todo_firebase/feature/todo/data/model/converter/todo_model_converter.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/data/results.dart';
 
 abstract interface class TodoDataProvider {
-  Future<LoadedTasksResult> loadTasks();
+  Future<LoadedTasksResult> loadTasks(UserModel userModel);
 
   Stream<TodoModel> get onTodoAdd;
   Stream<int> get onTodoRemove;
@@ -11,16 +14,41 @@ abstract interface class TodoDataProvider {
 }
 
 class TodoDataProviderImpl implements TodoDataProvider {
-  final DatabaseReference _dbReference;
+  final DatabaseReference _dbTodoRef;
+  final DocumentReference _documentReference;
+  final TodoModelDecoder _todoModelDecoder;
 
-  TodoDataProviderImpl({required DatabaseReference dbReference}) : _dbReference = dbReference;
+  TodoDataProviderImpl(
+      {required DatabaseReference dbTodoRef,
+      required DocumentReference documentReference,
+      required TodoModelDecoder todoModelDecoder})
+      : _dbTodoRef = dbTodoRef,
+        _documentReference = documentReference,
+        _todoModelDecoder = todoModelDecoder;
+
   @override
-  Future<LoadedTasksResult> loadTasks() {
+  Future<LoadedTasksResult> loadTasks(UserModel user) async {
+    final response = await _documentReference
+        .collection("user")
+        .doc(user.uid)
+        .collection("todo")
+        .withConverter(
+          fromFirestore: (snapshot, _) => TodoModel.fromJson(snapshot.data()!),
+          toFirestore: (model, _) => model.toJson(),
+        )
+        .get();
+    final list = response.docs.map((element) => element.data()).toList();
     
-}
+    return LoadedTasksResult.success(entity: list);
+
+  }
 
   @override
-  Stream<TodoModel> get onTodoAdd => _dbReference.ref.onChildAdded.map((event) => event.snapshot.children);
+  Stream<TodoModel> get onTodoAdd => _dbTodoRef.onChildAdded.map((event) {
+        final value = event.snapshot.value as String?;
+
+        return _todoModelDecoder.convert(value!);
+      });
 
   @override
   // TODO: implement onTodoModify

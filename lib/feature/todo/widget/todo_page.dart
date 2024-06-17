@@ -4,9 +4,14 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:todo_firebase/feature/auth/widget/auth_scope.dart';
 
 @RoutePage()
-class TodoPage extends StatelessWidget {
+class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
 
+  @override
+  State<TodoPage> createState() => _TodoPageState();
+}
+
+class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
     final authController = AuthScope.controllerOf(context);

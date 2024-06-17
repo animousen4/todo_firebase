@@ -28,7 +28,7 @@ class AuthDataProviderFirebase implements AuthDataProvider {
   @override
   Stream<UserModel?> get userStream => _firebaseAuth
       .authStateChanges()
-      .map((user) => user != null ? UserModel(email: user.email) : null);
+      .map((user) => user != null ? UserModel(email: user.email, uid: user.uid) : null);
 
   @override
   Future<void> logout() async {
