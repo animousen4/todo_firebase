@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
+import 'package:todo_firebase/feature/overlay_loading/widget/overlay_loading.dart';
 import 'package:todo_firebase/feature/routes/app_router.dart';
 import 'package:todo_firebase/feature/sign_in/data/sign_in_data_provider.dart';
 import 'package:todo_firebase/feature/sign_in/data/sign_in_repository.dart';
@@ -23,7 +24,7 @@ class _SignInScreenState extends State<SignInScreen> {
   late final SignInBloc signInBloc;
   @override
   Widget build(BuildContext context) {
-    return SignInScope(signInBloc: signInBloc, child: const _SignInView());
+    return SignInScope(signInBloc: signInBloc, child: const _SignInLoader());
   }
 
   @override
@@ -35,6 +36,25 @@ class _SignInScreenState extends State<SignInScreen> {
           DependenciesScope.of(context).repositories.signInRepository,
       initState: SignInState.idle(),
     );
+  }
+}
+
+class _SignInLoader extends StatelessWidget {
+  const _SignInLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = SignInScope.of(context).state.isLoading;
+
+    return OverlayLoading(
+        isLoading: isLoading,
+        loadingWidget: const Card(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CircularProgressIndicator(),
+          ),
+        ),
+        child: const _SignInView());
   }
 }
 
@@ -71,53 +91,60 @@ class _SignInViewState extends State<_SignInView> {
       appBar: AppBar(
         title: const Text("Log in"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ValidationTextField(
-              error: _loginError,
-              controller: _loginController,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            ValidationTextField(
-              error: _passwordError,
-              controller: _passwordController,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const _SignInError(),
-                _SignInButton(
-                  signInValid: _signInValid,
-                  signInScopeController: _signInScopeController,
-                  loginController: _loginController,
-                  passwordController: _passwordController,
-                ),
-              ],
-            ),
-            RichText(
-              text: TextSpan(
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextSpan(
-                      text: "Not registered yet? ",
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  TextSpan(
-                      text: "Sign up",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: Colors.blue),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => context.pushRoute(const SignUpRoute())),
+                  ValidationTextField(
+                    error: _loginError,
+                    controller: _loginController,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ValidationTextField(
+                    error: _passwordError,
+                    controller: _passwordController,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const _SignInError(),
+                      _SignInButton(
+                        signInValid: _signInValid,
+                        signInScopeController: _signInScopeController,
+                        loginController: _loginController,
+                        passwordController: _passwordController,
+                      ),
+                    ],
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text: "Not registered yet? ",
+                            style: Theme.of(context).textTheme.bodyMedium),
+                        TextSpan(
+                            text: "Sign up",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap =
+                                  () => context.pushRoute(const SignUpRoute())),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

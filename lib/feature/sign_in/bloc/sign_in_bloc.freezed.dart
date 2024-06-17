@@ -340,8 +340,8 @@ class __$$IdleImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$IdleImpl implements _Idle {
-  const _$IdleImpl({this.validationError});
+class _$IdleImpl extends _Idle {
+  const _$IdleImpl({this.validationError}) : super._();
 
   @override
   final ServerError? validationError;
@@ -438,8 +438,9 @@ class _$IdleImpl implements _Idle {
   }
 }
 
-abstract class _Idle implements SignInState {
+abstract class _Idle extends SignInState {
   const factory _Idle({final ServerError? validationError}) = _$IdleImpl;
+  const _Idle._() : super._();
 
   @override
   ServerError? get validationError;
@@ -484,8 +485,8 @@ class __$$ProcessingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProcessingImpl implements _Processing {
-  const _$ProcessingImpl({this.validationError});
+class _$ProcessingImpl extends _Processing {
+  const _$ProcessingImpl({this.validationError}) : super._();
 
   @override
   final ServerError? validationError;
@@ -582,9 +583,10 @@ class _$ProcessingImpl implements _Processing {
   }
 }
 
-abstract class _Processing implements SignInState {
+abstract class _Processing extends SignInState {
   const factory _Processing({final ServerError? validationError}) =
       _$ProcessingImpl;
+  const _Processing._() : super._();
 
   @override
   ServerError? get validationError;
@@ -629,8 +631,8 @@ class __$$FailedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FailedImpl implements _Failed {
-  const _$FailedImpl({this.validationError});
+class _$FailedImpl extends _Failed {
+  const _$FailedImpl({this.validationError}) : super._();
 
   @override
   final ServerError? validationError;
@@ -727,8 +729,9 @@ class _$FailedImpl implements _Failed {
   }
 }
 
-abstract class _Failed implements SignInState {
+abstract class _Failed extends SignInState {
   const factory _Failed({final ServerError? validationError}) = _$FailedImpl;
+  const _Failed._() : super._();
 
   @override
   ServerError? get validationError;
