@@ -4,6 +4,7 @@ import 'package:todo_firebase/feature/routes/widget/root_screen.dart';
 import 'package:todo_firebase/feature/routes/widget/auth_screen.dart';
 import 'package:todo_firebase/feature/sign_in/widget/screen/sign_in_screen.dart';
 import 'package:todo_firebase/feature/sign_up/widget/screen/sign_up_screen.dart';
+import 'package:todo_firebase/feature/todo/widget/todo_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -22,7 +23,9 @@ class AppRouter extends _$AppRouter {
                 AutoRoute(page: SignUpRoute.page),
               ],
             ),
-            AutoRoute(page: HomeRoute.page),
+            AutoRoute(
+                page: HomeRoute.page,
+                children: [AutoRoute(page: TodoRoute.page, initial: true)]),
           ],
         ),
       ];

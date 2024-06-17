@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:todo_firebase/core/app_bloc_observer.dart';
@@ -19,9 +21,18 @@ class AppRunner {
 
   AppRunner() : _dependenciesInitializer = DefaultDependenciesInitializer();
 
-  Future<void> _initializeOverrides() async {
+  Future<void> _initializeBlocOverrides() async {
     Bloc.observer = AppBlocObserver();
     Bloc.transformer = bloc_concurrency.sequential();
+  }
+
+  Future<void> _initializeDebugFirebaseOverrides() async {
+    try {
+      FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
+      await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<FirebaseAuth> _initializeFirebase() async {
@@ -37,7 +48,12 @@ class AppRunner {
       WidgetsFlutterBinding.ensureInitialized();
 
       final firebaseAuth = await _initializeFirebase();
-      await _initializeOverrides();
+
+      if (kDebugMode) {
+        await _initializeDebugFirebaseOverrides();
+      }
+
+      await _initializeBlocOverrides();
 
       final dependencies =
           await _dependenciesInitializer.initialize(firebaseAuth);
@@ -49,8 +65,10 @@ class AppRunner {
       );
     } catch (error, stackTrace) {
       _onError(error, stackTrace);
-      
-      runApp(FailApp(reason: error,));
+
+      runApp(FailApp(
+        reason: error,
+      ));
     }
   }
 

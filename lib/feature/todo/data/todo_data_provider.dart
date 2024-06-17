@@ -8,27 +8,27 @@ import 'package:todo_firebase/feature/todo/data/results.dart';
 abstract interface class TodoDataProvider {
   Future<LoadedTasksResult> loadTasks(UserModel userModel);
 
-  Stream<TodoModel> get onTodoAdd;
+  Stream<TodoModel> onTodoAdd(UserModel userModel);
   Stream<int> get onTodoRemove;
   Stream<TodoModel> get onTodoModify;
 }
 
 class TodoDataProviderImpl implements TodoDataProvider {
-  final DatabaseReference _dbTodoRef;
-  final DocumentReference _documentReference;
+  final FirebaseDatabase _firebaseDatabase;
+  final FirebaseFirestore _firebaseFirestore;
   final TodoModelDecoder _todoModelDecoder;
 
   TodoDataProviderImpl(
-      {required DatabaseReference dbTodoRef,
-      required DocumentReference documentReference,
+      {required FirebaseDatabase firebaseDatabase,
+      required FirebaseFirestore firebaseFirestore,
       required TodoModelDecoder todoModelDecoder})
-      : _dbTodoRef = dbTodoRef,
-        _documentReference = documentReference,
+      : _firebaseDatabase = firebaseDatabase,
+        _firebaseFirestore = firebaseFirestore,
         _todoModelDecoder = todoModelDecoder;
 
   @override
   Future<LoadedTasksResult> loadTasks(UserModel user) async {
-    final response = await _documentReference
+    final response = await _firebaseFirestore
         .collection("user")
         .doc(user.uid)
         .collection("todo")
@@ -38,13 +38,16 @@ class TodoDataProviderImpl implements TodoDataProvider {
         )
         .get();
     final list = response.docs.map((element) => element.data()).toList();
-    
-    return LoadedTasksResult.success(entity: list);
 
+    return LoadedTasksResult.success(entity: list);
   }
 
   @override
-  Stream<TodoModel> get onTodoAdd => _dbTodoRef.onChildAdded.map((event) {
+  Stream<TodoModel> onTodoAdd(UserModel user) => _firebaseDatabase
+          .ref("user/${user.uid}")
+          .child("todo")
+          .onChildAdded
+          .map((event) {
         final value = event.snapshot.value as String?;
 
         return _todoModelDecoder.convert(value!);

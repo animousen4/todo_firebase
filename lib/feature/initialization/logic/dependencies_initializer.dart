@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_firebase/feature/auth/bloc/auth_bloc.dart';
 import 'package:todo_firebase/feature/auth/data/converter/user_converter.dart';
@@ -18,6 +20,9 @@ import 'package:todo_firebase/feature/settings/data/repository/locale_repository
 import 'package:todo_firebase/feature/settings/data/repository/theme_repository.dart';
 import 'package:todo_firebase/feature/sign_up/data/sign_up_data_provider.dart';
 import 'package:todo_firebase/feature/sign_up/data/sign_up_repository.dart';
+import 'package:todo_firebase/feature/todo/data/model/converter/todo_model_converter.dart';
+import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
+import 'package:todo_firebase/feature/todo/data/todo_repository.dart';
 
 abstract interface class DependenciesInitializer {
   Future<Dependencies> initialize(FirebaseAuth firebaseAuth);
@@ -30,10 +35,15 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
     final settingsBloc = await _initSettingsBloc(sharedPreferences);
     final authBloc = await _initAuthBloc(firebaseAuth);
 
-    final repositories = Repositories(
-      signUpRepository: await _initSignUpRepository(firebaseAuth),
-      signInRepository: await _initSignInRepository(firebaseAuth),
+    final authDataProvider = AuthDataProviderFirebase(
+      firebaseAuth: firebaseAuth,
+      userConverter: UserConverter(),
     );
+
+    final repositories = Repositories(
+        signUpRepository: await _initSignUpRepository(firebaseAuth),
+        signInRepository: await _initSignInRepository(firebaseAuth),
+        todoRepository: await _initTodoRepository(authDataProvider));
     final appRouter = AppRouter();
 
     return Dependencies(
@@ -101,6 +111,19 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
   ) async {
     return SignUpRepositoryImpl(
       signUpDataProvider: SignUpDataProviderImpl(firebaseAuth: firebaseAuth),
+    );
+  }
+
+  Future<TodoRepository> _initTodoRepository(
+    AuthDataProviderFirebase authDataProvider,
+  ) async {
+    return TodoRepositoryImpl(
+      todoDataProvider: TodoDataProviderImpl(
+        todoModelDecoder: TodoModelDecoder(),
+        firebaseDatabase: FirebaseDatabase.instance,
+        firebaseFirestore: FirebaseFirestore.instance,
+      ),
+      authDataProvider: authDataProvider,
     );
   }
 }
