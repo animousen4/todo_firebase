@@ -4,16 +4,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_firebase/core/utils/build_context_extension.dart';
 import 'package:todo_firebase/feature/todo/bloc/todo_bloc.dart';
 import 'package:todo_firebase/feature/todo/data/dto/todo_dto.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_data_changes_model.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_list_item.dart';
 
 abstract interface class TodoScopeController {
   TodoState get state;
   GlobalKey<SliverAnimatedListState> get listKey;
 
-  void removeTodo(String id);
+  void removeTodo(int index);
   void addTodo(TodoModel model);
+  void markTodo(int index, TodoStatus status);
   void loadTodos();
+  void sortBy(SortType sortType);
 }
 
 class TodoScope extends StatefulWidget {
@@ -46,32 +52,46 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
         final snapshot = state.snapshot;
         if (snapshot != null) {
           for (final change in snapshot.changes) {
-            change.mapOrNull(
-              added: (addedChange) => listKey.currentState?.insertItem(
-                addedChange.newIndex,
-                duration: const Duration(milliseconds: 200),
-              ),
-              removed: (removedChange) {
-                final removedElement = removedChange.todoItem;
-                listKey.currentState?.removeItem(
-                  removedChange.oldIndex,
-                  (context, animation) => AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, child) => SizeTransition(
-                      sizeFactor: animation,
-                      child: FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ),
-                    ),
-                    child: TodoListItem(todoItem: removedElement),
-                  ),
-                  duration: const Duration(milliseconds: 200),
-                );
-              },
-            );
+            _mapChange(change);
           }
         }
+      },
+    );
+  }
+
+  void _mapChange(TodoDataChangesModel change) {
+    change.mapOrNull(
+      added: (addedChange) => listKey.currentState?.insertItem(
+        addedChange.newIndex,
+        duration: const Duration(milliseconds: 200),
+      ),
+      modified: (modifiedChange) {
+        final removedElement = modifiedChange.todoItem;
+        if (modifiedChange.oldIndex != modifiedChange.newIndex) {
+          listKey.currentState?.removeItem(
+            modifiedChange.oldIndex,
+            (context, animation) => _RemoveElementWidget(
+              removedElement: removedElement,
+              animation: animation,
+            ),
+          );
+
+          listKey.currentState?.insertItem(
+            modifiedChange.newIndex,
+            duration: const Duration(milliseconds: 200),
+          );
+        }
+      },
+      removed: (removedChange) {
+        final removedElement = removedChange.todoItem;
+        listKey.currentState?.removeItem(
+          removedChange.oldIndex,
+          (context, animation) => _RemoveElementWidget(
+            removedElement: removedElement,
+            animation: animation,
+          ),
+          duration: const Duration(milliseconds: 200),
+        );
       },
     );
   }
@@ -98,8 +118,18 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
   }
 
   @override
-  void removeTodo(String id) {
-    widget.todoBloc.add(TodoEvent.removeTodo(id: id));
+  void removeTodo(int index) {
+    widget.todoBloc.add(TodoEvent.removeTodo(index: index));
+  }
+
+  @override
+  void markTodo(int index, TodoStatus status) {
+    widget.todoBloc.add(TodoEvent.markTodo(index: index, status: status));
+  }
+
+  @override
+  void sortBy(SortType sortType) {
+    widget.todoBloc.add(TodoEvent.sortBy(sortType: sortType));
   }
 }
 
@@ -118,5 +148,33 @@ class _InheritToDoScope extends InheritedWidget {
   @override
   bool updateShouldNotify(_InheritToDoScope oldWidget) {
     return state != oldWidget.state;
+  }
+}
+
+class _RemoveElementWidget extends StatelessWidget {
+  const _RemoveElementWidget({
+    super.key,
+    required this.removedElement,
+    required this.animation,
+  });
+
+  final TodoItem removedElement;
+  final Animation<double> animation;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) => SizeTransition(
+        sizeFactor: animation,
+        child: FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+      ),
+      child: TodoListItem(
+        model: removedElement.todoModel,
+        index: -1,
+      ),
+    );
   }
 }

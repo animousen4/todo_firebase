@@ -40,13 +40,12 @@ class _TodoAddDialogState extends State<TodoAddDialog> {
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 22),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Add todo",
               style: titleStyle,
             ),
-            SizedBox(
+            const SizedBox(
               height: 14,
             ),
             ValidationTextField(
@@ -54,33 +53,40 @@ class _TodoAddDialogState extends State<TodoAddDialog> {
               controller: _titleController,
               decorationLabel: Text("Title"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 14,
             ),
             ValidationTextField(
                 error: _descriptionError,
                 controller: _descriptionController,
                 decorationLabel: Text("Description")),
-            SizedBox(
+            const SizedBox(
               height: 14,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ListenableBuilder(
-                listenable: _addValid,
-                builder: (context, child) {
-                  return FilledButton(
-                      onPressed: _addValid.value
-                          ? () {
-                              widget.todoScopeController.addTodo(_todoModel);
-                              Navigator.of(context).pop();
-                            }
-                          : null,
-                      child: child);
-                },
-                child: Text("Add"),
-              ),
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Cancel")),
+                ListenableBuilder(
+                  listenable: _addValid,
+                  builder: (context, child) {
+                    return FilledButton(
+                        onPressed: _addValid.value
+                            ? () {
+                                widget.todoScopeController.addTodo(_todoModel);
+                                Navigator.of(context).pop();
+                              }
+                            : null,
+                        child: child);
+                  },
+                  child: Text("Add"),
+                ),
+              ],
+            ),
           ],
         ),
       ),

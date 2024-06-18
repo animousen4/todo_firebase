@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
-import 'package:todo_firebase/feature/todo/data/dto/todo_dto.dart';
-import 'package:todo_firebase/feature/todo/data/model/todo_data_changes_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_data_snapshot_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
-import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_sort_mechanism.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 import 'package:todo_firebase/feature/todo/data/todo_repository.dart';
 
 part 'todo_event.dart';
@@ -34,6 +34,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         todoDataChanged: (event) async => _onTodoDataChanged(event, emit),
         addTodo: (event) async => _addTodo(event, emit),
         removeTodo: (event) async => _removeTodo(event, emit),
+        markTodo: (event) async => _markTodo(event, emit),
+        sortBy: (event) async => _sortBy(event, emit),
       ),
     );
   }
@@ -44,40 +46,105 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     return super.close();
   }
 
-  void _loadTodos(_LoadTodos event, Emitter<TodoState> emit) async {
-    emit(TodoState.progress(todoModels: state.todoModels));
+  String _getIdByIndex(int index) => state.todoModels[index].id;
 
-    final todos = await _todoRepository.loadTasks();
+  void _loadTodos(_LoadTodos event, Emitter<TodoState> emit) async {
+    emit(
+      TodoState.progress(
+        todoModels: state.todoModels,
+        sortType: event.sortBy ?? state.sortType,
+      ),
+    );
+
+    final mechanism =
+        event.sortBy?.sortMechanism ?? const CompleteSortMechanism();
+
+    final todos = await _todoRepository.loadTasks(mechanism);
+
     _streamChangesSubscription =
-        (await _todoRepository.todoChangeSteam()).listen((model) {
+        (await _todoRepository.todoChangeSteam(mechanism)).listen((model) {
       add(TodoEvent.todoDataChanged(snapshot: model));
     });
 
     todos.map(
-      success: (result) => emit(TodoState.idle(todoModels: result.entity)),
-      failed: (_) => emit(TodoState.failed(todoModels: state.todoModels)),
+      success: (result) => emit(
+          TodoState.idle(todoModels: result.entity, sortType: state.sortType)),
+      failed: (_) => emit(TodoState.failed(
+          todoModels: state.todoModels, sortType: state.sortType)),
     );
   }
 
   void _onTodoDataChanged(_TodoDataChanged event, Emitter<TodoState> emit) {
     final dataList = event.snapshot.dataList;
 
-    
-
     _logger.info(dataList);
     emit(
-        TodoState.idle(todoModels: dataList, snapshot: event.snapshot));
+      TodoState.idle(
+        todoModels: dataList,
+        snapshot: event.snapshot,
+        sortType: state.sortType,
+      ),
+    );
   }
 
   void _addTodo(_AddTodo event, Emitter<TodoState> emit) async {
-    emit(TodoState.progress(todoModels: state.todoModels));
+    emit(TodoState.progress(
+        todoModels: state.todoModels, sortType: state.sortType));
 
     await _todoRepository.addTodo(event.todoModel);
   }
 
   void _removeTodo(_RemoveTodo event, Emitter<TodoState> emit) async {
-    emit(TodoState.progress(todoModels: state.todoModels));
+    emit(
+      TodoState.progress(
+        todoModels: state.todoModels,
+        sortType: state.sortType,
+      ),
+    );
 
-    await _todoRepository.removeTodo(event.id);
+    await _todoRepository.removeTodo(_getIdByIndex(event.index));
+  }
+
+  void _markTodo(_MarkToDo event, Emitter<TodoState> emit) async {
+    final toUpdatetodoItem = state.todoModels[event.index];
+
+    final todoUpdatedItem = toUpdatetodoItem.copyWith(
+      todoModel: toUpdatetodoItem.todoModel.copyWith(
+        todoStatus: toUpdatetodoItem.todoModel.todoStatus.map(
+          planned: (_) => const TodoStatus.completed(),
+          completed: (_) => const TodoStatus.planned(),
+        ),
+      ),
+    );
+
+    final updatedList = List<TodoItem>.from(state.todoModels)
+      ..[event.index] = todoUpdatedItem;
+
+    emit(TodoState.progress(todoModels: updatedList, sortType: state.sortType));
+
+    final todoItem = await _todoRepository.getTodo(_getIdByIndex(event.index));
+
+    final modifiedTodo = todoItem.todoModel.copyWith(todoStatus: event.status);
+
+    await _todoRepository.modifyTodo(_getIdByIndex(event.index), modifiedTodo);
+  }
+
+  void _sortBy(_SortBy event, Emitter<TodoState> emit) async {
+    final result =
+        await _todoRepository.loadTasks(event.sortType.sortMechanism);
+
+    result.map(
+      failed: (error) => emit(
+        TodoState.failed(
+          todoModels: state.todoModels,
+          sortType: state.sortType,
+        ),
+      ),
+      success: (success) => emit(
+        TodoState.idle(todoModels: success.entity, sortType: event.sortType),
+      ),
+    );
+
+    //emit(TodoState.idle(todoModels: , sortType: sortType))
   }
 }

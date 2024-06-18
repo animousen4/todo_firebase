@@ -4,6 +4,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:todo_firebase/feature/auth/widget/auth_scope.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/todo/bloc/todo_bloc.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_add_dialog.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_list_item.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
@@ -33,8 +34,10 @@ class _TodoPageState extends State<TodoPage> {
     final todoRepository =
         DependenciesScope.of(context).repositories.todoRepository;
     todoBloc = TodoBloc(
-        initialState: const TodoState.idle(todoModels: []),
-        todoRepository: todoRepository);
+      initialState:
+          const TodoState.idle(todoModels: [], sortType: SortType.complete),
+      todoRepository: todoRepository,
+    );
   }
 }
 
@@ -95,24 +98,32 @@ class _TodoSliverList extends StatelessWidget {
       key: todoController.listKey,
       itemBuilder: (context, index, animation) => SizeTransition(
         sizeFactor: animation,
-        child: TodoListItem(todoItem: items[index]),
+        child: TodoListItem(
+          model: items[index].todoModel,
+          index: index,
+        ),
       ),
       initialItemCount: items.length,
     );
   }
 }
 
-/*
+enum _SortMethods {
+  creationDateAsc(
+      "By creation date (ascending)", Icons.date_range, SortType.createDateAsc),
+  creationDateDesc("By creation date (descending)", Icons.date_range,
+      SortType.createDateDesk),
+  deadlineDateDesc("By deadline date (descending)", Icons.date_range,
+      SortType.dateDeadlineDesc),
+  deadlineDateAsc("By deadline date (descending)", Icons.date_range,
+      SortType.dateDeadlineAsc),
+  complete("By completion", Icons.check_circle_outline, SortType.complete);
 
-itemBuilder: (context, index) => ListTile(
-                title: Text(items[index].title),
-                subtitle: Text(
-                  items[index].description,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              itemCount: items.length,
- */
+  const _SortMethods(this.name, this.icon, this.sortType);
+  final String name;
+  final IconData icon;
+  final SortType sortType;
+}
 
 class _TodoSliverAppBar extends StatelessWidget {
   const _TodoSliverAppBar({
@@ -122,9 +133,33 @@ class _TodoSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authController = AuthScope.controllerOf(context);
+    final todoScope = TodoScope.of(context);
+    final todoState = todoScope.state;
     return SliverAppBar(
-      title: const Text("Tasks"),
+      title: const Row(
+        children: [
+          Text("Tasks"),
+        ],
+      ),
       actions: [
+        DropdownMenu<_SortMethods>(
+          label: Text("Sort by"),
+          width: 140,
+          initialSelection: _SortMethods.complete,
+          dropdownMenuEntries:
+              _SortMethods.values.map<DropdownMenuEntry<_SortMethods>>((value) {
+            return DropdownMenuEntry(
+              value: value,
+              label: value.name,
+              leadingIcon: Icon(value.icon),
+            );
+          }).toList(),
+          onSelected: (value) {
+            if (value != null) {
+              todoScope.sortBy(value.sortType);
+            }
+          },
+        ),
         IconButton(
           onPressed: () {
             authController.logout();

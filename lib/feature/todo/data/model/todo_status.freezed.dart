@@ -20,21 +20,18 @@ mixin _$TodoStatus {
   TResult when<TResult extends Object?>({
     required TResult Function() planned,
     required TResult Function() completed,
-    required TResult Function() deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? planned,
     TResult? Function()? completed,
-    TResult? Function()? deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? planned,
     TResult Function()? completed,
-    TResult Function()? deleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -42,21 +39,18 @@ mixin _$TodoStatus {
   TResult map<TResult extends Object?>({
     required TResult Function(PlannedTodoStatus value) planned,
     required TResult Function(CompletedTodoStatus value) completed,
-    required TResult Function(DeletedTodoStatus value) deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannedTodoStatus value)? planned,
     TResult? Function(CompletedTodoStatus value)? completed,
-    TResult? Function(DeletedTodoStatus value)? deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannedTodoStatus value)? planned,
     TResult Function(CompletedTodoStatus value)? completed,
-    TResult Function(DeletedTodoStatus value)? deleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,7 +114,6 @@ class _$PlannedTodoStatusImpl implements PlannedTodoStatus {
   TResult when<TResult extends Object?>({
     required TResult Function() planned,
     required TResult Function() completed,
-    required TResult Function() deleted,
   }) {
     return planned();
   }
@@ -130,7 +123,6 @@ class _$PlannedTodoStatusImpl implements PlannedTodoStatus {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? planned,
     TResult? Function()? completed,
-    TResult? Function()? deleted,
   }) {
     return planned?.call();
   }
@@ -140,7 +132,6 @@ class _$PlannedTodoStatusImpl implements PlannedTodoStatus {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? planned,
     TResult Function()? completed,
-    TResult Function()? deleted,
     required TResult orElse(),
   }) {
     if (planned != null) {
@@ -154,7 +145,6 @@ class _$PlannedTodoStatusImpl implements PlannedTodoStatus {
   TResult map<TResult extends Object?>({
     required TResult Function(PlannedTodoStatus value) planned,
     required TResult Function(CompletedTodoStatus value) completed,
-    required TResult Function(DeletedTodoStatus value) deleted,
   }) {
     return planned(this);
   }
@@ -164,7 +154,6 @@ class _$PlannedTodoStatusImpl implements PlannedTodoStatus {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannedTodoStatus value)? planned,
     TResult? Function(CompletedTodoStatus value)? completed,
-    TResult? Function(DeletedTodoStatus value)? deleted,
   }) {
     return planned?.call(this);
   }
@@ -174,7 +163,6 @@ class _$PlannedTodoStatusImpl implements PlannedTodoStatus {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannedTodoStatus value)? planned,
     TResult Function(CompletedTodoStatus value)? completed,
-    TResult Function(DeletedTodoStatus value)? deleted,
     required TResult orElse(),
   }) {
     if (planned != null) {
@@ -229,7 +217,6 @@ class _$CompletedTodoStatusImpl implements CompletedTodoStatus {
   TResult when<TResult extends Object?>({
     required TResult Function() planned,
     required TResult Function() completed,
-    required TResult Function() deleted,
   }) {
     return completed();
   }
@@ -239,7 +226,6 @@ class _$CompletedTodoStatusImpl implements CompletedTodoStatus {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? planned,
     TResult? Function()? completed,
-    TResult? Function()? deleted,
   }) {
     return completed?.call();
   }
@@ -249,7 +235,6 @@ class _$CompletedTodoStatusImpl implements CompletedTodoStatus {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? planned,
     TResult Function()? completed,
-    TResult Function()? deleted,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -263,7 +248,6 @@ class _$CompletedTodoStatusImpl implements CompletedTodoStatus {
   TResult map<TResult extends Object?>({
     required TResult Function(PlannedTodoStatus value) planned,
     required TResult Function(CompletedTodoStatus value) completed,
-    required TResult Function(DeletedTodoStatus value) deleted,
   }) {
     return completed(this);
   }
@@ -273,7 +257,6 @@ class _$CompletedTodoStatusImpl implements CompletedTodoStatus {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PlannedTodoStatus value)? planned,
     TResult? Function(CompletedTodoStatus value)? completed,
-    TResult? Function(DeletedTodoStatus value)? deleted,
   }) {
     return completed?.call(this);
   }
@@ -283,7 +266,6 @@ class _$CompletedTodoStatusImpl implements CompletedTodoStatus {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PlannedTodoStatus value)? planned,
     TResult Function(CompletedTodoStatus value)? completed,
-    TResult Function(DeletedTodoStatus value)? deleted,
     required TResult orElse(),
   }) {
     if (completed != null) {
@@ -295,112 +277,4 @@ class _$CompletedTodoStatusImpl implements CompletedTodoStatus {
 
 abstract class CompletedTodoStatus implements TodoStatus {
   const factory CompletedTodoStatus() = _$CompletedTodoStatusImpl;
-}
-
-/// @nodoc
-abstract class _$$DeletedTodoStatusImplCopyWith<$Res> {
-  factory _$$DeletedTodoStatusImplCopyWith(_$DeletedTodoStatusImpl value,
-          $Res Function(_$DeletedTodoStatusImpl) then) =
-      __$$DeletedTodoStatusImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$DeletedTodoStatusImplCopyWithImpl<$Res>
-    extends _$TodoStatusCopyWithImpl<$Res, _$DeletedTodoStatusImpl>
-    implements _$$DeletedTodoStatusImplCopyWith<$Res> {
-  __$$DeletedTodoStatusImplCopyWithImpl(_$DeletedTodoStatusImpl _value,
-      $Res Function(_$DeletedTodoStatusImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$DeletedTodoStatusImpl implements DeletedTodoStatus {
-  const _$DeletedTodoStatusImpl();
-
-  @override
-  String toString() {
-    return 'TodoStatus.deleted()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DeletedTodoStatusImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() planned,
-    required TResult Function() completed,
-    required TResult Function() deleted,
-  }) {
-    return deleted();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? planned,
-    TResult? Function()? completed,
-    TResult? Function()? deleted,
-  }) {
-    return deleted?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? planned,
-    TResult Function()? completed,
-    TResult Function()? deleted,
-    required TResult orElse(),
-  }) {
-    if (deleted != null) {
-      return deleted();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(PlannedTodoStatus value) planned,
-    required TResult Function(CompletedTodoStatus value) completed,
-    required TResult Function(DeletedTodoStatus value) deleted,
-  }) {
-    return deleted(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(PlannedTodoStatus value)? planned,
-    TResult? Function(CompletedTodoStatus value)? completed,
-    TResult? Function(DeletedTodoStatus value)? deleted,
-  }) {
-    return deleted?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(PlannedTodoStatus value)? planned,
-    TResult Function(CompletedTodoStatus value)? completed,
-    TResult Function(DeletedTodoStatus value)? deleted,
-    required TResult orElse(),
-  }) {
-    if (deleted != null) {
-      return deleted(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class DeletedTodoStatus implements TodoStatus {
-  const factory DeletedTodoStatus() = _$DeletedTodoStatusImpl;
 }

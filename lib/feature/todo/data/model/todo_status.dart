@@ -6,5 +6,4 @@ part 'todo_status.freezed.dart';
 class TodoStatus with _$TodoStatus {
   const factory TodoStatus.planned() = PlannedTodoStatus;
   const factory TodoStatus.completed() = CompletedTodoStatus;
-  const factory TodoStatus.deleted() = DeletedTodoStatus;
 }

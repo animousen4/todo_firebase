@@ -18,26 +18,32 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TodoEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadTodos,
+    required TResult Function(SortType? sortBy) loadTodos,
     required TResult Function(TodoDataSnapshotModel snapshot) todoDataChanged,
     required TResult Function(TodoModel todoModel) addTodo,
-    required TResult Function(String id) removeTodo,
+    required TResult Function(int index) removeTodo,
+    required TResult Function(int index, TodoStatus status) markTodo,
+    required TResult Function(SortType sortType) sortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadTodos,
+    TResult? Function(SortType? sortBy)? loadTodos,
     TResult? Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult? Function(TodoModel todoModel)? addTodo,
-    TResult? Function(String id)? removeTodo,
+    TResult? Function(int index)? removeTodo,
+    TResult? Function(int index, TodoStatus status)? markTodo,
+    TResult? Function(SortType sortType)? sortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadTodos,
+    TResult Function(SortType? sortBy)? loadTodos,
     TResult Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult Function(TodoModel todoModel)? addTodo,
-    TResult Function(String id)? removeTodo,
+    TResult Function(int index)? removeTodo,
+    TResult Function(int index, TodoStatus status)? markTodo,
+    TResult Function(SortType sortType)? sortBy,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +53,8 @@ mixin _$TodoEvent {
     required TResult Function(_TodoDataChanged value) todoDataChanged,
     required TResult Function(_AddTodo value) addTodo,
     required TResult Function(_RemoveTodo value) removeTodo,
+    required TResult Function(_MarkToDo value) markTodo,
+    required TResult Function(_SortBy value) sortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +63,8 @@ mixin _$TodoEvent {
     TResult? Function(_TodoDataChanged value)? todoDataChanged,
     TResult? Function(_AddTodo value)? addTodo,
     TResult? Function(_RemoveTodo value)? removeTodo,
+    TResult? Function(_MarkToDo value)? markTodo,
+    TResult? Function(_SortBy value)? sortBy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +73,8 @@ mixin _$TodoEvent {
     TResult Function(_TodoDataChanged value)? todoDataChanged,
     TResult Function(_AddTodo value)? addTodo,
     TResult Function(_RemoveTodo value)? removeTodo,
+    TResult Function(_MarkToDo value)? markTodo,
+    TResult Function(_SortBy value)? sortBy,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -90,6 +102,8 @@ abstract class _$$LoadTodosImplCopyWith<$Res> {
   factory _$$LoadTodosImplCopyWith(
           _$LoadTodosImpl value, $Res Function(_$LoadTodosImpl) then) =
       __$$LoadTodosImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SortType? sortBy});
 }
 
 /// @nodoc
@@ -99,60 +113,90 @@ class __$$LoadTodosImplCopyWithImpl<$Res>
   __$$LoadTodosImplCopyWithImpl(
       _$LoadTodosImpl _value, $Res Function(_$LoadTodosImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sortBy = freezed,
+  }) {
+    return _then(_$LoadTodosImpl(
+      sortBy: freezed == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortType?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadTodosImpl implements _LoadTodos {
-  const _$LoadTodosImpl();
+  const _$LoadTodosImpl({this.sortBy});
+
+  @override
+  final SortType? sortBy;
 
   @override
   String toString() {
-    return 'TodoEvent.loadTodos()';
+    return 'TodoEvent.loadTodos(sortBy: $sortBy)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadTodosImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadTodosImpl &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, sortBy);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadTodosImplCopyWith<_$LoadTodosImpl> get copyWith =>
+      __$$LoadTodosImplCopyWithImpl<_$LoadTodosImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadTodos,
+    required TResult Function(SortType? sortBy) loadTodos,
     required TResult Function(TodoDataSnapshotModel snapshot) todoDataChanged,
     required TResult Function(TodoModel todoModel) addTodo,
-    required TResult Function(String id) removeTodo,
+    required TResult Function(int index) removeTodo,
+    required TResult Function(int index, TodoStatus status) markTodo,
+    required TResult Function(SortType sortType) sortBy,
   }) {
-    return loadTodos();
+    return loadTodos(this.sortBy);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadTodos,
+    TResult? Function(SortType? sortBy)? loadTodos,
     TResult? Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult? Function(TodoModel todoModel)? addTodo,
-    TResult? Function(String id)? removeTodo,
+    TResult? Function(int index)? removeTodo,
+    TResult? Function(int index, TodoStatus status)? markTodo,
+    TResult? Function(SortType sortType)? sortBy,
   }) {
-    return loadTodos?.call();
+    return loadTodos?.call(this.sortBy);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadTodos,
+    TResult Function(SortType? sortBy)? loadTodos,
     TResult Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult Function(TodoModel todoModel)? addTodo,
-    TResult Function(String id)? removeTodo,
+    TResult Function(int index)? removeTodo,
+    TResult Function(int index, TodoStatus status)? markTodo,
+    TResult Function(SortType sortType)? sortBy,
     required TResult orElse(),
   }) {
     if (loadTodos != null) {
-      return loadTodos();
+      return loadTodos(this.sortBy);
     }
     return orElse();
   }
@@ -164,6 +208,8 @@ class _$LoadTodosImpl implements _LoadTodos {
     required TResult Function(_TodoDataChanged value) todoDataChanged,
     required TResult Function(_AddTodo value) addTodo,
     required TResult Function(_RemoveTodo value) removeTodo,
+    required TResult Function(_MarkToDo value) markTodo,
+    required TResult Function(_SortBy value) sortBy,
   }) {
     return loadTodos(this);
   }
@@ -175,6 +221,8 @@ class _$LoadTodosImpl implements _LoadTodos {
     TResult? Function(_TodoDataChanged value)? todoDataChanged,
     TResult? Function(_AddTodo value)? addTodo,
     TResult? Function(_RemoveTodo value)? removeTodo,
+    TResult? Function(_MarkToDo value)? markTodo,
+    TResult? Function(_SortBy value)? sortBy,
   }) {
     return loadTodos?.call(this);
   }
@@ -186,6 +234,8 @@ class _$LoadTodosImpl implements _LoadTodos {
     TResult Function(_TodoDataChanged value)? todoDataChanged,
     TResult Function(_AddTodo value)? addTodo,
     TResult Function(_RemoveTodo value)? removeTodo,
+    TResult Function(_MarkToDo value)? markTodo,
+    TResult Function(_SortBy value)? sortBy,
     required TResult orElse(),
   }) {
     if (loadTodos != null) {
@@ -196,7 +246,12 @@ class _$LoadTodosImpl implements _LoadTodos {
 }
 
 abstract class _LoadTodos implements TodoEvent {
-  const factory _LoadTodos() = _$LoadTodosImpl;
+  const factory _LoadTodos({final SortType? sortBy}) = _$LoadTodosImpl;
+
+  SortType? get sortBy;
+  @JsonKey(ignore: true)
+  _$$LoadTodosImplCopyWith<_$LoadTodosImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -265,10 +320,12 @@ class _$TodoDataChangedImpl implements _TodoDataChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadTodos,
+    required TResult Function(SortType? sortBy) loadTodos,
     required TResult Function(TodoDataSnapshotModel snapshot) todoDataChanged,
     required TResult Function(TodoModel todoModel) addTodo,
-    required TResult Function(String id) removeTodo,
+    required TResult Function(int index) removeTodo,
+    required TResult Function(int index, TodoStatus status) markTodo,
+    required TResult Function(SortType sortType) sortBy,
   }) {
     return todoDataChanged(snapshot);
   }
@@ -276,10 +333,12 @@ class _$TodoDataChangedImpl implements _TodoDataChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadTodos,
+    TResult? Function(SortType? sortBy)? loadTodos,
     TResult? Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult? Function(TodoModel todoModel)? addTodo,
-    TResult? Function(String id)? removeTodo,
+    TResult? Function(int index)? removeTodo,
+    TResult? Function(int index, TodoStatus status)? markTodo,
+    TResult? Function(SortType sortType)? sortBy,
   }) {
     return todoDataChanged?.call(snapshot);
   }
@@ -287,10 +346,12 @@ class _$TodoDataChangedImpl implements _TodoDataChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadTodos,
+    TResult Function(SortType? sortBy)? loadTodos,
     TResult Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult Function(TodoModel todoModel)? addTodo,
-    TResult Function(String id)? removeTodo,
+    TResult Function(int index)? removeTodo,
+    TResult Function(int index, TodoStatus status)? markTodo,
+    TResult Function(SortType sortType)? sortBy,
     required TResult orElse(),
   }) {
     if (todoDataChanged != null) {
@@ -306,6 +367,8 @@ class _$TodoDataChangedImpl implements _TodoDataChanged {
     required TResult Function(_TodoDataChanged value) todoDataChanged,
     required TResult Function(_AddTodo value) addTodo,
     required TResult Function(_RemoveTodo value) removeTodo,
+    required TResult Function(_MarkToDo value) markTodo,
+    required TResult Function(_SortBy value) sortBy,
   }) {
     return todoDataChanged(this);
   }
@@ -317,6 +380,8 @@ class _$TodoDataChangedImpl implements _TodoDataChanged {
     TResult? Function(_TodoDataChanged value)? todoDataChanged,
     TResult? Function(_AddTodo value)? addTodo,
     TResult? Function(_RemoveTodo value)? removeTodo,
+    TResult? Function(_MarkToDo value)? markTodo,
+    TResult? Function(_SortBy value)? sortBy,
   }) {
     return todoDataChanged?.call(this);
   }
@@ -328,6 +393,8 @@ class _$TodoDataChangedImpl implements _TodoDataChanged {
     TResult Function(_TodoDataChanged value)? todoDataChanged,
     TResult Function(_AddTodo value)? addTodo,
     TResult Function(_RemoveTodo value)? removeTodo,
+    TResult Function(_MarkToDo value)? markTodo,
+    TResult Function(_SortBy value)? sortBy,
     required TResult orElse(),
   }) {
     if (todoDataChanged != null) {
@@ -412,10 +479,12 @@ class _$AddTodoImpl implements _AddTodo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadTodos,
+    required TResult Function(SortType? sortBy) loadTodos,
     required TResult Function(TodoDataSnapshotModel snapshot) todoDataChanged,
     required TResult Function(TodoModel todoModel) addTodo,
-    required TResult Function(String id) removeTodo,
+    required TResult Function(int index) removeTodo,
+    required TResult Function(int index, TodoStatus status) markTodo,
+    required TResult Function(SortType sortType) sortBy,
   }) {
     return addTodo(todoModel);
   }
@@ -423,10 +492,12 @@ class _$AddTodoImpl implements _AddTodo {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadTodos,
+    TResult? Function(SortType? sortBy)? loadTodos,
     TResult? Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult? Function(TodoModel todoModel)? addTodo,
-    TResult? Function(String id)? removeTodo,
+    TResult? Function(int index)? removeTodo,
+    TResult? Function(int index, TodoStatus status)? markTodo,
+    TResult? Function(SortType sortType)? sortBy,
   }) {
     return addTodo?.call(todoModel);
   }
@@ -434,10 +505,12 @@ class _$AddTodoImpl implements _AddTodo {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadTodos,
+    TResult Function(SortType? sortBy)? loadTodos,
     TResult Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult Function(TodoModel todoModel)? addTodo,
-    TResult Function(String id)? removeTodo,
+    TResult Function(int index)? removeTodo,
+    TResult Function(int index, TodoStatus status)? markTodo,
+    TResult Function(SortType sortType)? sortBy,
     required TResult orElse(),
   }) {
     if (addTodo != null) {
@@ -453,6 +526,8 @@ class _$AddTodoImpl implements _AddTodo {
     required TResult Function(_TodoDataChanged value) todoDataChanged,
     required TResult Function(_AddTodo value) addTodo,
     required TResult Function(_RemoveTodo value) removeTodo,
+    required TResult Function(_MarkToDo value) markTodo,
+    required TResult Function(_SortBy value) sortBy,
   }) {
     return addTodo(this);
   }
@@ -464,6 +539,8 @@ class _$AddTodoImpl implements _AddTodo {
     TResult? Function(_TodoDataChanged value)? todoDataChanged,
     TResult? Function(_AddTodo value)? addTodo,
     TResult? Function(_RemoveTodo value)? removeTodo,
+    TResult? Function(_MarkToDo value)? markTodo,
+    TResult? Function(_SortBy value)? sortBy,
   }) {
     return addTodo?.call(this);
   }
@@ -475,6 +552,8 @@ class _$AddTodoImpl implements _AddTodo {
     TResult Function(_TodoDataChanged value)? todoDataChanged,
     TResult Function(_AddTodo value)? addTodo,
     TResult Function(_RemoveTodo value)? removeTodo,
+    TResult Function(_MarkToDo value)? markTodo,
+    TResult Function(_SortBy value)? sortBy,
     required TResult orElse(),
   }) {
     if (addTodo != null) {
@@ -499,7 +578,7 @@ abstract class _$$RemoveTodoImplCopyWith<$Res> {
           _$RemoveTodoImpl value, $Res Function(_$RemoveTodoImpl) then) =
       __$$RemoveTodoImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String id});
+  $Res call({int index});
 }
 
 /// @nodoc
@@ -513,13 +592,13 @@ class __$$RemoveTodoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? index = null,
   }) {
     return _then(_$RemoveTodoImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -527,14 +606,14 @@ class __$$RemoveTodoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemoveTodoImpl implements _RemoveTodo {
-  const _$RemoveTodoImpl({required this.id});
+  const _$RemoveTodoImpl({required this.index});
 
   @override
-  final String id;
+  final int index;
 
   @override
   String toString() {
-    return 'TodoEvent.removeTodo(id: $id)';
+    return 'TodoEvent.removeTodo(index: $index)';
   }
 
   @override
@@ -542,11 +621,11 @@ class _$RemoveTodoImpl implements _RemoveTodo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveTodoImpl &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.index, index) || other.index == index));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, index);
 
   @JsonKey(ignore: true)
   @override
@@ -557,36 +636,42 @@ class _$RemoveTodoImpl implements _RemoveTodo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadTodos,
+    required TResult Function(SortType? sortBy) loadTodos,
     required TResult Function(TodoDataSnapshotModel snapshot) todoDataChanged,
     required TResult Function(TodoModel todoModel) addTodo,
-    required TResult Function(String id) removeTodo,
+    required TResult Function(int index) removeTodo,
+    required TResult Function(int index, TodoStatus status) markTodo,
+    required TResult Function(SortType sortType) sortBy,
   }) {
-    return removeTodo(id);
+    return removeTodo(index);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadTodos,
+    TResult? Function(SortType? sortBy)? loadTodos,
     TResult? Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult? Function(TodoModel todoModel)? addTodo,
-    TResult? Function(String id)? removeTodo,
+    TResult? Function(int index)? removeTodo,
+    TResult? Function(int index, TodoStatus status)? markTodo,
+    TResult? Function(SortType sortType)? sortBy,
   }) {
-    return removeTodo?.call(id);
+    return removeTodo?.call(index);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadTodos,
+    TResult Function(SortType? sortBy)? loadTodos,
     TResult Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
     TResult Function(TodoModel todoModel)? addTodo,
-    TResult Function(String id)? removeTodo,
+    TResult Function(int index)? removeTodo,
+    TResult Function(int index, TodoStatus status)? markTodo,
+    TResult Function(SortType sortType)? sortBy,
     required TResult orElse(),
   }) {
     if (removeTodo != null) {
-      return removeTodo(id);
+      return removeTodo(index);
     }
     return orElse();
   }
@@ -598,6 +683,8 @@ class _$RemoveTodoImpl implements _RemoveTodo {
     required TResult Function(_TodoDataChanged value) todoDataChanged,
     required TResult Function(_AddTodo value) addTodo,
     required TResult Function(_RemoveTodo value) removeTodo,
+    required TResult Function(_MarkToDo value) markTodo,
+    required TResult Function(_SortBy value) sortBy,
   }) {
     return removeTodo(this);
   }
@@ -609,6 +696,8 @@ class _$RemoveTodoImpl implements _RemoveTodo {
     TResult? Function(_TodoDataChanged value)? todoDataChanged,
     TResult? Function(_AddTodo value)? addTodo,
     TResult? Function(_RemoveTodo value)? removeTodo,
+    TResult? Function(_MarkToDo value)? markTodo,
+    TResult? Function(_SortBy value)? sortBy,
   }) {
     return removeTodo?.call(this);
   }
@@ -620,6 +709,8 @@ class _$RemoveTodoImpl implements _RemoveTodo {
     TResult Function(_TodoDataChanged value)? todoDataChanged,
     TResult Function(_AddTodo value)? addTodo,
     TResult Function(_RemoveTodo value)? removeTodo,
+    TResult Function(_MarkToDo value)? markTodo,
+    TResult Function(_SortBy value)? sortBy,
     required TResult orElse(),
   }) {
     if (removeTodo != null) {
@@ -630,54 +721,391 @@ class _$RemoveTodoImpl implements _RemoveTodo {
 }
 
 abstract class _RemoveTodo implements TodoEvent {
-  const factory _RemoveTodo({required final String id}) = _$RemoveTodoImpl;
+  const factory _RemoveTodo({required final int index}) = _$RemoveTodoImpl;
 
-  String get id;
+  int get index;
   @JsonKey(ignore: true)
   _$$RemoveTodoImplCopyWith<_$RemoveTodoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
+abstract class _$$MarkToDoImplCopyWith<$Res> {
+  factory _$$MarkToDoImplCopyWith(
+          _$MarkToDoImpl value, $Res Function(_$MarkToDoImpl) then) =
+      __$$MarkToDoImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index, TodoStatus status});
+
+  $TodoStatusCopyWith<$Res> get status;
+}
+
+/// @nodoc
+class __$$MarkToDoImplCopyWithImpl<$Res>
+    extends _$TodoEventCopyWithImpl<$Res, _$MarkToDoImpl>
+    implements _$$MarkToDoImplCopyWith<$Res> {
+  __$$MarkToDoImplCopyWithImpl(
+      _$MarkToDoImpl _value, $Res Function(_$MarkToDoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+    Object? status = null,
+  }) {
+    return _then(_$MarkToDoImpl(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as TodoStatus,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TodoStatusCopyWith<$Res> get status {
+    return $TodoStatusCopyWith<$Res>(_value.status, (value) {
+      return _then(_value.copyWith(status: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$MarkToDoImpl implements _MarkToDo {
+  const _$MarkToDoImpl({required this.index, required this.status});
+
+  @override
+  final int index;
+  @override
+  final TodoStatus status;
+
+  @override
+  String toString() {
+    return 'TodoEvent.markTodo(index: $index, status: $status)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MarkToDoImpl &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index, status);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MarkToDoImplCopyWith<_$MarkToDoImpl> get copyWith =>
+      __$$MarkToDoImplCopyWithImpl<_$MarkToDoImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SortType? sortBy) loadTodos,
+    required TResult Function(TodoDataSnapshotModel snapshot) todoDataChanged,
+    required TResult Function(TodoModel todoModel) addTodo,
+    required TResult Function(int index) removeTodo,
+    required TResult Function(int index, TodoStatus status) markTodo,
+    required TResult Function(SortType sortType) sortBy,
+  }) {
+    return markTodo(index, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SortType? sortBy)? loadTodos,
+    TResult? Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
+    TResult? Function(TodoModel todoModel)? addTodo,
+    TResult? Function(int index)? removeTodo,
+    TResult? Function(int index, TodoStatus status)? markTodo,
+    TResult? Function(SortType sortType)? sortBy,
+  }) {
+    return markTodo?.call(index, status);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SortType? sortBy)? loadTodos,
+    TResult Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
+    TResult Function(TodoModel todoModel)? addTodo,
+    TResult Function(int index)? removeTodo,
+    TResult Function(int index, TodoStatus status)? markTodo,
+    TResult Function(SortType sortType)? sortBy,
+    required TResult orElse(),
+  }) {
+    if (markTodo != null) {
+      return markTodo(index, status);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadTodos value) loadTodos,
+    required TResult Function(_TodoDataChanged value) todoDataChanged,
+    required TResult Function(_AddTodo value) addTodo,
+    required TResult Function(_RemoveTodo value) removeTodo,
+    required TResult Function(_MarkToDo value) markTodo,
+    required TResult Function(_SortBy value) sortBy,
+  }) {
+    return markTodo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadTodos value)? loadTodos,
+    TResult? Function(_TodoDataChanged value)? todoDataChanged,
+    TResult? Function(_AddTodo value)? addTodo,
+    TResult? Function(_RemoveTodo value)? removeTodo,
+    TResult? Function(_MarkToDo value)? markTodo,
+    TResult? Function(_SortBy value)? sortBy,
+  }) {
+    return markTodo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadTodos value)? loadTodos,
+    TResult Function(_TodoDataChanged value)? todoDataChanged,
+    TResult Function(_AddTodo value)? addTodo,
+    TResult Function(_RemoveTodo value)? removeTodo,
+    TResult Function(_MarkToDo value)? markTodo,
+    TResult Function(_SortBy value)? sortBy,
+    required TResult orElse(),
+  }) {
+    if (markTodo != null) {
+      return markTodo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _MarkToDo implements TodoEvent {
+  const factory _MarkToDo(
+      {required final int index,
+      required final TodoStatus status}) = _$MarkToDoImpl;
+
+  int get index;
+  TodoStatus get status;
+  @JsonKey(ignore: true)
+  _$$MarkToDoImplCopyWith<_$MarkToDoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SortByImplCopyWith<$Res> {
+  factory _$$SortByImplCopyWith(
+          _$SortByImpl value, $Res Function(_$SortByImpl) then) =
+      __$$SortByImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SortType sortType});
+}
+
+/// @nodoc
+class __$$SortByImplCopyWithImpl<$Res>
+    extends _$TodoEventCopyWithImpl<$Res, _$SortByImpl>
+    implements _$$SortByImplCopyWith<$Res> {
+  __$$SortByImplCopyWithImpl(
+      _$SortByImpl _value, $Res Function(_$SortByImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sortType = null,
+  }) {
+    return _then(_$SortByImpl(
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as SortType,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SortByImpl implements _SortBy {
+  const _$SortByImpl({required this.sortType});
+
+  @override
+  final SortType sortType;
+
+  @override
+  String toString() {
+    return 'TodoEvent.sortBy(sortType: $sortType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SortByImpl &&
+            (identical(other.sortType, sortType) ||
+                other.sortType == sortType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, sortType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SortByImplCopyWith<_$SortByImpl> get copyWith =>
+      __$$SortByImplCopyWithImpl<_$SortByImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SortType? sortBy) loadTodos,
+    required TResult Function(TodoDataSnapshotModel snapshot) todoDataChanged,
+    required TResult Function(TodoModel todoModel) addTodo,
+    required TResult Function(int index) removeTodo,
+    required TResult Function(int index, TodoStatus status) markTodo,
+    required TResult Function(SortType sortType) sortBy,
+  }) {
+    return sortBy(sortType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SortType? sortBy)? loadTodos,
+    TResult? Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
+    TResult? Function(TodoModel todoModel)? addTodo,
+    TResult? Function(int index)? removeTodo,
+    TResult? Function(int index, TodoStatus status)? markTodo,
+    TResult? Function(SortType sortType)? sortBy,
+  }) {
+    return sortBy?.call(sortType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SortType? sortBy)? loadTodos,
+    TResult Function(TodoDataSnapshotModel snapshot)? todoDataChanged,
+    TResult Function(TodoModel todoModel)? addTodo,
+    TResult Function(int index)? removeTodo,
+    TResult Function(int index, TodoStatus status)? markTodo,
+    TResult Function(SortType sortType)? sortBy,
+    required TResult orElse(),
+  }) {
+    if (sortBy != null) {
+      return sortBy(sortType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadTodos value) loadTodos,
+    required TResult Function(_TodoDataChanged value) todoDataChanged,
+    required TResult Function(_AddTodo value) addTodo,
+    required TResult Function(_RemoveTodo value) removeTodo,
+    required TResult Function(_MarkToDo value) markTodo,
+    required TResult Function(_SortBy value) sortBy,
+  }) {
+    return sortBy(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadTodos value)? loadTodos,
+    TResult? Function(_TodoDataChanged value)? todoDataChanged,
+    TResult? Function(_AddTodo value)? addTodo,
+    TResult? Function(_RemoveTodo value)? removeTodo,
+    TResult? Function(_MarkToDo value)? markTodo,
+    TResult? Function(_SortBy value)? sortBy,
+  }) {
+    return sortBy?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadTodos value)? loadTodos,
+    TResult Function(_TodoDataChanged value)? todoDataChanged,
+    TResult Function(_AddTodo value)? addTodo,
+    TResult Function(_RemoveTodo value)? removeTodo,
+    TResult Function(_MarkToDo value)? markTodo,
+    TResult Function(_SortBy value)? sortBy,
+    required TResult orElse(),
+  }) {
+    if (sortBy != null) {
+      return sortBy(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SortBy implements TodoEvent {
+  const factory _SortBy({required final SortType sortType}) = _$SortByImpl;
+
+  SortType get sortType;
+  @JsonKey(ignore: true)
+  _$$SortByImplCopyWith<_$SortByImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$TodoState {
   List<TodoItem> get todoModels => throw _privateConstructorUsedError;
+  SortType get sortType => throw _privateConstructorUsedError;
   TodoDataSnapshotModel? get snapshot => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         idle,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         progress,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
     required TResult orElse(),
   }) =>
@@ -715,7 +1143,10 @@ abstract class $TodoStateCopyWith<$Res> {
   factory $TodoStateCopyWith(TodoState value, $Res Function(TodoState) then) =
       _$TodoStateCopyWithImpl<$Res, TodoState>;
   @useResult
-  $Res call({List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot});
+  $Res call(
+      {List<TodoItem> todoModels,
+      SortType sortType,
+      TodoDataSnapshotModel? snapshot});
 }
 
 /// @nodoc
@@ -732,6 +1163,7 @@ class _$TodoStateCopyWithImpl<$Res, $Val extends TodoState>
   @override
   $Res call({
     Object? todoModels = null,
+    Object? sortType = null,
     Object? snapshot = freezed,
   }) {
     return _then(_value.copyWith(
@@ -739,6 +1171,10 @@ class _$TodoStateCopyWithImpl<$Res, $Val extends TodoState>
           ? _value.todoModels
           : todoModels // ignore: cast_nullable_to_non_nullable
               as List<TodoItem>,
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as SortType,
       snapshot: freezed == snapshot
           ? _value.snapshot
           : snapshot // ignore: cast_nullable_to_non_nullable
@@ -754,7 +1190,10 @@ abstract class _$$IdleImplCopyWith<$Res> implements $TodoStateCopyWith<$Res> {
       __$$IdleImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot});
+  $Res call(
+      {List<TodoItem> todoModels,
+      SortType sortType,
+      TodoDataSnapshotModel? snapshot});
 }
 
 /// @nodoc
@@ -768,6 +1207,7 @@ class __$$IdleImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? todoModels = null,
+    Object? sortType = null,
     Object? snapshot = freezed,
   }) {
     return _then(_$IdleImpl(
@@ -775,6 +1215,10 @@ class __$$IdleImplCopyWithImpl<$Res>
           ? _value._todoModels
           : todoModels // ignore: cast_nullable_to_non_nullable
               as List<TodoItem>,
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as SortType,
       snapshot: freezed == snapshot
           ? _value.snapshot
           : snapshot // ignore: cast_nullable_to_non_nullable
@@ -785,9 +1229,13 @@ class __$$IdleImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$IdleImpl implements _Idle {
-  const _$IdleImpl({required final List<TodoItem> todoModels, this.snapshot})
-      : _todoModels = todoModels;
+class _$IdleImpl extends _Idle {
+  const _$IdleImpl(
+      {required final List<TodoItem> todoModels,
+      required this.sortType,
+      this.snapshot})
+      : _todoModels = todoModels,
+        super._();
 
   final List<TodoItem> _todoModels;
   @override
@@ -798,11 +1246,13 @@ class _$IdleImpl implements _Idle {
   }
 
   @override
+  final SortType sortType;
+  @override
   final TodoDataSnapshotModel? snapshot;
 
   @override
   String toString() {
-    return 'TodoState.idle(todoModels: $todoModels, snapshot: $snapshot)';
+    return 'TodoState.idle(todoModels: $todoModels, sortType: $sortType, snapshot: $snapshot)';
   }
 
   @override
@@ -812,13 +1262,15 @@ class _$IdleImpl implements _Idle {
             other is _$IdleImpl &&
             const DeepCollectionEquality()
                 .equals(other._todoModels, _todoModels) &&
+            (identical(other.sortType, sortType) ||
+                other.sortType == sortType) &&
             (identical(other.snapshot, snapshot) ||
                 other.snapshot == snapshot));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_todoModels), snapshot);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_todoModels), sortType, snapshot);
 
   @JsonKey(ignore: true)
   @override
@@ -829,51 +1281,51 @@ class _$IdleImpl implements _Idle {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         idle,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         progress,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         failed,
   }) {
-    return idle(todoModels, snapshot);
+    return idle(todoModels, sortType, snapshot);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
   }) {
-    return idle?.call(todoModels, snapshot);
+    return idle?.call(todoModels, sortType, snapshot);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
     required TResult orElse(),
   }) {
     if (idle != null) {
-      return idle(todoModels, snapshot);
+      return idle(todoModels, sortType, snapshot);
     }
     return orElse();
   }
@@ -913,13 +1365,17 @@ class _$IdleImpl implements _Idle {
   }
 }
 
-abstract class _Idle implements TodoState {
+abstract class _Idle extends TodoState {
   const factory _Idle(
       {required final List<TodoItem> todoModels,
+      required final SortType sortType,
       final TodoDataSnapshotModel? snapshot}) = _$IdleImpl;
+  const _Idle._() : super._();
 
   @override
   List<TodoItem> get todoModels;
+  @override
+  SortType get sortType;
   @override
   TodoDataSnapshotModel? get snapshot;
   @override
@@ -936,7 +1392,10 @@ abstract class _$$ProgressImplCopyWith<$Res>
       __$$ProgressImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot});
+  $Res call(
+      {List<TodoItem> todoModels,
+      SortType sortType,
+      TodoDataSnapshotModel? snapshot});
 }
 
 /// @nodoc
@@ -951,6 +1410,7 @@ class __$$ProgressImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? todoModels = null,
+    Object? sortType = null,
     Object? snapshot = freezed,
   }) {
     return _then(_$ProgressImpl(
@@ -958,6 +1418,10 @@ class __$$ProgressImplCopyWithImpl<$Res>
           ? _value._todoModels
           : todoModels // ignore: cast_nullable_to_non_nullable
               as List<TodoItem>,
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as SortType,
       snapshot: freezed == snapshot
           ? _value.snapshot
           : snapshot // ignore: cast_nullable_to_non_nullable
@@ -968,10 +1432,13 @@ class __$$ProgressImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProgressImpl implements _Progress {
+class _$ProgressImpl extends _Progress {
   const _$ProgressImpl(
-      {required final List<TodoItem> todoModels, this.snapshot})
-      : _todoModels = todoModels;
+      {required final List<TodoItem> todoModels,
+      required this.sortType,
+      this.snapshot})
+      : _todoModels = todoModels,
+        super._();
 
   final List<TodoItem> _todoModels;
   @override
@@ -982,11 +1449,13 @@ class _$ProgressImpl implements _Progress {
   }
 
   @override
+  final SortType sortType;
+  @override
   final TodoDataSnapshotModel? snapshot;
 
   @override
   String toString() {
-    return 'TodoState.progress(todoModels: $todoModels, snapshot: $snapshot)';
+    return 'TodoState.progress(todoModels: $todoModels, sortType: $sortType, snapshot: $snapshot)';
   }
 
   @override
@@ -996,13 +1465,15 @@ class _$ProgressImpl implements _Progress {
             other is _$ProgressImpl &&
             const DeepCollectionEquality()
                 .equals(other._todoModels, _todoModels) &&
+            (identical(other.sortType, sortType) ||
+                other.sortType == sortType) &&
             (identical(other.snapshot, snapshot) ||
                 other.snapshot == snapshot));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_todoModels), snapshot);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_todoModels), sortType, snapshot);
 
   @JsonKey(ignore: true)
   @override
@@ -1013,51 +1484,51 @@ class _$ProgressImpl implements _Progress {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         idle,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         progress,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         failed,
   }) {
-    return progress(todoModels, snapshot);
+    return progress(todoModels, sortType, snapshot);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
   }) {
-    return progress?.call(todoModels, snapshot);
+    return progress?.call(todoModels, sortType, snapshot);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
     required TResult orElse(),
   }) {
     if (progress != null) {
-      return progress(todoModels, snapshot);
+      return progress(todoModels, sortType, snapshot);
     }
     return orElse();
   }
@@ -1097,13 +1568,17 @@ class _$ProgressImpl implements _Progress {
   }
 }
 
-abstract class _Progress implements TodoState {
+abstract class _Progress extends TodoState {
   const factory _Progress(
       {required final List<TodoItem> todoModels,
+      required final SortType sortType,
       final TodoDataSnapshotModel? snapshot}) = _$ProgressImpl;
+  const _Progress._() : super._();
 
   @override
   List<TodoItem> get todoModels;
+  @override
+  SortType get sortType;
   @override
   TodoDataSnapshotModel? get snapshot;
   @override
@@ -1119,7 +1594,10 @@ abstract class _$$FailedImplCopyWith<$Res> implements $TodoStateCopyWith<$Res> {
       __$$FailedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot});
+  $Res call(
+      {List<TodoItem> todoModels,
+      SortType sortType,
+      TodoDataSnapshotModel? snapshot});
 }
 
 /// @nodoc
@@ -1134,6 +1612,7 @@ class __$$FailedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? todoModels = null,
+    Object? sortType = null,
     Object? snapshot = freezed,
   }) {
     return _then(_$FailedImpl(
@@ -1141,6 +1620,10 @@ class __$$FailedImplCopyWithImpl<$Res>
           ? _value._todoModels
           : todoModels // ignore: cast_nullable_to_non_nullable
               as List<TodoItem>,
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as SortType,
       snapshot: freezed == snapshot
           ? _value.snapshot
           : snapshot // ignore: cast_nullable_to_non_nullable
@@ -1151,9 +1634,13 @@ class __$$FailedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FailedImpl implements _Failed {
-  const _$FailedImpl({required final List<TodoItem> todoModels, this.snapshot})
-      : _todoModels = todoModels;
+class _$FailedImpl extends _Failed {
+  const _$FailedImpl(
+      {required final List<TodoItem> todoModels,
+      required this.sortType,
+      this.snapshot})
+      : _todoModels = todoModels,
+        super._();
 
   final List<TodoItem> _todoModels;
   @override
@@ -1164,11 +1651,13 @@ class _$FailedImpl implements _Failed {
   }
 
   @override
+  final SortType sortType;
+  @override
   final TodoDataSnapshotModel? snapshot;
 
   @override
   String toString() {
-    return 'TodoState.failed(todoModels: $todoModels, snapshot: $snapshot)';
+    return 'TodoState.failed(todoModels: $todoModels, sortType: $sortType, snapshot: $snapshot)';
   }
 
   @override
@@ -1178,13 +1667,15 @@ class _$FailedImpl implements _Failed {
             other is _$FailedImpl &&
             const DeepCollectionEquality()
                 .equals(other._todoModels, _todoModels) &&
+            (identical(other.sortType, sortType) ||
+                other.sortType == sortType) &&
             (identical(other.snapshot, snapshot) ||
                 other.snapshot == snapshot));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_todoModels), snapshot);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_todoModels), sortType, snapshot);
 
   @JsonKey(ignore: true)
   @override
@@ -1195,51 +1686,51 @@ class _$FailedImpl implements _Failed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         idle,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         progress,
-    required TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
         failed,
   }) {
-    return failed(todoModels, snapshot);
+    return failed(todoModels, sortType, snapshot);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult? Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
   }) {
-    return failed?.call(todoModels, snapshot);
+    return failed?.call(todoModels, sortType, snapshot);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         idle,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         progress,
-    TResult Function(
-            List<TodoItem> todoModels, TodoDataSnapshotModel? snapshot)?
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
         failed,
     required TResult orElse(),
   }) {
     if (failed != null) {
-      return failed(todoModels, snapshot);
+      return failed(todoModels, sortType, snapshot);
     }
     return orElse();
   }
@@ -1279,13 +1770,17 @@ class _$FailedImpl implements _Failed {
   }
 }
 
-abstract class _Failed implements TodoState {
+abstract class _Failed extends TodoState {
   const factory _Failed(
       {required final List<TodoItem> todoModels,
+      required final SortType sortType,
       final TodoDataSnapshotModel? snapshot}) = _$FailedImpl;
+  const _Failed._() : super._();
 
   @override
   List<TodoItem> get todoModels;
+  @override
+  SortType get sortType;
   @override
   TodoDataSnapshotModel? get snapshot;
   @override
