@@ -1,30 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:logging/logging.dart';
 import 'package:todo_firebase/feature/auth/data/model/user_model.dart';
-import 'package:todo_firebase/feature/todo/data/model/converter/todo_model_converter.dart';
+import 'package:todo_firebase/feature/todo/data/dto/todo_dto.dart';
+import 'package:todo_firebase/feature/todo/data/model/mapper/dto_mapper.dart';
+import 'package:todo_firebase/feature/todo/data/model/mapper/todo_dto_mapper.dart';
+import 'package:todo_firebase/feature/todo/data/model/mapper/todo_status_mapper.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_data_changes_model.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_data_snapshot_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/data/results.dart';
 
 abstract interface class TodoDataProvider {
   Future<LoadedTasksResult> loadTasks(UserModel userModel);
 
-  Stream<TodoModel> onTodoAdd(UserModel userModel);
-  Stream<int> get onTodoRemove;
-  Stream<TodoModel> get onTodoModify;
+  Stream<TodoDataSnapshotModel> onTodoChanged(UserModel userModel);
 }
 
 class TodoDataProviderImpl implements TodoDataProvider {
-  final FirebaseDatabase _firebaseDatabase;
+  final _logger = Logger("TodoDataProviderImpl");
+
   final FirebaseFirestore _firebaseFirestore;
-  final TodoModelDecoder _todoModelDecoder;
+
+  final DtoMapper<TodoDto, TodoModel> _todoDtoMapper;
 
   TodoDataProviderImpl(
-      {required FirebaseDatabase firebaseDatabase,
-      required FirebaseFirestore firebaseFirestore,
-      required TodoModelDecoder todoModelDecoder})
-      : _firebaseDatabase = firebaseDatabase,
-        _firebaseFirestore = firebaseFirestore,
-        _todoModelDecoder = todoModelDecoder;
+      {required FirebaseFirestore firebaseFirestore,
+      required TodoDtoMapper todoDtoMapper})
+      : _firebaseFirestore = firebaseFirestore,
+        _todoDtoMapper = todoDtoMapper;
 
   @override
   Future<LoadedTasksResult> loadTasks(UserModel user) async {
@@ -33,31 +37,57 @@ class TodoDataProviderImpl implements TodoDataProvider {
         .doc(user.uid)
         .collection("todo")
         .withConverter(
-          fromFirestore: (snapshot, _) => TodoModel.fromJson(snapshot.data()!),
-          toFirestore: (model, _) => model.toJson(),
+          fromFirestore: (snapshot, _) =>
+              TodoDto.fromFirestore(snapshot.data()!),
+          toFirestore: (model, _) => model.toFirestore(),
         )
         .get();
-    final list = response.docs.map((element) => element.data()).toList();
+    final list = response.docs.map((element) {
+      final data = element.data();
+
+      return _todoDtoMapper.mapFromDto(data);
+    }).toList();
 
     return LoadedTasksResult.success(entity: list);
   }
 
   @override
-  Stream<TodoModel> onTodoAdd(UserModel user) => _firebaseDatabase
-          .ref("user/${user.uid}")
-          .child("todo")
-          .onChildAdded
-          .map((event) {
-        final value = event.snapshot.value as String?;
+  Stream<TodoDataSnapshotModel> onTodoChanged(UserModel user) {
+    return _firebaseFirestore
+        .collection("user")
+        .doc(user.uid)
+        .collection("todo")
+        .withConverter(
+          fromFirestore: (snapshot, _) =>
+              TodoDto.fromFirestore(snapshot.data()!),
+          toFirestore: (model, _) => model.toFirestore(),
+        )
+        .snapshots()
+        .map(
+          (snapshot) => TodoDataSnapshotModel(
+            dataList: snapshot.docs
+                .map((element) => _todoDtoMapper.mapFromDto(element.data()))
+                .toList(),
+            changes: snapshot.docChanges.map((element) {
+              final model = _todoDtoMapper.mapFromDto(element.doc.data()!);
 
-        return _todoModelDecoder.convert(value!);
-      });
-
-  @override
-  // TODO: implement onTodoModify
-  Stream<TodoModel> get onTodoModify => throw UnimplementedError();
-
-  @override
-  // TODO: implement onTodoRemove
-  Stream<int> get onTodoRemove => throw UnimplementedError();
+              return switch (element.type) {
+                DocumentChangeType.added => TodoDataChangesModel.added(
+                    todoModel: model,
+                    newIndex: element.newIndex,
+                  ),
+                DocumentChangeType.removed => TodoDataChangesModel.removed(
+                    todoModel: model,
+                    oldIndex: element.oldIndex,
+                  ),
+                DocumentChangeType.modified => TodoDataChangesModel.modified(
+                    todoModel: model,
+                    newIndex: element.newIndex,
+                    oldIndex: element.oldIndex,
+                  )
+              };
+            }).toList(),
+          ),
+        );
+  }
 }

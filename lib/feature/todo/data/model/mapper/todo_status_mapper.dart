@@ -1,18 +1,15 @@
+import 'package:todo_firebase/feature/todo/data/model/mapper/dto_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 
-import 'package:json_annotation/json_annotation.dart';
-
-class TodoStatusJsonConverter extends JsonConverter<TodoStatus?, String?> {
-  const TodoStatusJsonConverter();
+class TodoStatusMapper implements DtoMapper<String, TodoStatus> {
+  const TodoStatusMapper();
 
   static const String _planned = "PLANNED";
   static const String _deleted = "DELETED";
   static const String _completed = "COMPLETED";
+
   @override
-  TodoStatus? fromJson(String? name) {
-    if (name == null) {
-      return null;
-    }
+  TodoStatus mapFromDto(String name) {
     switch (name) {
       case _planned:
         return const TodoStatus.planned();
@@ -26,12 +23,10 @@ class TodoStatusJsonConverter extends JsonConverter<TodoStatus?, String?> {
   }
 
   @override
-  String? toJson(TodoStatus? object) {
-    final name = object?.map(
+  String mapFromModel(TodoStatus model) {
+    return model.map(
         planned: (_) => _planned,
         completed: (_) => _completed,
         deleted: (_) => _deleted);
-
-    return name;
   }
 }

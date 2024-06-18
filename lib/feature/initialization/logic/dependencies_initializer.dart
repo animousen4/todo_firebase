@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_firebase/feature/auth/bloc/auth_bloc.dart';
 import 'package:todo_firebase/feature/auth/data/converter/user_converter.dart';
+import 'package:todo_firebase/feature/auth/data/model/user_model.dart';
 import 'package:todo_firebase/feature/auth/data/provider/auth_data_provider.dart';
 import 'package:todo_firebase/feature/sign_in/data/sign_in_data_provider.dart';
 import 'package:todo_firebase/feature/auth/data/repository/auth_repository.dart';
@@ -20,7 +21,8 @@ import 'package:todo_firebase/feature/settings/data/repository/locale_repository
 import 'package:todo_firebase/feature/settings/data/repository/theme_repository.dart';
 import 'package:todo_firebase/feature/sign_up/data/sign_up_data_provider.dart';
 import 'package:todo_firebase/feature/sign_up/data/sign_up_repository.dart';
-import 'package:todo_firebase/feature/todo/data/model/converter/todo_model_converter.dart';
+import 'package:todo_firebase/feature/todo/data/model/mapper/todo_dto_mapper.dart';
+import 'package:todo_firebase/feature/todo/data/model/mapper/todo_status_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
 import 'package:todo_firebase/feature/todo/data/todo_repository.dart';
 
@@ -117,12 +119,20 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
   Future<TodoRepository> _initTodoRepository(
     AuthDataProviderFirebase authDataProvider,
   ) async {
+    final dataProvider = TodoDataProviderImpl(
+      todoDtoMapper: TodoDtoMapper(statusMapper: const TodoStatusMapper()),
+      firebaseFirestore: FirebaseFirestore.instance,
+    );
+
+    final stream = dataProvider.onTodoChanged(
+      UserModel(email: "meow@gmail.com", uid: "5HomlWO5xcQMqf3DvnsNUcY8UXA2"),
+    );
+    stream.listen((value) {
+      print('FFFFFFF');
+      print(value.changes);
+    });
     return TodoRepositoryImpl(
-      todoDataProvider: TodoDataProviderImpl(
-        todoModelDecoder: TodoModelDecoder(),
-        firebaseDatabase: FirebaseDatabase.instance,
-        firebaseFirestore: FirebaseFirestore.instance,
-      ),
+      todoDataProvider: dataProvider,
       authDataProvider: authDataProvider,
     );
   }

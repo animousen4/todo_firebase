@@ -46,41 +46,24 @@ class _TodoPageView extends StatefulWidget {
 class _TodoPageViewState extends State<_TodoPageView> {
   @override
   Widget build(BuildContext context) {
-    final authController = AuthScope.controllerOf(context);
     final todoController = TodoScope.of(context);
 
     final items = todoController.state.todoModels;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            title: const Text("Tasks"),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  authController.logout();
-                },
-                icon: const Icon(Icons.logout),
-              ),
-            ],
-          ),
+          const _TodoSliverAppBar(),
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            sliver: SliverStickyHeader(
-              header: Text(
-                "Todos",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              sliver: SliverList.builder(
-                itemBuilder: (context, index) => ListTile(
-                  title: Text(items[index].title),
-                  subtitle: Text(
-                    items[index].description,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            sliver: SliverList.builder(
+              itemBuilder: (context, index) => ListTile(
+                title: Text(items[index].title),
+                subtitle: Text(
+                  items[index].description,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                itemCount: items.length,
               ),
+              itemCount: items.length,
             ),
           ),
         ],
@@ -97,5 +80,27 @@ class _TodoPageViewState extends State<_TodoPageView> {
     super.initState();
 
     TodoScope.of(context, listen: false).loadTodos();
+  }
+}
+
+class _TodoSliverAppBar extends StatelessWidget {
+  const _TodoSliverAppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final authController = AuthScope.controllerOf(context);
+    return SliverAppBar(
+      title: const Text("Tasks"),
+      actions: [
+        IconButton(
+          onPressed: () {
+            authController.logout();
+          },
+          icon: const Icon(Icons.logout),
+        ),
+      ],
+    );
   }
 }
