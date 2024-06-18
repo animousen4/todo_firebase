@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:todo_firebase/feature/todo/data/dto/todo_dto.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_data_changes_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_data_snapshot_model.dart';
+import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
 import 'package:todo_firebase/feature/todo/data/todo_repository.dart';
@@ -32,8 +33,15 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         loadTodos: (event) async => _loadTodos(event, emit),
         todoDataChanged: (event) async => _onTodoDataChanged(event, emit),
         addTodo: (event) async => _addTodo(event, emit),
+        removeTodo: (event) async => _removeTodo(event, emit),
       ),
     );
+  }
+
+  @override
+  Future<void> close() async {
+    await _streamChangesSubscription.cancel();
+    return super.close();
   }
 
   void _loadTodos(_LoadTodos event, Emitter<TodoState> emit) async {
@@ -65,5 +73,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(TodoState.progress(todoModels: state.todoModels));
 
     await _todoRepository.addTodo(event.todoModel);
+  }
+
+  void _removeTodo(_RemoveTodo event, Emitter<TodoState> emit) async {
+    emit(TodoState.progress(todoModels: state.todoModels));
+
+    await _todoRepository.removeTodo(event.id);
   }
 }

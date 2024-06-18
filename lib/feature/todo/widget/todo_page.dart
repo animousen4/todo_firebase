@@ -50,21 +50,13 @@ class _TodoPageViewState extends State<_TodoPageView> {
   Widget build(BuildContext context) {
     final todoController = TodoScope.of(context);
 
-    final items = todoController.state.todoModels;
     return Scaffold(
-      body: CustomScrollView(
+      body: const CustomScrollView(
         slivers: [
           const _TodoSliverAppBar(),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            sliver: SliverAnimatedList(
-              key: todoController.listKey,
-              itemBuilder: (context, index, animation) => SizeTransition(
-                sizeFactor: animation,
-                child: TodoListItem(todoModel: items[index]),
-              ),
-              initialItemCount: items.length,
-            ),
+            sliver: _TodoSliverList(),
           ),
         ],
       ),
@@ -87,6 +79,26 @@ class _TodoPageViewState extends State<_TodoPageView> {
     super.initState();
 
     TodoScope.of(context, listen: false).loadTodos();
+  }
+}
+
+class _TodoSliverList extends StatelessWidget {
+  const _TodoSliverList({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final todoController = TodoScope.of(context);
+    final items = todoController.state.todoModels;
+    return SliverAnimatedList(
+      key: todoController.listKey,
+      itemBuilder: (context, index, animation) => SizeTransition(
+        sizeFactor: animation,
+        child: TodoListItem(todoItem: items[index]),
+      ),
+      initialItemCount: items.length,
+    );
   }
 }
 

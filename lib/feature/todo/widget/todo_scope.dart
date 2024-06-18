@@ -11,6 +11,7 @@ abstract interface class TodoScopeController {
   TodoState get state;
   GlobalKey<SliverAnimatedListState> get listKey;
 
+  void removeTodo(String id);
   void addTodo(TodoModel model);
   void loadTodos();
 }
@@ -46,26 +47,27 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
         if (snapshot != null) {
           for (final change in snapshot.changes) {
             change.mapOrNull(
-              added: (addedChange) =>
-                  listKey.currentState?.insertItem(addedChange.newIndex),
+              added: (addedChange) => listKey.currentState?.insertItem(
+                addedChange.newIndex,
+                duration: const Duration(milliseconds: 200),
+              ),
               removed: (removedChange) {
-                final removedElement = removedChange.todoModel;
+                final removedElement = removedChange.todoItem;
                 listKey.currentState?.removeItem(
-                    removedChange.oldIndex,
-                    (context, animation) => AnimatedBuilder(
-                          animation: animation,
-                          builder: (context, child) => SizeTransition(
-                            sizeFactor: animation,
-                            child: SlideTransition(
-                              position: animation.drive(Tween(
-                                  begin: const Offset(1.0, 0.0),
-                                  end: const Offset(0.0, 0.0))),
-                              child: FadeTransition(
-                                  opacity: animation, child: child),
-                            ),
-                          ),
-                          child: TodoListItem(todoModel: removedElement),
-                        ));
+                  removedChange.oldIndex,
+                  (context, animation) => AnimatedBuilder(
+                    animation: animation,
+                    builder: (context, child) => SizeTransition(
+                      sizeFactor: animation,
+                      child: FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      ),
+                    ),
+                    child: TodoListItem(todoItem: removedElement),
+                  ),
+                  duration: const Duration(milliseconds: 200),
+                );
               },
             );
           }
@@ -82,9 +84,8 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
   @override
   void initState() {
     super.initState();
-
-    _listKey.currentState?;
   }
+
   @override
   TodoState get state => widget.todoBloc.state;
 
@@ -94,6 +95,11 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
   @override
   void addTodo(TodoModel model) {
     widget.todoBloc.add(TodoEvent.addTodo(todoModel: model));
+  }
+
+  @override
+  void removeTodo(String id) {
+    widget.todoBloc.add(TodoEvent.removeTodo(id: id));
   }
 }
 

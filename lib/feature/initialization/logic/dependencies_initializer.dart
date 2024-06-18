@@ -22,6 +22,7 @@ import 'package:todo_firebase/feature/settings/data/repository/theme_repository.
 import 'package:todo_firebase/feature/sign_up/data/sign_up_data_provider.dart';
 import 'package:todo_firebase/feature/sign_up/data/sign_up_repository.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/todo_dto_mapper.dart';
+import 'package:todo_firebase/feature/todo/data/model/mapper/todo_snapshot_dto_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/todo_status_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
 import 'package:todo_firebase/feature/todo/data/todo_repository.dart';
@@ -119,18 +120,16 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
   Future<TodoRepository> _initTodoRepository(
     AuthDataProviderFirebase authDataProvider,
   ) async {
+    final todoMapper = TodoDtoMapper(statusMapper: const TodoStatusMapper());
+    
     final dataProvider = TodoDataProviderImpl(
-      todoDtoMapper: TodoDtoMapper(statusMapper: const TodoStatusMapper()),
+      snapshotFromDtoMapper: TodoSnapshotDtoMapper(
+        todoDtoMapper: todoMapper,
+      ),
+      todoDtoMapper: todoMapper,
       firebaseFirestore: FirebaseFirestore.instance,
     );
 
-    final stream = dataProvider.onTodoChanged(
-      UserModel(email: "meow@gmail.com", uid: "5HomlWO5xcQMqf3DvnsNUcY8UXA2"),
-    );
-    stream.listen((value) {
-      print('FFFFFFF');
-      print(value.changes);
-    });
     return TodoRepositoryImpl(
       todoDataProvider: dataProvider,
       authDataProvider: authDataProvider,

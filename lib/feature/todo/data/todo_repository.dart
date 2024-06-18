@@ -7,6 +7,7 @@ import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
 abstract interface class TodoRepository {
   Future<LoadedTasksResult> loadTasks();
   Future<Stream<TodoDataSnapshotModel>> todoChangeSteam();
+  Future<void> removeTodo(String id);
   Future<void> addTodo(TodoModel todo);
 }
 
@@ -40,5 +41,13 @@ class TodoRepositoryImpl implements TodoRepository {
     assert(user != null);
 
     await _todoDataProvider.addTodo(user!, todo);
+  }
+
+  @override
+  Future<void> removeTodo(String id) async {
+    final user = await _authDataProvider.getUser();
+    assert(user != null);
+
+    await _todoDataProvider.removeTodo(user!, id);
   }
 }

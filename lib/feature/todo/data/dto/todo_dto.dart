@@ -19,13 +19,15 @@ class TodoDto {
     required this.todoStatus,
   });
 
-  factory TodoDto.fromFirestore(Map<String, dynamic> json) => TodoDto(
+  factory TodoDto.fromFirestore(Map<String, dynamic> json) {
+    return TodoDto(
         title: json["title"],
         description: json["description"],
         createDate: json["createDate"],
         deadlineDate: json["deadlineDate"],
         todoStatus: json["todoStatus"],
       );
+  }
 
   Map<String, dynamic> toFirestore() => {
         "title": title,

@@ -16,28 +16,27 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TodoDataChangesModel {
-  TodoModel get todoModel => throw _privateConstructorUsedError;
+  TodoItem get todoItem => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TodoModel todoModel, int newIndex) added,
-    required TResult Function(TodoModel todoModel, int newIndex, int oldIndex)
+    required TResult Function(TodoItem todoItem, int newIndex) added,
+    required TResult Function(TodoItem todoItem, int newIndex, int oldIndex)
         modified,
-    required TResult Function(TodoModel todoModel, int oldIndex) removed,
+    required TResult Function(TodoItem todoItem, int oldIndex) removed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TodoModel todoModel, int newIndex)? added,
-    TResult? Function(TodoModel todoModel, int newIndex, int oldIndex)?
-        modified,
-    TResult? Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult? Function(TodoItem todoItem, int newIndex)? added,
+    TResult? Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult? Function(TodoItem todoItem, int oldIndex)? removed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TodoModel todoModel, int newIndex)? added,
-    TResult Function(TodoModel todoModel, int newIndex, int oldIndex)? modified,
-    TResult Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult Function(TodoItem todoItem, int newIndex)? added,
+    TResult Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult Function(TodoItem todoItem, int oldIndex)? removed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,7 +74,7 @@ abstract class $TodoDataChangesModelCopyWith<$Res> {
           $Res Function(TodoDataChangesModel) then) =
       _$TodoDataChangesModelCopyWithImpl<$Res, TodoDataChangesModel>;
   @useResult
-  $Res call({TodoModel todoModel});
+  $Res call({TodoItem todoItem});
 }
 
 /// @nodoc
@@ -92,13 +91,13 @@ class _$TodoDataChangesModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? todoModel = null,
+    Object? todoItem = null,
   }) {
     return _then(_value.copyWith(
-      todoModel: null == todoModel
-          ? _value.todoModel
-          : todoModel // ignore: cast_nullable_to_non_nullable
-              as TodoModel,
+      todoItem: null == todoItem
+          ? _value.todoItem
+          : todoItem // ignore: cast_nullable_to_non_nullable
+              as TodoItem,
     ) as $Val);
   }
 }
@@ -111,7 +110,7 @@ abstract class _$$AddedImplCopyWith<$Res>
       __$$AddedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TodoModel todoModel, int newIndex});
+  $Res call({TodoItem todoItem, int newIndex});
 }
 
 /// @nodoc
@@ -125,14 +124,14 @@ class __$$AddedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? todoModel = null,
+    Object? todoItem = null,
     Object? newIndex = null,
   }) {
     return _then(_$AddedImpl(
-      todoModel: null == todoModel
-          ? _value.todoModel
-          : todoModel // ignore: cast_nullable_to_non_nullable
-              as TodoModel,
+      todoItem: null == todoItem
+          ? _value.todoItem
+          : todoItem // ignore: cast_nullable_to_non_nullable
+              as TodoItem,
       newIndex: null == newIndex
           ? _value.newIndex
           : newIndex // ignore: cast_nullable_to_non_nullable
@@ -144,16 +143,16 @@ class __$$AddedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddedImpl implements _Added {
-  const _$AddedImpl({required this.todoModel, required this.newIndex});
+  const _$AddedImpl({required this.todoItem, required this.newIndex});
 
   @override
-  final TodoModel todoModel;
+  final TodoItem todoItem;
   @override
   final int newIndex;
 
   @override
   String toString() {
-    return 'TodoDataChangesModel.added(todoModel: $todoModel, newIndex: $newIndex)';
+    return 'TodoDataChangesModel.added(todoItem: $todoItem, newIndex: $newIndex)';
   }
 
   @override
@@ -161,14 +160,14 @@ class _$AddedImpl implements _Added {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddedImpl &&
-            (identical(other.todoModel, todoModel) ||
-                other.todoModel == todoModel) &&
+            (identical(other.todoItem, todoItem) ||
+                other.todoItem == todoItem) &&
             (identical(other.newIndex, newIndex) ||
                 other.newIndex == newIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, todoModel, newIndex);
+  int get hashCode => Object.hash(runtimeType, todoItem, newIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -179,35 +178,34 @@ class _$AddedImpl implements _Added {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TodoModel todoModel, int newIndex) added,
-    required TResult Function(TodoModel todoModel, int newIndex, int oldIndex)
+    required TResult Function(TodoItem todoItem, int newIndex) added,
+    required TResult Function(TodoItem todoItem, int newIndex, int oldIndex)
         modified,
-    required TResult Function(TodoModel todoModel, int oldIndex) removed,
+    required TResult Function(TodoItem todoItem, int oldIndex) removed,
   }) {
-    return added(todoModel, newIndex);
+    return added(todoItem, newIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TodoModel todoModel, int newIndex)? added,
-    TResult? Function(TodoModel todoModel, int newIndex, int oldIndex)?
-        modified,
-    TResult? Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult? Function(TodoItem todoItem, int newIndex)? added,
+    TResult? Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult? Function(TodoItem todoItem, int oldIndex)? removed,
   }) {
-    return added?.call(todoModel, newIndex);
+    return added?.call(todoItem, newIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TodoModel todoModel, int newIndex)? added,
-    TResult Function(TodoModel todoModel, int newIndex, int oldIndex)? modified,
-    TResult Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult Function(TodoItem todoItem, int newIndex)? added,
+    TResult Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult Function(TodoItem todoItem, int oldIndex)? removed,
     required TResult orElse(),
   }) {
     if (added != null) {
-      return added(todoModel, newIndex);
+      return added(todoItem, newIndex);
     }
     return orElse();
   }
@@ -249,11 +247,11 @@ class _$AddedImpl implements _Added {
 
 abstract class _Added implements TodoDataChangesModel {
   const factory _Added(
-      {required final TodoModel todoModel,
+      {required final TodoItem todoItem,
       required final int newIndex}) = _$AddedImpl;
 
   @override
-  TodoModel get todoModel;
+  TodoItem get todoItem;
   int get newIndex;
   @override
   @JsonKey(ignore: true)
@@ -269,7 +267,7 @@ abstract class _$$ModifiedImplCopyWith<$Res>
       __$$ModifiedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TodoModel todoModel, int newIndex, int oldIndex});
+  $Res call({TodoItem todoItem, int newIndex, int oldIndex});
 }
 
 /// @nodoc
@@ -283,15 +281,15 @@ class __$$ModifiedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? todoModel = null,
+    Object? todoItem = null,
     Object? newIndex = null,
     Object? oldIndex = null,
   }) {
     return _then(_$ModifiedImpl(
-      todoModel: null == todoModel
-          ? _value.todoModel
-          : todoModel // ignore: cast_nullable_to_non_nullable
-              as TodoModel,
+      todoItem: null == todoItem
+          ? _value.todoItem
+          : todoItem // ignore: cast_nullable_to_non_nullable
+              as TodoItem,
       newIndex: null == newIndex
           ? _value.newIndex
           : newIndex // ignore: cast_nullable_to_non_nullable
@@ -308,12 +306,10 @@ class __$$ModifiedImplCopyWithImpl<$Res>
 
 class _$ModifiedImpl implements _Modified {
   const _$ModifiedImpl(
-      {required this.todoModel,
-      required this.newIndex,
-      required this.oldIndex});
+      {required this.todoItem, required this.newIndex, required this.oldIndex});
 
   @override
-  final TodoModel todoModel;
+  final TodoItem todoItem;
   @override
   final int newIndex;
   @override
@@ -321,7 +317,7 @@ class _$ModifiedImpl implements _Modified {
 
   @override
   String toString() {
-    return 'TodoDataChangesModel.modified(todoModel: $todoModel, newIndex: $newIndex, oldIndex: $oldIndex)';
+    return 'TodoDataChangesModel.modified(todoItem: $todoItem, newIndex: $newIndex, oldIndex: $oldIndex)';
   }
 
   @override
@@ -329,8 +325,8 @@ class _$ModifiedImpl implements _Modified {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ModifiedImpl &&
-            (identical(other.todoModel, todoModel) ||
-                other.todoModel == todoModel) &&
+            (identical(other.todoItem, todoItem) ||
+                other.todoItem == todoItem) &&
             (identical(other.newIndex, newIndex) ||
                 other.newIndex == newIndex) &&
             (identical(other.oldIndex, oldIndex) ||
@@ -338,7 +334,7 @@ class _$ModifiedImpl implements _Modified {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, todoModel, newIndex, oldIndex);
+  int get hashCode => Object.hash(runtimeType, todoItem, newIndex, oldIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -349,35 +345,34 @@ class _$ModifiedImpl implements _Modified {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TodoModel todoModel, int newIndex) added,
-    required TResult Function(TodoModel todoModel, int newIndex, int oldIndex)
+    required TResult Function(TodoItem todoItem, int newIndex) added,
+    required TResult Function(TodoItem todoItem, int newIndex, int oldIndex)
         modified,
-    required TResult Function(TodoModel todoModel, int oldIndex) removed,
+    required TResult Function(TodoItem todoItem, int oldIndex) removed,
   }) {
-    return modified(todoModel, newIndex, oldIndex);
+    return modified(todoItem, newIndex, oldIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TodoModel todoModel, int newIndex)? added,
-    TResult? Function(TodoModel todoModel, int newIndex, int oldIndex)?
-        modified,
-    TResult? Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult? Function(TodoItem todoItem, int newIndex)? added,
+    TResult? Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult? Function(TodoItem todoItem, int oldIndex)? removed,
   }) {
-    return modified?.call(todoModel, newIndex, oldIndex);
+    return modified?.call(todoItem, newIndex, oldIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TodoModel todoModel, int newIndex)? added,
-    TResult Function(TodoModel todoModel, int newIndex, int oldIndex)? modified,
-    TResult Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult Function(TodoItem todoItem, int newIndex)? added,
+    TResult Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult Function(TodoItem todoItem, int oldIndex)? removed,
     required TResult orElse(),
   }) {
     if (modified != null) {
-      return modified(todoModel, newIndex, oldIndex);
+      return modified(todoItem, newIndex, oldIndex);
     }
     return orElse();
   }
@@ -419,12 +414,12 @@ class _$ModifiedImpl implements _Modified {
 
 abstract class _Modified implements TodoDataChangesModel {
   const factory _Modified(
-      {required final TodoModel todoModel,
+      {required final TodoItem todoItem,
       required final int newIndex,
       required final int oldIndex}) = _$ModifiedImpl;
 
   @override
-  TodoModel get todoModel;
+  TodoItem get todoItem;
   int get newIndex;
   int get oldIndex;
   @override
@@ -441,7 +436,7 @@ abstract class _$$RemovedImplCopyWith<$Res>
       __$$RemovedImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TodoModel todoModel, int oldIndex});
+  $Res call({TodoItem todoItem, int oldIndex});
 }
 
 /// @nodoc
@@ -455,14 +450,14 @@ class __$$RemovedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? todoModel = null,
+    Object? todoItem = null,
     Object? oldIndex = null,
   }) {
     return _then(_$RemovedImpl(
-      todoModel: null == todoModel
-          ? _value.todoModel
-          : todoModel // ignore: cast_nullable_to_non_nullable
-              as TodoModel,
+      todoItem: null == todoItem
+          ? _value.todoItem
+          : todoItem // ignore: cast_nullable_to_non_nullable
+              as TodoItem,
       oldIndex: null == oldIndex
           ? _value.oldIndex
           : oldIndex // ignore: cast_nullable_to_non_nullable
@@ -474,16 +469,16 @@ class __$$RemovedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemovedImpl implements _Removed {
-  const _$RemovedImpl({required this.todoModel, required this.oldIndex});
+  const _$RemovedImpl({required this.todoItem, required this.oldIndex});
 
   @override
-  final TodoModel todoModel;
+  final TodoItem todoItem;
   @override
   final int oldIndex;
 
   @override
   String toString() {
-    return 'TodoDataChangesModel.removed(todoModel: $todoModel, oldIndex: $oldIndex)';
+    return 'TodoDataChangesModel.removed(todoItem: $todoItem, oldIndex: $oldIndex)';
   }
 
   @override
@@ -491,14 +486,14 @@ class _$RemovedImpl implements _Removed {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemovedImpl &&
-            (identical(other.todoModel, todoModel) ||
-                other.todoModel == todoModel) &&
+            (identical(other.todoItem, todoItem) ||
+                other.todoItem == todoItem) &&
             (identical(other.oldIndex, oldIndex) ||
                 other.oldIndex == oldIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, todoModel, oldIndex);
+  int get hashCode => Object.hash(runtimeType, todoItem, oldIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -509,35 +504,34 @@ class _$RemovedImpl implements _Removed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TodoModel todoModel, int newIndex) added,
-    required TResult Function(TodoModel todoModel, int newIndex, int oldIndex)
+    required TResult Function(TodoItem todoItem, int newIndex) added,
+    required TResult Function(TodoItem todoItem, int newIndex, int oldIndex)
         modified,
-    required TResult Function(TodoModel todoModel, int oldIndex) removed,
+    required TResult Function(TodoItem todoItem, int oldIndex) removed,
   }) {
-    return removed(todoModel, oldIndex);
+    return removed(todoItem, oldIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TodoModel todoModel, int newIndex)? added,
-    TResult? Function(TodoModel todoModel, int newIndex, int oldIndex)?
-        modified,
-    TResult? Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult? Function(TodoItem todoItem, int newIndex)? added,
+    TResult? Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult? Function(TodoItem todoItem, int oldIndex)? removed,
   }) {
-    return removed?.call(todoModel, oldIndex);
+    return removed?.call(todoItem, oldIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TodoModel todoModel, int newIndex)? added,
-    TResult Function(TodoModel todoModel, int newIndex, int oldIndex)? modified,
-    TResult Function(TodoModel todoModel, int oldIndex)? removed,
+    TResult Function(TodoItem todoItem, int newIndex)? added,
+    TResult Function(TodoItem todoItem, int newIndex, int oldIndex)? modified,
+    TResult Function(TodoItem todoItem, int oldIndex)? removed,
     required TResult orElse(),
   }) {
     if (removed != null) {
-      return removed(todoModel, oldIndex);
+      return removed(todoItem, oldIndex);
     }
     return orElse();
   }
@@ -579,11 +573,11 @@ class _$RemovedImpl implements _Removed {
 
 abstract class _Removed implements TodoDataChangesModel {
   const factory _Removed(
-      {required final TodoModel todoModel,
+      {required final TodoItem todoItem,
       required final int oldIndex}) = _$RemovedImpl;
 
   @override
-  TodoModel get todoModel;
+  TodoItem get todoItem;
   int get oldIndex;
   @override
   @JsonKey(ignore: true)
