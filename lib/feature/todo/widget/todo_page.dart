@@ -4,6 +4,8 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:todo_firebase/feature/auth/widget/auth_scope.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/todo/bloc/todo_bloc.dart';
+import 'package:todo_firebase/feature/todo/widget/todo_add_dialog.dart';
+import 'package:todo_firebase/feature/todo/widget/todo_list_item.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
 
 @RoutePage()
@@ -55,21 +57,26 @@ class _TodoPageViewState extends State<_TodoPageView> {
           const _TodoSliverAppBar(),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            sliver: SliverList.builder(
-              itemBuilder: (context, index) => ListTile(
-                title: Text(items[index].title),
-                subtitle: Text(
-                  items[index].description,
-                  overflow: TextOverflow.ellipsis,
-                ),
+            sliver: SliverAnimatedList(
+              key: todoController.listKey,
+              itemBuilder: (context, index, animation) => SizeTransition(
+                sizeFactor: animation,
+                child: TodoListItem(todoModel: items[index]),
               ),
-              itemCount: items.length,
+              initialItemCount: items.length,
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => TodoAddDialog(
+              todoScopeController: todoController,
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );
@@ -82,6 +89,18 @@ class _TodoPageViewState extends State<_TodoPageView> {
     TodoScope.of(context, listen: false).loadTodos();
   }
 }
+
+/*
+
+itemBuilder: (context, index) => ListTile(
+                title: Text(items[index].title),
+                subtitle: Text(
+                  items[index].description,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              itemCount: items.length,
+ */
 
 class _TodoSliverAppBar extends StatelessWidget {
   const _TodoSliverAppBar({

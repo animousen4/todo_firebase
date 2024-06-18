@@ -15,6 +15,8 @@ abstract interface class TodoDataProvider {
   Future<LoadedTasksResult> loadTasks(UserModel userModel);
 
   Stream<TodoDataSnapshotModel> onTodoChanged(UserModel userModel);
+
+  Future<void> addTodo(UserModel userModel, TodoModel todo);
 }
 
 class TodoDataProviderImpl implements TodoDataProvider {
@@ -89,5 +91,19 @@ class TodoDataProviderImpl implements TodoDataProvider {
             }).toList(),
           ),
         );
+  }
+
+  @override
+  Future<void> addTodo(UserModel userModel, TodoModel todo) async {
+    await _firebaseFirestore
+        .collection("user")
+        .doc(userModel.uid)
+        .collection("todo")
+        .withConverter(
+          fromFirestore: (snapshot, _) =>
+              TodoDto.fromFirestore(snapshot.data()!),
+          toFirestore: (model, _) => model.toFirestore(),
+        )
+        .add(_todoDtoMapper.mapFromModel(todo));
   }
 }
