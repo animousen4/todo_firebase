@@ -54,7 +54,7 @@ class _TodoAddDialogState extends State<TodoAddDialog> {
             ValidationTextField(
               error: _titleError,
               controller: _titleController,
-              decorationLabel: Text("Title"),
+              decorationLabel: const Text("Title"),
             ),
             const SizedBox(
               height: 14,
@@ -62,7 +62,7 @@ class _TodoAddDialogState extends State<TodoAddDialog> {
             ValidationTextField(
               error: _descriptionError,
               controller: _descriptionController,
-              decorationLabel: Text("Description"),
+              decorationLabel: const Text("Description"),
             ),
             const SizedBox(
               height: 14,

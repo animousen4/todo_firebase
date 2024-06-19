@@ -44,9 +44,10 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
     );
 
     final repositories = Repositories(
-        signUpRepository: await _initSignUpRepository(firebaseAuth),
-        signInRepository: await _initSignInRepository(firebaseAuth),
-        todoRepository: await _initTodoRepository(authDataProvider));
+      signUpRepository: await _initSignUpRepository(firebaseAuth),
+      signInRepository: await _initSignInRepository(firebaseAuth),
+      todoRepository: await _initTodoRepository(authDataProvider),
+    );
     final appRouter = AppRouter();
 
     return Dependencies(
@@ -121,7 +122,7 @@ class DefaultDependenciesInitializer implements DependenciesInitializer {
     AuthDataProviderFirebase authDataProvider,
   ) async {
     final todoMapper = TodoDtoMapper(statusMapper: const TodoStatusMapper());
-    
+
     final dataProvider = TodoDataProviderImpl(
       snapshotFromDtoMapper: TodoSnapshotDtoMapper(
         todoDtoMapper: todoMapper,

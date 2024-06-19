@@ -19,4 +19,10 @@ class TodoState with _$TodoState {
       {required List<TodoItem> todoModels,
       required SortType sortType,
       TodoDataSnapshotModel? snapshot}) = _Failed;
+  
+  const factory TodoState.error(
+      {required List<TodoItem> todoModels,
+      required SortType sortType,
+      TodoDataSnapshotModel? snapshot,
+      Object? error}) = _Error;
 }

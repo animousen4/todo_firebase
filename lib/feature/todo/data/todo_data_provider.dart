@@ -1,19 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:logging/logging.dart';
 import 'package:todo_firebase/feature/auth/data/model/user_model.dart';
 import 'package:todo_firebase/feature/todo/data/dto/todo_dto.dart';
 import 'package:todo_firebase/feature/todo/data/dto/todo_item_dto.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/dto_mapper.dart';
-import 'package:todo_firebase/feature/todo/data/model/mapper/todo_dto_mapper.dart';
-import 'package:todo_firebase/feature/todo/data/model/mapper/todo_status_mapper.dart';
-import 'package:todo_firebase/feature/todo/data/model/todo_data_changes_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_data_snapshot_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_sort_mechanism.dart';
-import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
-import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 import 'package:todo_firebase/feature/todo/data/results.dart';
 
 abstract interface class TodoDataProvider {
@@ -83,7 +77,9 @@ class TodoDataProviderImpl implements TodoDataProvider {
 
   @override
   Future<LoadedTasksResult> loadTasks(
-      UserModel user, TodoSortMechanism mechanism) async {
+    UserModel user,
+    TodoSortMechanism mechanism,
+  ) async {
     final response = await _getTodoItemCollection(user)
         .orderBy(mechanism.fieldName, descending: mechanism.descending)
         .get();

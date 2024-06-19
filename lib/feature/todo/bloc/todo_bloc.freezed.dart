@@ -1081,6 +1081,9 @@ mixin _$TodoState {
     required TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)
         failed,
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)
+        error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1094,6 +1097,9 @@ mixin _$TodoState {
     TResult? Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1107,6 +1113,9 @@ mixin _$TodoState {
     TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1115,6 +1124,7 @@ mixin _$TodoState {
     required TResult Function(_Idle value) idle,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
+    required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1122,6 +1132,7 @@ mixin _$TodoState {
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
+    TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1129,6 +1140,7 @@ mixin _$TodoState {
     TResult Function(_Idle value)? idle,
     TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1290,6 +1302,9 @@ class _$IdleImpl extends _Idle {
     required TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)
         failed,
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)
+        error,
   }) {
     return idle(todoModels, sortType, snapshot);
   }
@@ -1306,6 +1321,9 @@ class _$IdleImpl extends _Idle {
     TResult? Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
   }) {
     return idle?.call(todoModels, sortType, snapshot);
   }
@@ -1322,6 +1340,9 @@ class _$IdleImpl extends _Idle {
     TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -1336,6 +1357,7 @@ class _$IdleImpl extends _Idle {
     required TResult Function(_Idle value) idle,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
+    required TResult Function(_Error value) error,
   }) {
     return idle(this);
   }
@@ -1346,6 +1368,7 @@ class _$IdleImpl extends _Idle {
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
+    TResult? Function(_Error value)? error,
   }) {
     return idle?.call(this);
   }
@@ -1356,6 +1379,7 @@ class _$IdleImpl extends _Idle {
     TResult Function(_Idle value)? idle,
     TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -1493,6 +1517,9 @@ class _$ProgressImpl extends _Progress {
     required TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)
         failed,
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)
+        error,
   }) {
     return progress(todoModels, sortType, snapshot);
   }
@@ -1509,6 +1536,9 @@ class _$ProgressImpl extends _Progress {
     TResult? Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
   }) {
     return progress?.call(todoModels, sortType, snapshot);
   }
@@ -1525,6 +1555,9 @@ class _$ProgressImpl extends _Progress {
     TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
     required TResult orElse(),
   }) {
     if (progress != null) {
@@ -1539,6 +1572,7 @@ class _$ProgressImpl extends _Progress {
     required TResult Function(_Idle value) idle,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
+    required TResult Function(_Error value) error,
   }) {
     return progress(this);
   }
@@ -1549,6 +1583,7 @@ class _$ProgressImpl extends _Progress {
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
+    TResult? Function(_Error value)? error,
   }) {
     return progress?.call(this);
   }
@@ -1559,6 +1594,7 @@ class _$ProgressImpl extends _Progress {
     TResult Function(_Idle value)? idle,
     TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (progress != null) {
@@ -1695,6 +1731,9 @@ class _$FailedImpl extends _Failed {
     required TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)
         failed,
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)
+        error,
   }) {
     return failed(todoModels, sortType, snapshot);
   }
@@ -1711,6 +1750,9 @@ class _$FailedImpl extends _Failed {
     TResult? Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
   }) {
     return failed?.call(todoModels, sortType, snapshot);
   }
@@ -1727,6 +1769,9 @@ class _$FailedImpl extends _Failed {
     TResult Function(List<TodoItem> todoModels, SortType sortType,
             TodoDataSnapshotModel? snapshot)?
         failed,
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -1741,6 +1786,7 @@ class _$FailedImpl extends _Failed {
     required TResult Function(_Idle value) idle,
     required TResult Function(_Progress value) progress,
     required TResult Function(_Failed value) failed,
+    required TResult Function(_Error value) error,
   }) {
     return failed(this);
   }
@@ -1751,6 +1797,7 @@ class _$FailedImpl extends _Failed {
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Progress value)? progress,
     TResult? Function(_Failed value)? failed,
+    TResult? Function(_Error value)? error,
   }) {
     return failed?.call(this);
   }
@@ -1761,6 +1808,7 @@ class _$FailedImpl extends _Failed {
     TResult Function(_Idle value)? idle,
     TResult Function(_Progress value)? progress,
     TResult Function(_Failed value)? failed,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (failed != null) {
@@ -1786,5 +1834,232 @@ abstract class _Failed extends TodoState {
   @override
   @JsonKey(ignore: true)
   _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ErrorImplCopyWith<$Res> implements $TodoStateCopyWith<$Res> {
+  factory _$$ErrorImplCopyWith(
+          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
+      __$$ErrorImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<TodoItem> todoModels,
+      SortType sortType,
+      TodoDataSnapshotModel? snapshot,
+      Object? error});
+}
+
+/// @nodoc
+class __$$ErrorImplCopyWithImpl<$Res>
+    extends _$TodoStateCopyWithImpl<$Res, _$ErrorImpl>
+    implements _$$ErrorImplCopyWith<$Res> {
+  __$$ErrorImplCopyWithImpl(
+      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? todoModels = null,
+    Object? sortType = null,
+    Object? snapshot = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_$ErrorImpl(
+      todoModels: null == todoModels
+          ? _value._todoModels
+          : todoModels // ignore: cast_nullable_to_non_nullable
+              as List<TodoItem>,
+      sortType: null == sortType
+          ? _value.sortType
+          : sortType // ignore: cast_nullable_to_non_nullable
+              as SortType,
+      snapshot: freezed == snapshot
+          ? _value.snapshot
+          : snapshot // ignore: cast_nullable_to_non_nullable
+              as TodoDataSnapshotModel?,
+      error: freezed == error ? _value.error : error,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ErrorImpl extends _Error {
+  const _$ErrorImpl(
+      {required final List<TodoItem> todoModels,
+      required this.sortType,
+      this.snapshot,
+      this.error})
+      : _todoModels = todoModels,
+        super._();
+
+  final List<TodoItem> _todoModels;
+  @override
+  List<TodoItem> get todoModels {
+    if (_todoModels is EqualUnmodifiableListView) return _todoModels;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_todoModels);
+  }
+
+  @override
+  final SortType sortType;
+  @override
+  final TodoDataSnapshotModel? snapshot;
+  @override
+  final Object? error;
+
+  @override
+  String toString() {
+    return 'TodoState.error(todoModels: $todoModels, sortType: $sortType, snapshot: $snapshot, error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ErrorImpl &&
+            const DeepCollectionEquality()
+                .equals(other._todoModels, _todoModels) &&
+            (identical(other.sortType, sortType) ||
+                other.sortType == sortType) &&
+            (identical(other.snapshot, snapshot) ||
+                other.snapshot == snapshot) &&
+            const DeepCollectionEquality().equals(other.error, error));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_todoModels),
+      sortType,
+      snapshot,
+      const DeepCollectionEquality().hash(error));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
+        idle,
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
+        progress,
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)
+        failed,
+    required TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)
+        error,
+  }) {
+    return error(todoModels, sortType, snapshot, this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
+        idle,
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
+        progress,
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
+        failed,
+    TResult? Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
+  }) {
+    return error?.call(todoModels, sortType, snapshot, this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
+        idle,
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
+        progress,
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot)?
+        failed,
+    TResult Function(List<TodoItem> todoModels, SortType sortType,
+            TodoDataSnapshotModel? snapshot, Object? error)?
+        error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(todoModels, sortType, snapshot, this.error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Progress value) progress,
+    required TResult Function(_Failed value) failed,
+    required TResult Function(_Error value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Progress value)? progress,
+    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Error value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Progress value)? progress,
+    TResult Function(_Failed value)? failed,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error extends TodoState {
+  const factory _Error(
+      {required final List<TodoItem> todoModels,
+      required final SortType sortType,
+      final TodoDataSnapshotModel? snapshot,
+      final Object? error}) = _$ErrorImpl;
+  const _Error._() : super._();
+
+  @override
+  List<TodoItem> get todoModels;
+  @override
+  SortType get sortType;
+  @override
+  TodoDataSnapshotModel? get snapshot;
+  Object? get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

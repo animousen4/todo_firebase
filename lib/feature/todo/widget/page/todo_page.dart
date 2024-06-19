@@ -5,6 +5,7 @@ import 'package:todo_firebase/feature/auth/widget/auth_scope.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/todo/bloc/todo_bloc.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
+import 'package:todo_firebase/feature/todo/widget/synchronizer/animated_sync.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_add_dialog.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_list_item.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
@@ -56,9 +57,12 @@ class _TodoPageViewState extends State<_TodoPageView> {
     return Scaffold(
       body: const CustomScrollView(
         slivers: [
-          const _TodoSliverAppBar(),
+          _TodoSliverAppBar(),
+          SliverToBoxAdapter(
+            child: _DropdownSort(),
+          ),
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             sliver: _TodoSliverList(),
           ),
         ],
@@ -136,30 +140,18 @@ class _TodoSliverAppBar extends StatelessWidget {
     final todoScope = TodoScope.of(context);
     final todoState = todoScope.state;
     return SliverAppBar(
-      title: const Row(
+      title: Row(
         children: [
-          Text("Tasks"),
+          const Text("Tasks"),
+          const SizedBox(
+            width: 10,
+          ),
+          AnimatedSync(
+            isSyncing: todoState.inProgress,
+          ),
         ],
       ),
       actions: [
-        DropdownMenu<_SortMethods>(
-          label: Text("Sort by"),
-          width: 140,
-          initialSelection: _SortMethods.complete,
-          dropdownMenuEntries:
-              _SortMethods.values.map<DropdownMenuEntry<_SortMethods>>((value) {
-            return DropdownMenuEntry(
-              value: value,
-              label: value.name,
-              leadingIcon: Icon(value.icon),
-            );
-          }).toList(),
-          onSelected: (value) {
-            if (value != null) {
-              todoScope.sortBy(value.sortType);
-            }
-          },
-        ),
         IconButton(
           onPressed: () {
             authController.logout();
@@ -167,6 +159,38 @@ class _TodoSliverAppBar extends StatelessWidget {
           icon: const Icon(Icons.logout),
         ),
       ],
+    );
+  }
+}
+
+class _DropdownSort extends StatelessWidget {
+  const _DropdownSort({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final todoScope = TodoScope.of(context);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DropdownMenu<_SortMethods>(
+        label: const Text("Sort by"),
+        width: 140,
+        initialSelection: _SortMethods.complete,
+        dropdownMenuEntries:
+            _SortMethods.values.map<DropdownMenuEntry<_SortMethods>>((value) {
+          return DropdownMenuEntry(
+            value: value,
+            label: value.name,
+            leadingIcon: Icon(value.icon),
+          );
+        }).toList(),
+        onSelected: (value) {
+          if (value != null) {
+            todoScope.sortBy(value.sortType);
+          }
+        },
+      ),
     );
   }
 }

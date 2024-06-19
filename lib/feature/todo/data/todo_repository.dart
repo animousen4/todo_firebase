@@ -12,7 +12,8 @@ abstract interface class TodoRepository {
   Future<LoadedTasksResult> loadTasks(
     TodoSortMechanism mechanism,
   );
-  Future<Stream<TodoDataSnapshotModel>> todoChangeSteam(TodoSortMechanism mechanism);
+  Future<Stream<TodoDataSnapshotModel>> todoChangeStream(
+      TodoSortMechanism mechanism);
   Future<void> removeTodo(String id);
   Future<void> addTodo(TodoModel todo);
   Future<void> modifyTodo(String id, TodoModel todo);
@@ -44,7 +45,8 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Stream<TodoDataSnapshotModel>> todoChangeSteam(TodoSortMechanism mechanism) async {
+  Future<Stream<TodoDataSnapshotModel>> todoChangeStream(
+      TodoSortMechanism mechanism) async {
     return _todoDataProvider.onTodoChanged(await _user, mechanism);
   }
 
