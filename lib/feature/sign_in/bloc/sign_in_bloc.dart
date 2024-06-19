@@ -33,7 +33,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
     result.map(
       success: (result) =>
-          emit(SignInState.idle(validationError: state.validationError)),
+          emit(SignInState.success(validationError: state.validationError)),
       failed: (result) =>
           emit(SignInState.failed(validationError: result.error)),
     );

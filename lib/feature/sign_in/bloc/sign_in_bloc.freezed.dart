@@ -227,6 +227,7 @@ mixin _$SignInState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) success,
     required TResult Function(ServerError? validationError) processing,
     required TResult Function(ServerError? validationError) failed,
   }) =>
@@ -234,6 +235,7 @@ mixin _$SignInState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? success,
     TResult? Function(ServerError? validationError)? processing,
     TResult? Function(ServerError? validationError)? failed,
   }) =>
@@ -241,6 +243,7 @@ mixin _$SignInState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? success,
     TResult Function(ServerError? validationError)? processing,
     TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
@@ -249,6 +252,7 @@ mixin _$SignInState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Processing value) processing,
     required TResult Function(_Failed value) failed,
   }) =>
@@ -256,6 +260,7 @@ mixin _$SignInState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Processing value)? processing,
     TResult? Function(_Failed value)? failed,
   }) =>
@@ -263,6 +268,7 @@ mixin _$SignInState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Processing value)? processing,
     TResult Function(_Failed value)? failed,
     required TResult orElse(),
@@ -373,6 +379,7 @@ class _$IdleImpl extends _Idle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) success,
     required TResult Function(ServerError? validationError) processing,
     required TResult Function(ServerError? validationError) failed,
   }) {
@@ -383,6 +390,7 @@ class _$IdleImpl extends _Idle {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? success,
     TResult? Function(ServerError? validationError)? processing,
     TResult? Function(ServerError? validationError)? failed,
   }) {
@@ -393,6 +401,7 @@ class _$IdleImpl extends _Idle {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? success,
     TResult Function(ServerError? validationError)? processing,
     TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
@@ -407,6 +416,7 @@ class _$IdleImpl extends _Idle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Processing value) processing,
     required TResult Function(_Failed value) failed,
   }) {
@@ -417,6 +427,7 @@ class _$IdleImpl extends _Idle {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Processing value)? processing,
     TResult? Function(_Failed value)? failed,
   }) {
@@ -427,6 +438,7 @@ class _$IdleImpl extends _Idle {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Processing value)? processing,
     TResult Function(_Failed value)? failed,
     required TResult orElse(),
@@ -447,6 +459,157 @@ abstract class _Idle extends SignInState {
   @override
   @JsonKey(ignore: true)
   _$$IdleImplCopyWith<_$IdleImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SuccessImplCopyWith<$Res>
+    implements $SignInStateCopyWith<$Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
+      __$$SuccessImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({ServerError? validationError});
+}
+
+/// @nodoc
+class __$$SuccessImplCopyWithImpl<$Res>
+    extends _$SignInStateCopyWithImpl<$Res, _$SuccessImpl>
+    implements _$$SuccessImplCopyWith<$Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? validationError = freezed,
+  }) {
+    return _then(_$SuccessImpl(
+      validationError: freezed == validationError
+          ? _value.validationError
+          : validationError // ignore: cast_nullable_to_non_nullable
+              as ServerError?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessImpl extends _Success {
+  const _$SuccessImpl({this.validationError}) : super._();
+
+  @override
+  final ServerError? validationError;
+
+  @override
+  String toString() {
+    return 'SignInState.success(validationError: $validationError)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            (identical(other.validationError, validationError) ||
+                other.validationError == validationError));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, validationError);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) success,
+    required TResult Function(ServerError? validationError) processing,
+    required TResult Function(ServerError? validationError) failed,
+  }) {
+    return success(validationError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? success,
+    TResult? Function(ServerError? validationError)? processing,
+    TResult? Function(ServerError? validationError)? failed,
+  }) {
+    return success?.call(validationError);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? success,
+    TResult Function(ServerError? validationError)? processing,
+    TResult Function(ServerError? validationError)? failed,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(validationError);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Processing value) processing,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Processing value)? processing,
+    TResult? Function(_Failed value)? failed,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
+    TResult Function(_Processing value)? processing,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Success extends SignInState {
+  const factory _Success({final ServerError? validationError}) = _$SuccessImpl;
+  const _Success._() : super._();
+
+  @override
+  ServerError? get validationError;
+  @override
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -518,6 +681,7 @@ class _$ProcessingImpl extends _Processing {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) success,
     required TResult Function(ServerError? validationError) processing,
     required TResult Function(ServerError? validationError) failed,
   }) {
@@ -528,6 +692,7 @@ class _$ProcessingImpl extends _Processing {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? success,
     TResult? Function(ServerError? validationError)? processing,
     TResult? Function(ServerError? validationError)? failed,
   }) {
@@ -538,6 +703,7 @@ class _$ProcessingImpl extends _Processing {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? success,
     TResult Function(ServerError? validationError)? processing,
     TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
@@ -552,6 +718,7 @@ class _$ProcessingImpl extends _Processing {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Processing value) processing,
     required TResult Function(_Failed value) failed,
   }) {
@@ -562,6 +729,7 @@ class _$ProcessingImpl extends _Processing {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Processing value)? processing,
     TResult? Function(_Failed value)? failed,
   }) {
@@ -572,6 +740,7 @@ class _$ProcessingImpl extends _Processing {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Processing value)? processing,
     TResult Function(_Failed value)? failed,
     required TResult orElse(),
@@ -664,6 +833,7 @@ class _$FailedImpl extends _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ServerError? validationError) idle,
+    required TResult Function(ServerError? validationError) success,
     required TResult Function(ServerError? validationError) processing,
     required TResult Function(ServerError? validationError) failed,
   }) {
@@ -674,6 +844,7 @@ class _$FailedImpl extends _Failed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ServerError? validationError)? idle,
+    TResult? Function(ServerError? validationError)? success,
     TResult? Function(ServerError? validationError)? processing,
     TResult? Function(ServerError? validationError)? failed,
   }) {
@@ -684,6 +855,7 @@ class _$FailedImpl extends _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ServerError? validationError)? idle,
+    TResult Function(ServerError? validationError)? success,
     TResult Function(ServerError? validationError)? processing,
     TResult Function(ServerError? validationError)? failed,
     required TResult orElse(),
@@ -698,6 +870,7 @@ class _$FailedImpl extends _Failed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
+    required TResult Function(_Success value) success,
     required TResult Function(_Processing value) processing,
     required TResult Function(_Failed value) failed,
   }) {
@@ -708,6 +881,7 @@ class _$FailedImpl extends _Failed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
+    TResult? Function(_Success value)? success,
     TResult? Function(_Processing value)? processing,
     TResult? Function(_Failed value)? failed,
   }) {
@@ -718,6 +892,7 @@ class _$FailedImpl extends _Failed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
+    TResult Function(_Success value)? success,
     TResult Function(_Processing value)? processing,
     TResult Function(_Failed value)? failed,
     required TResult orElse(),

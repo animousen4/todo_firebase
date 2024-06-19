@@ -18,7 +18,6 @@ class ThemeModel {
           )),
         );
 
-  bool get isDark => themeMode == ThemeMode.dark;
 
   final ThemeMode themeMode;
 

@@ -13,9 +13,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  late LocaleScopeController localeScopeController;
-  late ThemeScopeController themeScopeController;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +21,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SliverAppBar(
             title: Text("Settings"),
           ),
-          SliverList.list(children: const [_DarkThemeSwitch()])
+          SliverList.list(
+            children: const [
+              _DarkThemeSwitch(),
+            ],
+          )
         ],
       ),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    localeScopeController = SettingsScope.localeControllerOf(context);
-    themeScopeController = SettingsScope.themeControllerOf(context);
   }
 }
 
@@ -47,7 +40,7 @@ class _DarkThemeSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingsScopeController = SettingsScope.themeControllerOf(context);
-    final enabled = settingsScopeController.theme.isDark;
+    final enabled = Theme.of(context).brightness == Brightness.dark;
     return SwitchListTile(
       value: enabled,
       title: Text("Dark theme"),

@@ -33,6 +33,9 @@ dependencies:
   #routing
   auto_route: ^8.2.0
 
+  #test
+  bloc_test: ^9.1.7
+  mocktail:
 dev_dependencies:
   flutter_test:
     sdk: flutter

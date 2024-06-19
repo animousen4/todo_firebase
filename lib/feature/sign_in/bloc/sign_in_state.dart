@@ -6,6 +6,7 @@ class SignInState with _$SignInState {
 
   bool get isLoading => maybeMap(processing: (_) => true, orElse: () => false);
   const factory SignInState.idle({ServerError? validationError}) = _Idle;
+  const factory SignInState.success({ServerError? validationError}) = _Success;
   const factory SignInState.processing({ServerError? validationError}) =
       _Processing;
   const factory SignInState.failed({ServerError? validationError}) = _Failed;
