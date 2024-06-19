@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_firebase/feature/settings/widget/controllers.dart';
 import 'package:todo_firebase/feature/settings/widget/settings_scope.dart';
 
 @RoutePage()
@@ -25,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: const [
               _DarkThemeSwitch(),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -33,9 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 }
 
 class _DarkThemeSwitch extends StatelessWidget {
-  const _DarkThemeSwitch({
-    super.key,
-  });
+  const _DarkThemeSwitch();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +39,7 @@ class _DarkThemeSwitch extends StatelessWidget {
     final enabled = Theme.of(context).brightness == Brightness.dark;
     return SwitchListTile(
       value: enabled,
-      title: Text("Dark theme"),
+      title: const Text("Dark theme"),
       onChanged: (value) {
         final themeMode = value ? ThemeMode.dark : ThemeMode.light;
         settingsScopeController.setThemeMode(themeMode);

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:todo_firebase/feature/todo/data/dto/todo_dto.dart';
 import 'package:todo_firebase/feature/todo/data/dto/todo_item_dto.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/dto_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/todo_dto_mapper.dart';

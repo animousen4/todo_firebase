@@ -17,7 +17,7 @@ class TodoModel {
       required this.description,
       required this.createDate,
       required this.deadlineDate,
-      required this.todoStatus});
+      required this.todoStatus,});
 
   TodoModel copyWith({
     String? title,

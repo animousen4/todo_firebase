@@ -18,7 +18,7 @@ class LocaleDataSourceImpl implements LocaleDataSource {
 
   LocaleDataSourceImpl(
       {required SharedPreferences sharedPreferences,
-      required Codec<ui.Locale, String> codec})
+      required Codec<ui.Locale, String> codec,})
       : _sharedPreferences = sharedPreferences,
         _codec = codec;
   @override

@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/auth/data/model/user_model.dart';
 import 'package:todo_firebase/feature/auth/data/repository/auth_repository.dart';
 
@@ -11,10 +10,12 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 part 'auth_bloc.freezed.dart';
 
+/// Bloc, which decides whether user have access to app or dont
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
   late final StreamSubscription<UserModel?> _subscription;
   
+  /// Public constuctor with initial state
   AuthBloc({
     required AuthRepository authRepository,
     required AuthState initState,

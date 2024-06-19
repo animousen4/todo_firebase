@@ -4,7 +4,6 @@ import 'package:todo_firebase/feature/todo/data/model/todo_data_snapshot_model.d
 import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_sort_mechanism.dart';
-import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 import 'package:todo_firebase/feature/todo/data/results.dart';
 import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
 
@@ -13,7 +12,7 @@ abstract interface class TodoRepository {
     TodoSortMechanism mechanism,
   );
   Future<Stream<TodoDataSnapshotModel>> todoChangeStream(
-      TodoSortMechanism mechanism);
+      TodoSortMechanism mechanism,);
   Future<void> removeTodo(String id);
   Future<void> addTodo(TodoModel todo);
   Future<void> modifyTodo(String id, TodoModel todo);
@@ -26,7 +25,7 @@ class TodoRepositoryImpl implements TodoRepository {
 
   TodoRepositoryImpl(
       {required TodoDataProvider todoDataProvider,
-      required AuthDataProvider authDataProvider})
+      required AuthDataProvider authDataProvider,})
       : _todoDataProvider = todoDataProvider,
         _authDataProvider = authDataProvider;
 
@@ -46,7 +45,7 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Stream<TodoDataSnapshotModel>> todoChangeStream(
-      TodoSortMechanism mechanism) async {
+      TodoSortMechanism mechanism,) async {
     return _todoDataProvider.onTodoChanged(await _user, mechanism);
   }
 

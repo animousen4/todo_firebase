@@ -13,7 +13,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   SignInBloc(
       {required SignInRepository signInRepository,
-      required SignInState initState})
+      required SignInState initState,})
       : _signInRepository = signInRepository,
         super(initState) {
     on<SignInEvent>((event, emit) async {

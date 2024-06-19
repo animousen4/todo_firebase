@@ -30,7 +30,7 @@ class AppRouter extends _$AppRouter {
                 AutoRoute(page: TodoRoute.page, initial: true),
                 AutoRoute(
                   page: SettingsRoute.page,
-                )
+                ),
               ],
             ),
           ],

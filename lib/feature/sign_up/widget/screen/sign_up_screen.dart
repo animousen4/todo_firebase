@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
@@ -42,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 }
 
 class _SignUpLoader extends StatelessWidget {
-  const _SignUpLoader({super.key});
+  const _SignUpLoader();
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +52,13 @@ class _SignUpLoader extends StatelessWidget {
             child: Padding(
           padding: EdgeInsets.all(8.0),
           child: CircularProgressIndicator(),
-        )),
-        child: const _SignUpScreenView());
+        ),),
+        child: const _SignUpScreenView(),);
   }
 }
 
 class _SignUpScreenView extends StatefulWidget {
-  const _SignUpScreenView({super.key});
+  const _SignUpScreenView();
 
   @override
   State<_SignUpScreenView> createState() => _SignUpScreenViewState();
@@ -115,13 +114,13 @@ class _SignUpScreenViewState extends State<_SignUpScreenView> {
                       signUpValid: _signUpValid,
                       loginController: _loginController,
                       passwordController: _passwordController,
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
-        ));
+        ),);
   }
 
   @override
@@ -187,16 +186,14 @@ class _SignUpScreenViewState extends State<_SignUpScreenView> {
 }
 
 class _ErrorAreaWidget extends StatelessWidget {
-  const _ErrorAreaWidget({
-    super.key,
-  });
+  const _ErrorAreaWidget();
 
   @override
   Widget build(BuildContext context) {
     final stateError = SignUpScope.of(context).state.error;
     return AnimatedOpacity(
       opacity: stateError == null ? 0 : 1,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       child: Text(stateError?.message ?? ""),
     );
   }
@@ -204,7 +201,6 @@ class _ErrorAreaWidget extends StatelessWidget {
 
 class _SignUpButton extends StatelessWidget {
   const _SignUpButton({
-    super.key,
     required ValueNotifier<bool> signUpValid,
     required TextEditingController loginController,
     required TextEditingController passwordController,

@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/overlay_loading/widget/overlay_loading.dart';
 import 'package:todo_firebase/feature/routes/app_router.dart';
-import 'package:todo_firebase/feature/sign_in/data/sign_in_data_provider.dart';
-import 'package:todo_firebase/feature/sign_in/data/sign_in_repository.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
-import 'package:todo_firebase/feature/server_communication/server_error.dart';
 import 'package:todo_firebase/feature/sign_in/bloc/sign_in_bloc.dart';
 import 'package:todo_firebase/feature/sign_in/widget/sign_in_scope.dart';
 import 'package:todo_firebase/feature/sign_in/widget/validation_text_field.dart';
@@ -40,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
 }
 
 class _SignInLoader extends StatelessWidget {
-  const _SignInLoader({super.key});
+  const _SignInLoader();
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +51,12 @@ class _SignInLoader extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
         ),
-        child: const _SignInView());
+        child: const _SignInView(),);
   }
 }
 
 class _SignInView extends StatefulWidget {
-  const _SignInView({
-    super.key,
-  });
+  const _SignInView();
 
   @override
   State<_SignInView> createState() => _SignInViewState();
@@ -127,7 +122,7 @@ class _SignInViewState extends State<_SignInView> {
                       children: [
                         TextSpan(
                             text: "Not registered yet? ",
-                            style: Theme.of(context).textTheme.bodyMedium),
+                            style: Theme.of(context).textTheme.bodyMedium,),
                         TextSpan(
                             text: "Sign up",
                             style: Theme.of(context)
@@ -136,7 +131,7 @@ class _SignInViewState extends State<_SignInView> {
                                 ?.copyWith(color: Colors.blue),
                             recognizer: TapGestureRecognizer()
                               ..onTap =
-                                  () => context.pushRoute(const SignUpRoute())),
+                                  () => context.pushRoute(const SignUpRoute()),),
                       ],
                     ),
                   ),
@@ -219,9 +214,7 @@ class _SignInViewState extends State<_SignInView> {
 }
 
 class _SignInError extends StatelessWidget {
-  const _SignInError({
-    super.key,
-  });
+  const _SignInError();
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +226,6 @@ class _SignInError extends StatelessWidget {
 
 class _SignInButton extends StatelessWidget {
   const _SignInButton({
-    super.key,
     required ValueNotifier<bool> signInValid,
     required SignInScopeController signInScopeController,
     required TextEditingController loginController,

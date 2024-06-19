@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_firebase/core/utils/build_context_extension.dart';
@@ -32,7 +31,7 @@ class _SignInScopeState extends State<SignInScope>
     return BlocBuilder<SignInBloc, SignInState>(
       bloc: widget.signInBloc,
       builder: (context, state) => _InheritSignInScope(
-          controller: this, signInState: state, child: widget.child),
+          controller: this, signInState: state, child: widget.child,),
     );
   }
 

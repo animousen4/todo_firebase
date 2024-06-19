@@ -193,7 +193,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           ),
           success: (success) => emit(
             TodoState.idle(
-                todoModels: success.entity, sortType: event.sortType),
+                todoModels: success.entity, sortType: event.sortType,),
           ),
         );
       },

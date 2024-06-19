@@ -4,21 +4,31 @@ import 'package:todo_firebase/core/utils/build_context_extension.dart';
 import 'package:todo_firebase/feature/auth/bloc/auth_bloc.dart';
 import 'package:todo_firebase/feature/auth/data/model/user_model.dart';
 
+/// Controller of Auth scope
+/// Provides method for user to interact with
 abstract interface class AuthScopeController {
+
+  /// Getting user status
   UserModel? getUser();
 
+  /// Logging out
   void logout();
 }
 
+/// Scope for working with users statuses
 class AuthScope extends StatefulWidget {
+  /// Public constructor
   const AuthScope({
     super.key,
     required this.authBloc,
     required this.child,
   });
-
+  
+  /// Child of the scope
+  /// This child will get access to [_InheritAuthScope] via of(context) method
   final Widget child;
 
+  /// Auth bloc instance
   final AuthBloc authBloc;
 
   static AuthScopeController controllerOf(BuildContext context) =>

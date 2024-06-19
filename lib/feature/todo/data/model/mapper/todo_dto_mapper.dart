@@ -14,9 +14,9 @@ class TodoDtoMapper implements DtoMapper<TodoDto, TodoModel> {
       title: data.title,
       description: data.description,
       createDate: DateTime.fromMillisecondsSinceEpoch(
-          data.createDate.millisecondsSinceEpoch),
+          data.createDate.millisecondsSinceEpoch,),
       deadlineDate: DateTime.fromMillisecondsSinceEpoch(
-          data.deadlineDate.millisecondsSinceEpoch),
+          data.deadlineDate.millisecondsSinceEpoch,),
       todoStatus: statusMapper.mapFromDto(data.todoStatus),
     );
   }

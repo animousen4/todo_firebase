@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:todo_firebase/feature/auth/widget/auth_scope.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/routes/app_router.dart';
@@ -45,7 +44,7 @@ class _TodoPageState extends State<TodoPage> {
 }
 
 class _TodoPageView extends StatefulWidget {
-  const _TodoPageView({super.key});
+  const _TodoPageView();
 
   @override
   State<_TodoPageView> createState() => _TodoPageViewState();
@@ -92,9 +91,7 @@ class _TodoPageViewState extends State<_TodoPageView> {
 }
 
 class _TodoSliverList extends StatelessWidget {
-  const _TodoSliverList({
-    super.key,
-  });
+  const _TodoSliverList();
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +112,7 @@ class _TodoSliverList extends StatelessWidget {
 }
 
 class _TodoSliverAppBar extends StatelessWidget {
-  const _TodoSliverAppBar({
-    super.key,
-  });
+  const _TodoSliverAppBar();
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +136,7 @@ class _TodoSliverAppBar extends StatelessWidget {
             onPressed: () {
               context.pushRoute(const SettingsRoute());
             },
-            icon: const Icon(Icons.settings_outlined)),
+            icon: const Icon(Icons.settings_outlined),),
         IconButton(
           onPressed: () {
             authController.logout();
@@ -154,9 +149,7 @@ class _TodoSliverAppBar extends StatelessWidget {
 }
 
 class _DropdownSort extends StatelessWidget {
-  const _DropdownSort({
-    super.key,
-  });
+  const _DropdownSort();
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +173,7 @@ class _DropdownSort extends StatelessWidget {
                   builder: (context) => TodoSortModalDialog(
                         onSubmit: (sortType) => todoScope.sortBy(sortType),
                         initSortType: sortMethod,
-                      ));
+                      ),);
             },
             child: Text(sortMethod.name),
           ),

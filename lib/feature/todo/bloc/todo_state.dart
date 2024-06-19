@@ -9,20 +9,20 @@ class TodoState with _$TodoState {
   const factory TodoState.idle(
       {required List<TodoItem> todoModels,
       required SortType sortType,
-      TodoDataSnapshotModel? snapshot}) = _Idle;
+      TodoDataSnapshotModel? snapshot,}) = _Idle;
   const factory TodoState.progress(
       {required List<TodoItem> todoModels,
       required SortType sortType,
-      TodoDataSnapshotModel? snapshot}) = _Progress;
+      TodoDataSnapshotModel? snapshot,}) = _Progress;
 
   const factory TodoState.failed(
       {required List<TodoItem> todoModels,
       required SortType sortType,
-      TodoDataSnapshotModel? snapshot}) = _Failed;
+      TodoDataSnapshotModel? snapshot,}) = _Failed;
   
   const factory TodoState.error(
       {required List<TodoItem> todoModels,
       required SortType sortType,
       TodoDataSnapshotModel? snapshot,
-      Object? error}) = _Error;
+      Object? error,}) = _Error;
 }

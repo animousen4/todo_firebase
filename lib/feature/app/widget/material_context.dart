@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/settings/widget/settings_scope.dart';
 
+/// Root with provided dependencies
 class MaterialContext extends StatelessWidget {
+
+  /// Public constructor
   const MaterialContext({super.key});
 
   @override

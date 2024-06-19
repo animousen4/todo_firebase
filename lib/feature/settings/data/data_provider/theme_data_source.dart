@@ -19,7 +19,7 @@ class ThemeDataSourceImpl implements ThemeDataSource {
 
   ThemeDataSourceImpl(
       {required SharedPreferences sharedPreferences,
-      required Codec<ThemeMode, String> codec})
+      required Codec<ThemeMode, String> codec,})
       : _sharedPreferences = sharedPreferences,
         _codec = codec;
 

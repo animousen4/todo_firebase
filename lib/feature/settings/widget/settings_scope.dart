@@ -20,13 +20,13 @@ class SettingsScope extends StatefulWidget {
 
   static ThemeScopeController themeControllerOf(BuildContext context) => context
       .inheritFrom<SettingsAspect, _InheritedSettingsScope>(
-          aspect: SettingsAspect.theme)
+          aspect: SettingsAspect.theme,)
       .controller;
 
   static LocaleScopeController localeControllerOf(BuildContext context) =>
       context
           .inheritFrom<SettingsAspect, _InheritedSettingsScope>(
-              aspect: SettingsAspect.locale)
+              aspect: SettingsAspect.locale,)
           .controller;
 
   @override

@@ -1,8 +1,10 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 
+/// Bloc observer for viewing state and events changes
 class AppBlocObserver extends BlocObserver {
-  final logger = Logger("AppBlocObserver");
+  
+  final _logger = Logger("AppBlocObserver");
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
@@ -14,7 +16,7 @@ class AppBlocObserver extends BlocObserver {
       ..writeln("FROM: ${transition.currentState}")
       ..writeln("TO: ${transition.nextState}");
 
-    logger.info(stringBuffer.toString());
+    _logger.info(stringBuffer.toString());
     
     super.onTransition(bloc, transition);
   }
@@ -28,7 +30,7 @@ class AppBlocObserver extends BlocObserver {
       ..writeln("Bloc: ${bloc.runtimeType}")
       ..writeln("EVENT: ${event.runtimeType} : ${event.toString()}");
 
-    logger.info(stringBuffer.toString());
+    _logger.info(stringBuffer.toString());
 
     super.onEvent(bloc, event);
   }
@@ -42,7 +44,7 @@ class AppBlocObserver extends BlocObserver {
       ..writeln("Bloc: ${bloc.runtimeType}")
       ..writeln("Error: $error");
 
-    logger.warning(stringBuffer.toString(), error, stackTrace);
+    _logger.warning(stringBuffer.toString(), error, stackTrace);
     
     super.onError(bloc, error, stackTrace);
   }

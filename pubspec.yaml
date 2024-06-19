@@ -12,6 +12,7 @@ dependencies:
   flutter_bloc: ^8.1.4
   bloc_concurrency: ^0.2.5
   freezed: ^2.5.2
+  freezed_annotation: any
   logging: ^1.2.0
   shared_preferences: ^2.2.3
 

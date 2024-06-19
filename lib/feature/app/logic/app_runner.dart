@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,17 +14,23 @@ import 'package:todo_firebase/feature/app/widget/fail_app.dart';
 import 'package:todo_firebase/feature/initialization/logic/dependencies_initializer.dart';
 import 'package:todo_firebase/firebase_options.dart';
 
+/// Interface of app runner, which runs app
 abstract interface class AppRunner {
+
+  /// Method, which should contain runApp(...)
   Future<void> run();
 }
 
+/// Base implementation of [AppRunner]
 class AppRunnerImpl implements AppRunner {
-  final logger = Logger("AppRunner");
+  final _logger = Logger("AppRunner");
 
   final DependenciesInitializer _dependenciesInitializer;
 
+  /// Field which defines, wheter we use emulated or real Firebase
   final bool kDebugUseFirebaseEmulator;
 
+  /// Public constructor
   AppRunnerImpl({required this.kDebugUseFirebaseEmulator})
       : _dependenciesInitializer = DefaultDependenciesInitializer();
 
@@ -38,7 +44,7 @@ class AppRunnerImpl implements AppRunner {
       FirebaseFirestore.instance.useFirestoreEmulator('127.0.0.1', 8080);
       await FirebaseAuth.instance.useAuthEmulator('127.0.0.1', 9099);
     } catch (e) {
-      logger.severe("Failed to override firebase emulators");
+      _logger.severe("Failed to override firebase emulators");
     }
   }
 
@@ -52,14 +58,14 @@ class AppRunnerImpl implements AppRunner {
 
   @override
   Future<void> run() async {
-    logger.info("Running app...");
+    _logger.info("Running app...");
     try {
       WidgetsFlutterBinding.ensureInitialized();
 
       final firebaseAuth = await _initializeFirebase();
 
       if (kDebugMode && kDebugUseFirebaseEmulator) {
-        logger.info("USING FIREBASE EMULATOR");
+        _logger.info("USING FIREBASE EMULATOR");
         await _initializeDebugFirebaseOverrides();
       }
 
@@ -74,13 +80,13 @@ class AppRunnerImpl implements AppRunner {
         ),
       );
 
-      logger.info("Successfully started!");
+      _logger.info("Successfully started!");
     } catch (error, stackTrace) {
       _onError(error, stackTrace);
 
       runApp(FailApp(
         reason: error,
-      ));
+      ),);
     }
   }
 
@@ -88,6 +94,6 @@ class AppRunnerImpl implements AppRunner {
     final stringBuffer = StringBuffer();
 
     stringBuffer.write("InitializationFailed: $object");
-    logger.severe(stringBuffer.toString(), object, stackTrace);
+    _logger.severe(stringBuffer.toString(), object, stackTrace);
   }
 }

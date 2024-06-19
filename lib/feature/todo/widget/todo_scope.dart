@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_firebase/core/utils/build_context_extension.dart';
 import 'package:todo_firebase/feature/todo/bloc/todo_bloc.dart';
-import 'package:todo_firebase/feature/todo/data/dto/todo_dto.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_data_changes_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
@@ -88,7 +86,7 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
                 removedElement: removedElement,
                 animation: animation,
               ),
-          duration: Duration(milliseconds: 200));
+          duration: const Duration(milliseconds: 200),);
 
       listKey.currentState?.insertItem(
         modifiedChange.newIndex,
@@ -160,7 +158,6 @@ class _InheritToDoScope extends InheritedWidget {
 
 class _RemoveElementWidget extends StatelessWidget {
   const _RemoveElementWidget({
-    super.key,
     required this.removedElement,
     required this.animation,
   });

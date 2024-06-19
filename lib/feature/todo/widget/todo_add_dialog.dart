@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_firebase/feature/sign_in/widget/validation_text_field.dart';
@@ -6,9 +5,13 @@ import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
 
+/// Dialog for adding todo, including title, description, date and validation
 class TodoAddDialog extends StatefulWidget {
+
+  /// Public constructor
   const TodoAddDialog({super.key, required this.todoScopeController});
 
+  /// Controller for adding todo
   final TodoScopeController todoScopeController;
 
   @override
@@ -187,12 +190,25 @@ class _TodoAddDialogState extends State<TodoAddDialog> {
 
     return true;
   }
+
+  @override
+  void dispose() {
+    _observer.removeListener(_onInputDataChanged);
+
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
+
+    for (final error in _errors) {
+      error.dispose();
+    }
+
+    super.dispose();
+  }
 }
 
 class _CancelButton extends StatelessWidget {
-  const _CancelButton({
-    super.key,
-  });
+  const _CancelButton();
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +223,6 @@ class _CancelButton extends StatelessWidget {
 
 class _SumbitButton extends StatelessWidget {
   const _SumbitButton({
-    super.key,
     required ValueNotifier<bool> addValid,
     required this.widget,
     required TodoModel Function() todoModel,
@@ -224,15 +239,16 @@ class _SumbitButton extends StatelessWidget {
       listenable: _addValid,
       builder: (context, child) {
         return FilledButton(
-            onPressed: _addValid.value
-                ? () {
-                    widget.todoScopeController.addTodo(_todoModel());
-                    Navigator.of(context).pop();
-                  }
-                : null,
-            child: child);
+          onPressed: _addValid.value
+              ? () {
+                  widget.todoScopeController.addTodo(_todoModel());
+                  Navigator.of(context).pop();
+                }
+              : null,
+          child: child,
+        );
       },
-      child: Text("Add"),
+      child: const Text("Add"),
     );
   }
 }

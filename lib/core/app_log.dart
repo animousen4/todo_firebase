@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:logging/logging.dart';
 
+/// Configuration for app logging
 class AppLogConfig {
+
+  /// Setup method
   void setup() {
     Logger.root.level = Level.ALL;
     Logger.root.onRecord.listen(_onLog);

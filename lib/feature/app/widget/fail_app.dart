@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
+/// Failed app, which appears when something going wrong on initialization
 class FailApp extends StatelessWidget {
+  /// Public constructor
   const FailApp({super.key, this.reason});
 
+  /// Reason of failing app
   final Object? reason;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class FailApp extends StatelessWidget {
 }
 
 class _WarnIcon extends StatelessWidget {
-  const _WarnIcon({super.key});
+  const _WarnIcon();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class _WarnIcon extends StatelessWidget {
 }
 
 class _AppFailedTitle extends StatelessWidget {
-  const _AppFailedTitle({super.key});
+  const _AppFailedTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class _AppFailedTitle extends StatelessWidget {
 }
 
 class _ReasonText extends StatelessWidget {
-  const _ReasonText({super.key, this.reason});
+  const _ReasonText({this.reason});
 
   final Object? reason;
 

@@ -1,20 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
-import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
 
 enum SortMethods {
   creationDateAsc(
-      "By creation date (ascending)", Icons.date_range, SortType.createDateAsc),
+      "By creation date (ascending)", Icons.date_range, SortType.createDateAsc,),
   creationDateDesc("By creation date (descending)", Icons.date_range,
-      SortType.createDateDesk),
+      SortType.createDateDesk,),
   deadlineDateDesc("By deadline date (descending)", Icons.date_range,
-      SortType.dateDeadlineDesc),
+      SortType.dateDeadlineDesc,),
   deadlineDateAsc("By deadline date (descending)", Icons.date_range,
-      SortType.dateDeadlineAsc),
+      SortType.dateDeadlineAsc,),
   complete("By completion", Icons.check_circle_outline, SortType.complete);
 
   const SortMethods(this.name, this.icon, this.sortType);
@@ -25,10 +22,10 @@ enum SortMethods {
 
 class TodoSortModalDialog extends StatefulWidget {
   const TodoSortModalDialog({
-    Key? key,
+    super.key,
     required this.initSortType,
     required this.onSubmit,
-  }) : super(key: key);
+  });
 
   final SortMethods initSortType;
 
@@ -76,7 +73,7 @@ class _TodoSortModalDialogState extends State<TodoSortModalDialog> {
               widget.onSubmit(sortMethod.sortType);
               Navigator.of(context).pop();
             },
-          )
+          ),
         ],
       ),
     );
@@ -85,7 +82,6 @@ class _TodoSortModalDialogState extends State<TodoSortModalDialog> {
 
 class _SubmitButton extends StatelessWidget {
   const _SubmitButton({
-    super.key,
     required this.onSubmit,
   });
 
@@ -103,7 +99,7 @@ class _SubmitButton extends StatelessWidget {
 }
 
 class _SortTiles extends StatelessWidget {
-  const _SortTiles({super.key, required this.builder, required this.count});
+  const _SortTiles({required this.builder, required this.count});
 
   final Widget Function(BuildContext context, int index) builder;
   final int count;

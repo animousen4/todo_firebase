@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_firebase/feature/auth/bloc/auth_bloc.dart';
 import 'package:todo_firebase/feature/auth/data/converter/user_converter.dart';
-import 'package:todo_firebase/feature/auth/data/model/user_model.dart';
 import 'package:todo_firebase/feature/auth/data/provider/auth_data_provider.dart';
 import 'package:todo_firebase/feature/sign_in/data/sign_in_data_provider.dart';
 import 'package:todo_firebase/feature/auth/data/repository/auth_repository.dart';

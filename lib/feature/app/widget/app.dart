@@ -5,7 +5,11 @@ import 'package:todo_firebase/feature/initialization/model/dependencies.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/settings/widget/settings_scope.dart';
 
+/// The start point of the whole app
+/// We define here root scopes for [MaterialContext]
 class App extends StatelessWidget {
+
+  /// Public constructor
   const App({super.key, required this.dependencies});
 
   /// Dependencies container
