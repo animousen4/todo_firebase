@@ -4,12 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_firebase/feature/app/model/theme_model.dart';
 
+/// Theme data source (data provider)
+/// Contains base methods for interacting with theme, like save or get
 abstract interface class ThemeDataSource {
+
+  /// Getting theme
   Future<ThemeModel?> getTheme();
 
+  /// Saving theme
   Future<void> setTheme(ThemeModel model);
 }
 
+/// [SharedPreferences] implementation of [ThemeDataSource]
 class ThemeDataSourceImpl implements ThemeDataSource {
   final SharedPreferences _sharedPreferences;
 
@@ -17,6 +23,7 @@ class ThemeDataSourceImpl implements ThemeDataSource {
 
   static const String _themeModeKey = "themeMode";
 
+  /// Public constructor
   ThemeDataSourceImpl(
       {required SharedPreferences sharedPreferences,
       required Codec<ThemeMode, String> codec,})

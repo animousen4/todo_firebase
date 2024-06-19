@@ -1,5 +1,6 @@
-import 'package:bloc/bloc.dart';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/server_communication/server_error.dart';
@@ -9,9 +10,11 @@ part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 part 'sign_up_bloc.freezed.dart';
 
+/// Sign Up bloc, which controls states and events, passed from controllers
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final SignUpRepository _signUpRepository;
 
+  /// Public constructor
   SignUpBloc({
     required SignUpRepository signUpRepository,
     required SignUpState initialState,

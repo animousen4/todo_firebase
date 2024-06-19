@@ -1,4 +1,5 @@
-import 'package:bloc/bloc.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/sign_in/data/sign_in_repository.dart';
@@ -8,9 +9,12 @@ part 'sign_in_event.dart';
 part 'sign_in_state.dart';
 part 'sign_in_bloc.freezed.dart';
 
+/// Sign in bloc, which provides state and events for log in
+/// Contains logic of processing it
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final SignInRepository _signInRepository;
 
+  /// Public constructor
   SignInBloc(
       {required SignInRepository signInRepository,
       required SignInState initState,})

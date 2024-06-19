@@ -10,6 +10,9 @@ import 'package:todo_firebase/feature/todo/widget/page/todo_page.dart';
 part 'app_router.gr.dart';
 
 @AutoRouterConfig()
+/// Router of the app
+/// Let control the routes and their location
+/// !But there are a lot of generated-hardcoded code
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [

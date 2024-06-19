@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+/// Codec of theme for decoding it from String and encoding from [ThemeMode]
 class ThemeModeCodec extends Codec<ThemeMode, String> {
   @override
   Converter<String, ThemeMode> get decoder => _ThemeModeDecoder();

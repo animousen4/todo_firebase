@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui' as ui;
 
+/// Codec of locale for decoding it from String and encoding from [ui.Locale]
 class LocaleCodec extends Codec<ui.Locale, String> {
   @override
   Converter<String, ui.Locale> get decoder => _LocaleDecoder();

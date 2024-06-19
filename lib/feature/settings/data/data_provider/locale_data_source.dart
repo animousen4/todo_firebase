@@ -3,12 +3,19 @@ import 'dart:ui' as ui;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Data source (data provider) of locale
+/// Contains base methods for interacting with locale, like save or get
 abstract interface class LocaleDataSource {
+
+  /// Getting locale method
   Future<ui.Locale?> getLocale();
 
+  /// Setting locale method
   Future<void> setLocale(ui.Locale locale);
 }
 
+/// Shared preferences implementation of [LocaleDataSource]
+/// We are getting values from [SharedPreferences] and saving them here
 class LocaleDataSourceImpl implements LocaleDataSource {
   final SharedPreferences _sharedPreferences;
 
@@ -16,6 +23,7 @@ class LocaleDataSourceImpl implements LocaleDataSource {
 
   static const String _localeKey = "locale";
 
+  /// Public constructor
   LocaleDataSourceImpl(
       {required SharedPreferences sharedPreferences,
       required Codec<ui.Locale, String> codec,})

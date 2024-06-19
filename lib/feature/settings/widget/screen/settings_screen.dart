@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/settings/widget/settings_scope.dart';
 
+
+/// Screen, which provides user settings
 @RoutePage()
 class SettingsScreen extends StatefulWidget {
+  /// Public constructor
   const SettingsScreen({super.key});
 
   @override

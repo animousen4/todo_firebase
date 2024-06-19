@@ -5,7 +5,9 @@ import 'package:todo_firebase/feature/server_communication/server_error.dart';
 import 'package:todo_firebase/feature/sign_in/data/results.dart';
 import 'package:todo_firebase/feature/sign_up/data/results.dart';
 
+/// Data provider for sign up
 abstract interface class SignUpDataProvider {
+  /// Default sign up using email and passwords
   Future<DefaultSignUpResult> defaultSignUp(DefaultAuthUserData data);
 }
 

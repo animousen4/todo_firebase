@@ -7,12 +7,14 @@ class DependenciesScope extends InheritedWidget {
   /// Container with dependencies
   final Dependencies dependencies;
 
+  /// Public constructor
   const DependenciesScope({
     super.key,
     required this.dependencies,
     required super.child,
   });
 
+  /// Getting dependencies container from context via [InheritedWidget]
   static Dependencies of(BuildContext context) =>
       context.inhOf<DependenciesScope>(listen: false).dependencies;
 

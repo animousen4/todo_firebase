@@ -9,8 +9,10 @@ import 'package:todo_firebase/feature/sign_in/bloc/sign_in_bloc.dart';
 import 'package:todo_firebase/feature/sign_in/widget/sign_in_scope.dart';
 import 'package:todo_firebase/feature/sign_in/widget/validation_text_field.dart';
 
+/// Screen for user to sign in
 @RoutePage()
 class SignInScreen extends StatefulWidget {
+  /// Public constructor
   const SignInScreen({super.key});
 
   @override
@@ -63,11 +65,13 @@ class _SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<_SignInView> {
+
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   late SignInScopeController _signInScopeController;
 
+  /// One common observer, which includes all controllers
   late final Listenable _observer;
 
   late final ValueNotifier<String?> _loginError = ValueNotifier(null);
@@ -75,6 +79,7 @@ class _SignInViewState extends State<_SignInView> {
 
   late final ValueNotifier<bool> _signInValid = ValueNotifier(false);
 
+  /// Validations, which will be called each time user interacts with [TextField]s
   late final List<String? Function(DefaultAuthUserData data)> _validations;
 
   late final List<TextEditingController> _controllers;
@@ -198,6 +203,7 @@ class _SignInViewState extends State<_SignInView> {
     _signInScopeController = SignInScope.of(context);
   }
 
+  /// Disposing controllers
   @override
   void dispose() {
     _observer.removeListener(_onInputDataChanged);

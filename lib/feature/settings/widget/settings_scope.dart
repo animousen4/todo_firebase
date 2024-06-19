@@ -5,7 +5,11 @@ import 'package:todo_firebase/feature/app/model/theme_model.dart';
 import 'package:todo_firebase/feature/settings/bloc/settings_bloc.dart';
 import 'package:todo_firebase/feature/settings/widget/controllers.dart';
 
+/// Settings scope, provides controller for locale and theme
+/// There is a [SettingsBloc], which controls state
+/// And there is an [InheritedWidget], which provides data to the tree below
 class SettingsScope extends StatefulWidget {
+  /// Public constructor
   const SettingsScope({
     super.key,
     required this.settingsBloc,
@@ -18,11 +22,13 @@ class SettingsScope extends StatefulWidget {
   /// Settings bloc
   final SettingsBloc settingsBloc;
 
+  /// Theme controller
   static ThemeScopeController themeControllerOf(BuildContext context) => context
       .inheritFrom<SettingsAspect, _InheritedSettingsScope>(
           aspect: SettingsAspect.theme,)
       .controller;
 
+  /// Locale controller
   static LocaleScopeController localeControllerOf(BuildContext context) =>
       context
           .inheritFrom<SettingsAspect, _InheritedSettingsScope>(

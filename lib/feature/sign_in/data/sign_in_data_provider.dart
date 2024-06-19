@@ -4,15 +4,19 @@ import 'package:todo_firebase/feature/sign_in/data/results.dart';
 import 'package:todo_firebase/feature/auth/data/model/user_credential_model.dart';
 import 'package:todo_firebase/feature/server_communication/server_error.dart';
 
+/// Data provider for signing in
 abstract interface class SignInDataProvider {
+
+  /// Sign in with email and password
   Future<DefaultSignInResult> signInWithEmailAndPassword(
     DefaultAuthUserData data,
   );
 }
-
+/// Firebase implementation of [SignInDataProvider]
 class SignInDataProviderImpl implements SignInDataProvider {
   final FirebaseAuth _firebaseAuth;
 
+  /// Public constructor
   SignInDataProviderImpl({required FirebaseAuth firebaseAuth})
       : _firebaseAuth = firebaseAuth;
 

@@ -25,10 +25,15 @@ import 'package:todo_firebase/feature/todo/data/model/mapper/todo_status_mapper.
 import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
 import 'package:todo_firebase/feature/todo/data/todo_repository.dart';
 
+/// Initializer, which initializes dependecy container [Dependencies]
 abstract interface class DependenciesInitializer {
+
+  /// Initialization method
   Future<Dependencies> initialize(FirebaseAuth firebaseAuth);
 }
 
+/// Base implementation of [DependenciesInitializer]
+/// Provide all required dependencies for container
 class DefaultDependenciesInitializer implements DependenciesInitializer {
   @override
   Future<Dependencies> initialize(FirebaseAuth firebaseAuth) async {

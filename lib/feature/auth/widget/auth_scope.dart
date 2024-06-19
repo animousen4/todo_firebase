@@ -28,9 +28,11 @@ class AuthScope extends StatefulWidget {
   /// This child will get access to [_InheritAuthScope] via of(context) method
   final Widget child;
 
-  /// Auth bloc instance
+  /// Auth bloc instance, our controller will work with bloc
   final AuthBloc authBloc;
 
+  /// Method for getting instance of controller from the children,
+  /// located below elements tree
   static AuthScopeController controllerOf(BuildContext context) =>
       context.inhOf<_InheritAuthScope>().controller;
 

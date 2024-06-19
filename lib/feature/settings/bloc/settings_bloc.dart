@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_firebase/feature/app/model/theme_model.dart';
 import 'package:todo_firebase/feature/settings/data/repository/locale_repository.dart';
@@ -10,11 +10,13 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 part 'settings_bloc.freezed.dart';
 
+/// Bloc for managing settings, such as theme and locale
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final LocaleRepository _localeRepository;
 
   final ThemeRepository _themeRepository;
 
+  /// Public constructor
   SettingsBloc({
     required SettingsState initState,
     required LocaleRepository localeRepository,

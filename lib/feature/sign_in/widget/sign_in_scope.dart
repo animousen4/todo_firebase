@@ -4,22 +4,31 @@ import 'package:todo_firebase/core/utils/build_context_extension.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/sign_in/bloc/sign_in_bloc.dart';
 
+/// Sign in controller for user
 abstract interface class SignInScopeController {
+  /// Getter of the bloc state
   SignInState get state;
 
+  /// Method for sign in
   void defaultSignIn(DefaultAuthUserData signInData);
 }
 
+/// Sign in scope, which provides controller with methods to interact with
 class SignInScope extends StatefulWidget {
+
+  /// Public constructor
   const SignInScope({super.key, required this.signInBloc, required this.child});
 
+  /// Bloc, which controls state and receiving events
   final SignInBloc signInBloc;
 
+  /// Child, which will get access to [_InheritSignInScope]
   final Widget child;
 
   @override
   State<SignInScope> createState() => _SignInScopeState();
 
+  /// Getting controller from [_InheritSignInScope] in tree below
   static SignInScopeController of(BuildContext context) =>
       context.inhOf<_InheritSignInScope>().controller;
 }

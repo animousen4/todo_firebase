@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
+/// Declarative loading widget
+/// Looks like dialog, and provides a declarative way of control
 class OverlayLoading extends StatefulWidget {
+  /// Public constructor
   const OverlayLoading(
       {required this.isLoading,
       required this.child,
       required this.loadingWidget,
       super.key,});
 
+  /// Loading status, provided upper
   final bool isLoading;
 
+  /// Child
   final Widget child;
 
+  /// Loading widget (like CircularProgressIndicator, etc ...)
   final Widget loadingWidget;
 
   @override
