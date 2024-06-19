@@ -11,8 +11,11 @@ import 'package:todo_firebase/feature/todo/widget/todo_list_item.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_sort_modal_dialog.dart';
 
+/// Page with todos
 @RoutePage()
 class TodoPage extends StatefulWidget {
+
+  /// Public constructor
   const TodoPage({super.key});
 
   @override
@@ -21,6 +24,8 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   late final TodoBloc todoBloc;
+
+  /// Adding scopee to tree
   @override
   Widget build(BuildContext context) {
     return TodoScope(
@@ -29,10 +34,11 @@ class _TodoPageState extends State<TodoPage> {
     );
   }
 
+  /// Initializing repositories and bloc
   @override
   void initState() {
     super.initState();
-
+    
     final todoRepository =
         DependenciesScope.of(context).repositories.todoRepository;
     todoBloc = TodoBloc(

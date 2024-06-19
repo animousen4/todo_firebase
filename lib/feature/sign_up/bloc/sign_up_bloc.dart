@@ -10,7 +10,7 @@ part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 part 'sign_up_bloc.freezed.dart';
 
-/// Sign Up bloc, which controls states and events, passed from controllers
+/// Sign Up bloc, which controls states [SignUpState] and events, passed from controllers
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final SignUpRepository _signUpRepository;
 

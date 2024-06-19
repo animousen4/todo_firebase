@@ -7,13 +7,16 @@ import 'package:todo_firebase/feature/sign_up/data/results.dart';
 
 /// Data provider for sign up
 abstract interface class SignUpDataProvider {
+
   /// Default sign up using email and passwords
   Future<DefaultSignUpResult> defaultSignUp(DefaultAuthUserData data);
 }
 
+/// Firebase implementation of [SignUpDataProvider]
 class SignUpDataProviderImpl implements SignUpDataProvider {
   final FirebaseAuth _firebaseAuth;
 
+  /// Public constructor
   SignUpDataProviderImpl({required FirebaseAuth firebaseAuth})
       : _firebaseAuth = firebaseAuth;
 

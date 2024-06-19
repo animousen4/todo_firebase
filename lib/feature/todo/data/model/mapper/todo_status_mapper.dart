@@ -1,7 +1,9 @@
 import 'package:todo_firebase/feature/todo/data/model/mapper/dto_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 
+/// Mapper of [TodoStatus] from [String] and to [String]
 class TodoStatusMapper implements DtoMapper<String, TodoStatus> {
+  /// Public constructor
   const TodoStatusMapper();
 
   static const String _planned = "PLANNED";

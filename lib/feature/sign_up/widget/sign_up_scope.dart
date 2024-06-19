@@ -4,19 +4,31 @@ import 'package:todo_firebase/core/utils/build_context_extension.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/sign_up/bloc/sign_up_bloc.dart';
 
+/// Controller for sign up
+/// Provides to user methods for sign up
 abstract interface class SignUpScopeController {
+  /// Sign up using login and password
   void defaultSignUp(DefaultAuthUserData data);
 
+  /// State of the bloc
   SignUpState get state;
 }
 
+/// Scope of sign up with controller and state, which will
+/// be provided for the child and the children below tree
+/// via [InheritedWidget]
 class SignUpScope extends StatefulWidget {
+  /// Public constructor
   const SignUpScope({super.key, required this.signUpBloc, required this.child});
 
+  /// Bloc, which manages states and events
   final SignUpBloc signUpBloc;
 
+  /// Child
   final Widget child;
 
+  /// [SignUpScopeController], which will be provided through context
+  /// using [_InheritSignUpScope]
   static SignUpScopeController of(BuildContext context) => context.inhOf<_InheritSignUpScope>().controller;
   @override
   State<SignUpScope> createState() => _SignUpScopeState();

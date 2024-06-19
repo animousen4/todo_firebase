@@ -4,11 +4,16 @@ import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_actions_dialog.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
 
+/// Element of the list of todos
 class TodoListItem extends StatelessWidget {
+
+  /// Public constructor
   const TodoListItem({super.key, required this.model, required this.index});
 
+  /// The todo
   final TodoModel model;
 
+  /// Index in the list, which we can use when working with [TodoScopeController]
   final int index;
 
   @override

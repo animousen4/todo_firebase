@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// Widget, which indicates the process of sync
+/// Has animations with appearing and rotating
+/// sync icon
 class AnimatedSync extends StatefulWidget {
+  /// Public constructor
   const AnimatedSync({super.key, required this.isSyncing});
 
+  /// Is in sync
   final bool isSyncing;
   @override
   State<AnimatedSync> createState() => _AnimatedSyncState();
@@ -24,6 +29,8 @@ class _AnimatedSyncState extends State<AnimatedSync>
     );
   }
 
+  /// Here we check old widget
+  /// If it was updated upper, we need to show it or hide
   @override
   void didUpdateWidget(AnimatedSync oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -37,6 +44,9 @@ class _AnimatedSyncState extends State<AnimatedSync>
     }
   }
 
+
+  /// Rotation depends on the state of appear controller
+  /// Adding listeners
   @override
   void initState() {
     super.initState();
@@ -53,6 +63,8 @@ class _AnimatedSyncState extends State<AnimatedSync>
     _appearController.addStatusListener(_appearStatusListener);
   }
 
+  /// If it's hidden, we don't need to make `_appearController`
+  /// and connected animations work
   void _appearStatusListener(AnimationStatus status) {
     if (widget.isSyncing) {
       _rotateController.repeat();
@@ -61,6 +73,7 @@ class _AnimatedSyncState extends State<AnimatedSync>
     }
   }
 
+  /// Disposing created controllers
   @override
   void dispose() {
     _appearController.removeStatusListener(_appearStatusListener);

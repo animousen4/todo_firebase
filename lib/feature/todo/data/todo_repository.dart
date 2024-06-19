@@ -7,26 +7,54 @@ import 'package:todo_firebase/feature/todo/data/model/todo_sort_mechanism.dart';
 import 'package:todo_firebase/feature/todo/data/results.dart';
 import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
 
+/// Repository of todo, contains all necessary manipulations
+/// for todos, such as
+///
+/// - get
+/// - add
+/// - remove
+/// - modify
+///
+/// and stream with changes for monitoring
 abstract interface class TodoRepository {
+  /// Load tasks with result
   Future<LoadedTasksResult> loadTasks(
     TodoSortMechanism mechanism,
   );
+
+  /// Stream, which provides changes of Todos in real time
   Future<Stream<TodoDataSnapshotModel>> todoChangeStream(
-      TodoSortMechanism mechanism,);
+    TodoSortMechanism mechanism,
+  );
+
+  /// Remove todo by id
   Future<void> removeTodo(String id);
+
+  /// Add a new todo from model
   Future<void> addTodo(TodoModel todo);
+
+  /// Modify todo by id and updated model
   Future<void> modifyTodo(String id, TodoModel todo);
+
+  /// Get todo by id
   Future<TodoItem> getTodo(String id);
 }
 
+/// Base implementation of [TodoRepository]
+/// We use [AuthDataProvider] here for provide authorities,
+/// such as `uid`
+/// Also we use use [TodoDataProvider], here we provide 
+/// our authoirities, received from [AuthDataProvider]
+/// to get private information
 class TodoRepositoryImpl implements TodoRepository {
   final TodoDataProvider _todoDataProvider;
   final AuthDataProvider _authDataProvider;
 
-  TodoRepositoryImpl(
-      {required TodoDataProvider todoDataProvider,
-      required AuthDataProvider authDataProvider,})
-      : _todoDataProvider = todoDataProvider,
+  /// Public constructor
+  TodoRepositoryImpl({
+    required TodoDataProvider todoDataProvider,
+    required AuthDataProvider authDataProvider,
+  })  : _todoDataProvider = todoDataProvider,
         _authDataProvider = authDataProvider;
 
   Future<UserModel> get _user async {
@@ -45,7 +73,8 @@ class TodoRepositoryImpl implements TodoRepository {
 
   @override
   Future<Stream<TodoDataSnapshotModel>> todoChangeStream(
-      TodoSortMechanism mechanism,) async {
+    TodoSortMechanism mechanism,
+  ) async {
     return _todoDataProvider.onTodoChanged(await _user, mechanism);
   }
 

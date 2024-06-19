@@ -4,10 +4,13 @@ import 'package:todo_firebase/feature/todo/data/model/mapper/todo_status_mapper.
 import 'package:todo_firebase/feature/todo/data/model/mapper/dto_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 
+/// [DtoMapper] for [TodoDto] and [TodoModel]
+/// We use another mapper [TodoStatusMapper] to map more complex object
 class TodoDtoMapper implements DtoMapper<TodoDto, TodoModel> {
-  final TodoStatusMapper statusMapper;
+  final TodoStatusMapper _statusMapper;
 
-  TodoDtoMapper({required this.statusMapper});
+  /// Public constructor
+  TodoDtoMapper({required TodoStatusMapper statusMapper}) : _statusMapper = statusMapper;
   @override
   TodoModel mapFromDto(TodoDto data) {
     return TodoModel(
@@ -17,7 +20,7 @@ class TodoDtoMapper implements DtoMapper<TodoDto, TodoModel> {
           data.createDate.millisecondsSinceEpoch,),
       deadlineDate: DateTime.fromMillisecondsSinceEpoch(
           data.deadlineDate.millisecondsSinceEpoch,),
-      todoStatus: statusMapper.mapFromDto(data.todoStatus),
+      todoStatus: _statusMapper.mapFromDto(data.todoStatus),
     );
   }
 
@@ -28,7 +31,7 @@ class TodoDtoMapper implements DtoMapper<TodoDto, TodoModel> {
       description: data.description,
       createDate: Timestamp.fromDate(data.createDate),
       deadlineDate: Timestamp.fromDate(data.deadlineDate),
-      todoStatus: statusMapper.mapFromModel(data.todoStatus),
+      todoStatus: _statusMapper.mapFromModel(data.todoStatus),
     );
   }
 }

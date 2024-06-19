@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_data_snapshot_model.dart';
@@ -15,6 +15,9 @@ part 'todo_event.dart';
 part 'todo_state.dart';
 part 'todo_bloc.freezed.dart';
 
+/// The main bloc of the app
+/// Provides events for manipulating with todo's
+/// and states of todos
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final TodoRepository _todoRepository;
 
@@ -23,6 +26,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   late final StreamSubscription<TodoDataSnapshotModel>
       _streamChangesSubscription;
 
+  /// Public constructor with single event handler to
+  /// prevent emitting states in uncontrolable order
   TodoBloc({
     required TodoState initialState,
     required TodoRepository todoRepository,

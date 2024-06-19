@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
 
+/// Dialog with actions of Todo
 class TodoActionsDialog extends StatelessWidget {
+  /// Public constructor with provided todo controller
   const TodoActionsDialog({
     super.key,
     required this.todo,
@@ -11,8 +12,13 @@ class TodoActionsDialog extends StatelessWidget {
     required this.todoScopeController,
   });
 
+  /// The todo
   final TodoModel todo;
+
+  /// Controller 
   final TodoScopeController todoScopeController;
+
+  /// Index of the todo in list, so we can use it when use [TodoScopeController]
   final int index;
 
   @override

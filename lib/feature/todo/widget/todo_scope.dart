@@ -9,26 +9,48 @@ import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_status.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_list_item.dart';
 
+/// Controller of the [TodoScope]
+/// Contains methods for the user to interact with his todos
 abstract interface class TodoScopeController {
+  /// Bloc state of Todos
   TodoState get state;
+
+  /// Key of the Animated list
+  /// We need it here, because we listen for changes here and we
+  /// notify the animated list about changes
   GlobalKey<SliverAnimatedListState> get listKey;
 
+  /// Removing todo by index in list
   void removeTodo(int index);
+
+  /// Adding todo by passing the model
   void addTodo(TodoModel model);
+
+  /// Marking todo with [TodoStatus]
   void markTodo(int index, TodoStatus status);
+
+  /// Loading todos, only the first time, when we open the page (initial loading)
   void loadTodos();
+
+  /// Sorting todos by some sort type
   void sortBy(SortType sortType);
 }
 
+/// The scope with controller
 class TodoScope extends StatefulWidget {
+  /// Public constructor
   const TodoScope({super.key, required this.todoBloc, required this.child});
 
+  /// Bloc, which manages states of the todos
   final TodoBloc todoBloc;
 
+  /// Child widget, which will get access to controller and states
   final Widget child;
 
+  /// Getting [TodoScopeController] from [BuildContext]
   static TodoScopeController of(BuildContext context, {bool listen = true}) =>
       context.inhOf<_InheritToDoScope>(listen: listen).controller;
+
   @override
   State<TodoScope> createState() => _TodoScopeState();
 }
@@ -81,12 +103,13 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
     final removedElement = modifiedChange.todoItem;
     if (modifiedChange.oldIndex != modifiedChange.newIndex) {
       listKey.currentState?.removeItem(
-          modifiedChange.oldIndex,
-          (context, animation) => _RemoveElementWidget(
-                removedElement: removedElement,
-                animation: animation,
-              ),
-          duration: const Duration(milliseconds: 200),);
+        modifiedChange.oldIndex,
+        (context, animation) => _RemoveElementWidget(
+          removedElement: removedElement,
+          animation: animation,
+        ),
+        duration: const Duration(milliseconds: 200),
+      );
 
       listKey.currentState?.insertItem(
         modifiedChange.newIndex,

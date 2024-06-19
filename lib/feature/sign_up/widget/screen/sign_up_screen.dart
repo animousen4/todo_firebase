@@ -7,8 +7,11 @@ import 'package:todo_firebase/feature/sign_in/widget/validation_text_field.dart'
 import 'package:todo_firebase/feature/sign_up/bloc/sign_up_bloc.dart';
 import 'package:todo_firebase/feature/sign_up/widget/sign_up_scope.dart';
 
+/// Sign up screen for user
 @RoutePage()
 class SignUpScreen extends StatefulWidget {
+
+  /// Public constructor
   const SignUpScreen({super.key});
 
   @override

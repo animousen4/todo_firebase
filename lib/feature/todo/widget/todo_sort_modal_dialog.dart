@@ -5,13 +5,25 @@ import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
 
 enum SortMethods {
   creationDateAsc(
-      "By creation date (ascending)", Icons.date_range, SortType.createDateAsc,),
-  creationDateDesc("By creation date (descending)", Icons.date_range,
-      SortType.createDateDesk,),
-  deadlineDateDesc("By deadline date (descending)", Icons.date_range,
-      SortType.dateDeadlineDesc,),
-  deadlineDateAsc("By deadline date (descending)", Icons.date_range,
-      SortType.dateDeadlineAsc,),
+    "By creation date (ascending)",
+    Icons.date_range,
+    SortType.createDateAsc,
+  ),
+  creationDateDesc(
+    "By creation date (descending)",
+    Icons.date_range,
+    SortType.createDateDesc,
+  ),
+  deadlineDateDesc(
+    "By deadline date (descending)",
+    Icons.date_range,
+    SortType.dateDeadlineDesc,
+  ),
+  deadlineDateAsc(
+    "By deadline date (descending)",
+    Icons.date_range,
+    SortType.dateDeadlineAsc,
+  ),
   complete("By completion", Icons.check_circle_outline, SortType.complete);
 
   const SortMethods(this.name, this.icon, this.sortType);

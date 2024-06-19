@@ -1,6 +1,11 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Dto for Firebase
+/// @nodoc
 class TodoDto {
+
   final String title;
 
   final String description;
@@ -19,6 +24,7 @@ class TodoDto {
     required this.todoStatus,
   });
 
+  /// Getting data from firestore
   factory TodoDto.fromFirestore(Map<String, dynamic> json) {
     return TodoDto(
         title: json["title"],
@@ -29,6 +35,7 @@ class TodoDto {
       );
   }
 
+  /// Mapping into firestore format
   Map<String, dynamic> toFirestore() => {
         "title": title,
         "description": description,

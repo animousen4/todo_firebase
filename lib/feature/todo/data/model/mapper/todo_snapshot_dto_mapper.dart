@@ -6,11 +6,15 @@ import 'package:todo_firebase/feature/todo/data/model/todo_data_changes_model.da
 import 'package:todo_firebase/feature/todo/data/model/todo_data_snapshot_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 
+/// Mapper for [QuerySnapshot] and [TodoDataSnapshotModel]
+/// Only with [FromDtoMapper], because its not required for 
+/// mapping entity to Dto, just receiveing
 class TodoSnapshotDtoMapper
     implements
         FromDtoMapper<QuerySnapshot<TodoItemDto>, TodoDataSnapshotModel> {
   final TodoDtoMapper _todoDtoMapper;
 
+  /// Public constructor
   TodoSnapshotDtoMapper({required TodoDtoMapper todoDtoMapper})
       : _todoDtoMapper = todoDtoMapper;
 
