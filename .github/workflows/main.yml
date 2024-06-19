@@ -1,0 +1,50 @@
+name: "Code Analysis"
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+      
+      - name: Add Dart&Flutter binaries to the path
+        run: |
+          export PATH=$PATH:~/.pub-cache/bin
+        
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.12.0
+        with:
+          flutter-version: 3.22.2
+          channel: stable
+          cache: true
+          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash:-${{ hashFiles('**/pubspec.lock') }}
+
+      - name: Install Dependencies
+        run: |
+          flutter pub global activate very_good_cli
+          flutter pub global activate coverage
+          flutter pub global activate build_runner
+          flutter pub global activate protoc_plugin
+
+      - name: Generate Code
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: Analyze
+        run: |
+          flutter analyze .
+
+      - name: Run Tests
+        run: |
+          flutter test
