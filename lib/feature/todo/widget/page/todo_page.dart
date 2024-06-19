@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:todo_firebase/feature/auth/widget/auth_scope.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
+import 'package:todo_firebase/feature/routes/app_router.dart';
 import 'package:todo_firebase/feature/todo/bloc/todo_bloc.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_sort_type.dart';
 import 'package:todo_firebase/feature/todo/widget/synchronizer/animated_sync.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_add_dialog.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_list_item.dart';
 import 'package:todo_firebase/feature/todo/widget/todo_scope.dart';
+import 'package:todo_firebase/feature/todo/widget/todo_sort_modal_dialog.dart';
 
 @RoutePage()
 class TodoPage extends StatefulWidget {
@@ -112,23 +114,6 @@ class _TodoSliverList extends StatelessWidget {
   }
 }
 
-enum _SortMethods {
-  creationDateAsc(
-      "By creation date (ascending)", Icons.date_range, SortType.createDateAsc),
-  creationDateDesc("By creation date (descending)", Icons.date_range,
-      SortType.createDateDesk),
-  deadlineDateDesc("By deadline date (descending)", Icons.date_range,
-      SortType.dateDeadlineDesc),
-  deadlineDateAsc("By deadline date (descending)", Icons.date_range,
-      SortType.dateDeadlineAsc),
-  complete("By completion", Icons.check_circle_outline, SortType.complete);
-
-  const _SortMethods(this.name, this.icon, this.sortType);
-  final String name;
-  final IconData icon;
-  final SortType sortType;
-}
-
 class _TodoSliverAppBar extends StatelessWidget {
   const _TodoSliverAppBar({
     super.key,
@@ -153,6 +138,11 @@ class _TodoSliverAppBar extends StatelessWidget {
       ),
       actions: [
         IconButton(
+            onPressed: () {
+              context.pushRoute(const SettingsRoute());
+            },
+            icon: const Icon(Icons.settings_outlined)),
+        IconButton(
           onPressed: () {
             authController.logout();
           },
@@ -171,25 +161,30 @@ class _DropdownSort extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final todoScope = TodoScope.of(context);
+
+    final sortMethod = SortMethods.values
+        .where(
+          (method) => method.sortType == todoScope.state.sortType,
+        )
+        .toList()
+        .first;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DropdownMenu<_SortMethods>(
-        label: const Text("Sort by"),
-        width: 140,
-        initialSelection: _SortMethods.complete,
-        dropdownMenuEntries:
-            _SortMethods.values.map<DropdownMenuEntry<_SortMethods>>((value) {
-          return DropdownMenuEntry(
-            value: value,
-            label: value.name,
-            leadingIcon: Icon(value.icon),
-          );
-        }).toList(),
-        onSelected: (value) {
-          if (value != null) {
-            todoScope.sortBy(value.sortType);
-          }
-        },
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Row(
+        children: [
+          const Text("Sort: "),
+          TextButton(
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) => TodoSortModalDialog(
+                        onSubmit: (sortType) => todoScope.sortBy(sortType),
+                        initSortType: sortMethod,
+                      ));
+            },
+            child: Text(sortMethod.name),
+          ),
+        ],
       ),
     );
   }
