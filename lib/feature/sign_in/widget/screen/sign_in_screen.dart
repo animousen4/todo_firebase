@@ -36,6 +36,13 @@ class _SignInScreenState extends State<SignInScreen> {
       initState: const SignInState.idle(),
     );
   }
+
+  /// Closing bloc when we dont need it
+  @override
+  void dispose() {
+    signInBloc.close();
+    super.dispose();
+  }
 }
 
 class _SignInLoader extends StatelessWidget {

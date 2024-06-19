@@ -47,6 +47,13 @@ class _TodoPageState extends State<TodoPage> {
       todoRepository: todoRepository,
     );
   }
+
+  /// Closing bloc when it not needed
+  @override
+  void dispose() {
+    todoBloc.close();
+    super.dispose();
+  }
 }
 
 class _TodoPageView extends StatefulWidget {
