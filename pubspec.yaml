@@ -27,6 +27,9 @@ dependencies:
   cloud_firestore: ^5.0.1
   firebase_core: ^3.1.0
 
+  #intl
+  intl: ^0.19.0
+
   #routing
   auto_route: ^8.2.0
 

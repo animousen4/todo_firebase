@@ -61,40 +61,46 @@ class _TodoScopeState extends State<TodoScope> implements TodoScopeController {
 
   void _mapChange(TodoDataChangesModel change) {
     change.mapOrNull(
-      added: (addedChange) => listKey.currentState?.insertItem(
-        addedChange.newIndex,
-        duration: const Duration(milliseconds: 200),
-      ),
-      modified: (modifiedChange) {
-        final removedElement = modifiedChange.todoItem;
-        if (modifiedChange.oldIndex != modifiedChange.newIndex) {
-          listKey.currentState?.removeItem(
-            modifiedChange.oldIndex,
-            (context, animation) => _RemoveElementWidget(
-              removedElement: removedElement,
-              animation: animation,
-            ),
-          );
-
-          listKey.currentState?.insertItem(
-            modifiedChange.newIndex,
-            duration: const Duration(milliseconds: 200),
-          );
-        }
-      },
-      removed: (removedChange) {
-        final removedElement = removedChange.todoItem;
-        listKey.currentState?.removeItem(
-          removedChange.oldIndex,
-          (context, animation) => _RemoveElementWidget(
-            removedElement: removedElement,
-            animation: animation,
-          ),
-          duration: const Duration(milliseconds: 200),
-        );
-      },
+      added: _onAddItem,
+      modified: _onModifyItem,
+      removed: _onRemoveItem,
     );
   }
+
+  void _onRemoveItem(removedChange) {
+    final removedElement = removedChange.todoItem;
+    listKey.currentState?.removeItem(
+      removedChange.oldIndex,
+      (context, animation) => _RemoveElementWidget(
+        removedElement: removedElement,
+        animation: animation,
+      ),
+      duration: const Duration(milliseconds: 200),
+    );
+  }
+
+  void _onModifyItem(modifiedChange) {
+    final removedElement = modifiedChange.todoItem;
+    if (modifiedChange.oldIndex != modifiedChange.newIndex) {
+      listKey.currentState?.removeItem(
+          modifiedChange.oldIndex,
+          (context, animation) => _RemoveElementWidget(
+                removedElement: removedElement,
+                animation: animation,
+              ),
+          duration: Duration(milliseconds: 200));
+
+      listKey.currentState?.insertItem(
+        modifiedChange.newIndex,
+        duration: const Duration(milliseconds: 200),
+      );
+    }
+  }
+
+  void _onAddItem(addedChange) => listKey.currentState?.insertItem(
+        addedChange.newIndex,
+        duration: const Duration(milliseconds: 200),
+      );
 
   @override
   void loadTodos() {
@@ -140,11 +146,12 @@ class _InheritToDoScope extends InheritedWidget {
 
   final TodoState state;
 
-  const _InheritToDoScope(
-      {required super.child,
-      required this.controller,
-      required this.state,
-      required this.listKey});
+  const _InheritToDoScope({
+    required super.child,
+    required this.controller,
+    required this.state,
+    required this.listKey,
+  });
   @override
   bool updateShouldNotify(_InheritToDoScope oldWidget) {
     return state != oldWidget.state;
@@ -166,10 +173,7 @@ class _RemoveElementWidget extends StatelessWidget {
       animation: animation,
       builder: (context, child) => SizeTransition(
         sizeFactor: animation,
-        child: FadeTransition(
-          opacity: animation,
-          child: child,
-        ),
+        child: child,
       ),
       child: TodoListItem(
         model: removedElement.todoModel,
