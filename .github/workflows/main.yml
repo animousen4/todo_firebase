@@ -17,10 +17,6 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
-        
-      - name: Save secret file firebase_options.dart
-        run: |
-          echo $FIREBASE_OPTIONS_BASE64 | base64 --decode > lib/firebase_options.dart
       
       - name: Add Dart&Flutter binaries to the path
         run: |
