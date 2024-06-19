@@ -75,19 +75,28 @@ class _SignUpScreenView extends StatefulWidget {
 }
 
 class _SignUpScreenViewState extends State<_SignUpScreenView> {
+
+  /// Controllers for login and password
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  /// Listens for controllers
   late final Listenable _observer;
 
+  /// Provides validation errors
   late final ValueNotifier<String?> _loginError = ValueNotifier(null);
   late final ValueNotifier<String?> _passwordError = ValueNotifier(null);
 
+  /// Notifies about validation status
   late final ValueNotifier<bool> _signUpValid = ValueNotifier(false);
 
+  /// List of validations of [DefaultAuthUserData] data
   late final List<String? Function(DefaultAuthUserData data)> _validations;
 
+  /// List of [TextEditingController] for merge
   late final List<TextEditingController> _controllers;
+
+  /// List of validation errors
   late final List<ValueNotifier<String?>> _errors;
 
   @override

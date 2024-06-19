@@ -73,23 +73,30 @@ class _SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<_SignInView> {
 
+  /// Controllers for login and password
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  /// Controller of the [SignInScope]
   late SignInScopeController _signInScopeController;
 
   /// One common observer, which includes all controllers
   late final Listenable _observer;
 
+  /// Validations for login and password
   late final ValueNotifier<String?> _loginError = ValueNotifier(null);
   late final ValueNotifier<String?> _passwordError = ValueNotifier(null);
 
+  /// Notification about validation status
   late final ValueNotifier<bool> _signInValid = ValueNotifier(false);
 
   /// Validations, which will be called each time user interacts with [TextField]s
   late final List<String? Function(DefaultAuthUserData data)> _validations;
 
+  /// List of controllers to merge to `_observer`
   late final List<TextEditingController> _controllers;
+
+  /// List of validation errors
   late final List<ValueNotifier<String?>> _errors;
 
   @override
