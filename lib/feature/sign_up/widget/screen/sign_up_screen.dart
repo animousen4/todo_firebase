@@ -124,6 +124,7 @@ class _SignUpScreenViewState extends State<_SignUpScreenView> {
                   ValidationTextField(
                     error: _passwordError,
                     controller: _passwordController,
+                    obscureText: true,
                   ),
                   const SizedBox(
                     height: 15,

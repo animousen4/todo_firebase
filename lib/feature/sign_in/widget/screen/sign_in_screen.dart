@@ -123,6 +123,7 @@ class _SignInViewState extends State<_SignInView> {
                   ValidationTextField(
                     error: _passwordError,
                     controller: _passwordController,
+                    obscureText: true,
                   ),
                   const SizedBox(
                     height: 15,

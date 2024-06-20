@@ -9,12 +9,15 @@ class ValidationTextField extends StatelessWidget {
     required ValueNotifier<String?> error,
     required TextEditingController controller,
     this.decorationLabel,
+    bool obscureText = false,
     super.key,
   })  : _error = error,
-        _controller = controller;
+        _controller = controller,
+        _obscureText = obscureText;
 
   final ValueNotifier<String?> _error;
   final TextEditingController _controller;
+  final bool _obscureText;
 
   /// Decoration label of [TextField] in [InputDecoration]
   /// Could be optionally provided
@@ -23,6 +26,7 @@ class ValidationTextField extends StatelessWidget {
   Widget build(BuildContext context) => ListenableBuilder(
         listenable: _error,
         builder: (context, child) => TextField(
+          obscureText: _obscureText,
           decoration: InputDecoration(
             label: child,
             errorText: _error.value,
