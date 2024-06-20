@@ -10,7 +10,6 @@ import 'package:todo_firebase/feature/sign_up/widget/sign_up_scope.dart';
 /// Sign up screen for user
 @RoutePage()
 class SignUpScreen extends StatefulWidget {
-
   /// Public constructor
   const SignUpScreen({super.key});
 
@@ -57,13 +56,15 @@ class _SignUpLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     final isLoading = SignUpScope.of(context).state.inProgress;
     return OverlayLoading(
-        isLoading: isLoading,
-        loadingWidget: const Card(
-            child: Padding(
+      isLoading: isLoading,
+      loadingWidget: const Card(
+        child: Padding(
           padding: EdgeInsets.all(8.0),
           child: CircularProgressIndicator(),
-        ),),
-        child: const _SignUpScreenView(),);
+        ),
+      ),
+      child: const _SignUpScreenView(),
+    );
   }
 }
 
@@ -75,7 +76,6 @@ class _SignUpScreenView extends StatefulWidget {
 }
 
 class _SignUpScreenViewState extends State<_SignUpScreenView> {
-
   /// Controllers for login and password
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -102,44 +102,51 @@ class _SignUpScreenViewState extends State<_SignUpScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Sign up"),
-        ),
-        body: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ValidationTextField(
-                      error: _loginError,
-                      controller: _loginController,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    ValidationTextField(
-                      error: _passwordError,
-                      controller: _passwordController,
-                    ),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: _ErrorAreaWidget(),
-                    ),
-                    _SignUpButton(
-                      signUpValid: _signUpValid,
-                      loginController: _loginController,
-                      passwordController: _passwordController,
-                    ),
-                  ],
-                ),
+      appBar: AppBar(
+        title: const Text("Sign up"),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ValidationTextField(
+                    error: _loginError,
+                    controller: _loginController,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ValidationTextField(
+                    error: _passwordError,
+                    controller: _passwordController,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: _ErrorAreaWidget(),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  _SignUpButton(
+                    signUpValid: _signUpValid,
+                    loginController: _loginController,
+                    passwordController: _passwordController,
+                  ),
+                ],
               ),
             ),
-          ],
-        ),);
+          ),
+        ],
+      ),
+    );
   }
 
   @override

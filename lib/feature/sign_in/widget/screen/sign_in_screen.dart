@@ -53,14 +53,15 @@ class _SignInLoader extends StatelessWidget {
     final isLoading = SignInScope.of(context).state.isLoading;
 
     return OverlayLoading(
-        isLoading: isLoading,
-        loadingWidget: const Card(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircularProgressIndicator(),
-          ),
+      isLoading: isLoading,
+      loadingWidget: const Card(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircularProgressIndicator(),
         ),
-        child: const _SignInView(),);
+      ),
+      child: const _SignInView(),
+    );
   }
 }
 
@@ -72,7 +73,6 @@ class _SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<_SignInView> {
-
   /// Controllers for login and password
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -124,6 +124,9 @@ class _SignInViewState extends State<_SignInView> {
                     error: _passwordError,
                     controller: _passwordController,
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -136,24 +139,7 @@ class _SignInViewState extends State<_SignInView> {
                       ),
                     ],
                   ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: "Not registered yet? ",
-                            style: Theme.of(context).textTheme.bodyMedium,),
-                        TextSpan(
-                            text: "Sign up",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap =
-                                  () => context.pushRoute(const SignUpRoute()),),
-                      ],
-                    ),
-                  ),
+                  const _SignUpLinkText(),
                 ],
               ),
             ),
@@ -230,6 +216,36 @@ class _SignInViewState extends State<_SignInView> {
     }
 
     super.dispose();
+  }
+}
+
+class _SignUpLinkText extends StatelessWidget {
+  const _SignUpLinkText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: "Not registered yet? ",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          TextSpan(
+            text: "Sign up",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.blue),
+            recognizer: TapGestureRecognizer()
+              ..onTap =
+                  () => context.pushRoute(const SignUpRoute()),
+          ),
+        ],
+      ),
+    );
   }
 }
 
