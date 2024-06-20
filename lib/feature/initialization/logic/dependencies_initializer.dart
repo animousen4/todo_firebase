@@ -22,7 +22,7 @@ import 'package:todo_firebase/feature/sign_up/data/sign_up_repository.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/todo_dto_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/todo_snapshot_dto_mapper.dart';
 import 'package:todo_firebase/feature/todo/data/model/mapper/todo_status_mapper.dart';
-import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
+import 'package:todo_firebase/feature/todo/data/todo_sync_server_data_provider.dart';
 import 'package:todo_firebase/feature/todo/data/todo_repository.dart';
 
 /// Initializer, which initializes dependecy container [Dependencies]

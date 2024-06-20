@@ -10,7 +10,7 @@ import 'package:todo_firebase/feature/todo/data/model/todo_sort_mechanism.dart';
 import 'package:todo_firebase/feature/todo/data/results.dart';
 
 /// Data provider for todos
-abstract interface class TodoDataProvider {
+abstract interface class TodoSyncServerDataProvider {
   /// Method which loads all tasks
   Future<LoadedTasksResult> loadTasks(
     UserModel userModel,
@@ -21,7 +21,7 @@ abstract interface class TodoDataProvider {
   Stream<TodoDataSnapshotModel> onTodoChanged(
     UserModel userModel,
     TodoSortMechanism mechanism,
-  );  
+  );
 
   /// Method for adding todos, auth required
   Future<void> addTodo(UserModel userModel, TodoModel todo);
@@ -36,9 +36,8 @@ abstract interface class TodoDataProvider {
   Future<TodoItem> getTodo(UserModel userModel, String id);
 }
 
-/// Firebase implementation of [TodoDataProvider]
-class TodoDataProviderImpl implements TodoDataProvider {
-
+/// Firebase implementation of [TodoSyncServerDataProvider]
+class TodoDataProviderImpl implements TodoSyncServerDataProvider {
   final FirebaseFirestore _firebaseFirestore;
 
   final DtoMapper<TodoDto, TodoModel> _todoDtoMapper;
@@ -105,7 +104,9 @@ class TodoDataProviderImpl implements TodoDataProvider {
 
   @override
   Stream<TodoDataSnapshotModel> onTodoChanged(
-      UserModel user, TodoSortMechanism mechanism,) {
+    UserModel user,
+    TodoSortMechanism mechanism,
+  ) {
     return _getTodoItemCollection(user)
         .orderBy(mechanism.fieldName, descending: mechanism.descending)
         .snapshots()

@@ -5,7 +5,7 @@ import 'package:todo_firebase/feature/todo/data/model/todo_item.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_model.dart';
 import 'package:todo_firebase/feature/todo/data/model/todo_sort_mechanism.dart';
 import 'package:todo_firebase/feature/todo/data/results.dart';
-import 'package:todo_firebase/feature/todo/data/todo_data_provider.dart';
+import 'package:todo_firebase/feature/todo/data/todo_sync_server_data_provider.dart';
 
 /// Repository of todo, contains all necessary manipulations
 /// for todos, such as
@@ -43,16 +43,16 @@ abstract interface class TodoRepository {
 /// Base implementation of [TodoRepository]
 /// We use [AuthDataProvider] here for provide authorities,
 /// such as `uid`
-/// Also we use use [TodoDataProvider], here we provide 
+/// Also we use use [TodoSyncServerDataProvider], here we provide
 /// our authoirities, received from [AuthDataProvider]
 /// to get private information
 class TodoRepositoryImpl implements TodoRepository {
-  final TodoDataProvider _todoDataProvider;
+  final TodoSyncServerDataProvider _todoDataProvider;
   final AuthDataProvider _authDataProvider;
 
   /// Public constructor
   TodoRepositoryImpl({
-    required TodoDataProvider todoDataProvider,
+    required TodoSyncServerDataProvider todoDataProvider,
     required AuthDataProvider authDataProvider,
   })  : _todoDataProvider = todoDataProvider,
         _authDataProvider = authDataProvider;

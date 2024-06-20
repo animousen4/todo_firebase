@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_firebase/core/utils/build_context_extension.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/overlay_loading/widget/overlay_loading.dart';
 import 'package:todo_firebase/feature/routes/app_router.dart';
@@ -101,52 +102,21 @@ class _SignInViewState extends State<_SignInView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Log in"),
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ValidationTextField(
-                    error: _loginError,
-                    controller: _loginController,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ValidationTextField(
-                    error: _passwordError,
-                    controller: _passwordController,
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const _SignInError(),
-                      _SignInButton(
-                        signInValid: _signInValid,
-                        signInScopeController: _signInScopeController,
-                        loginController: _loginController,
-                        passwordController: _passwordController,
-                      ),
-                    ],
-                  ),
-                  const _SignUpLinkText(),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return _InheritSignInPageContainer(
+          loginController: _loginController,
+          loginError: _loginError,
+          passwordController: _passwordController,
+          passwordError: _passwordError,
+          signInValid: _signInValid,
+          signInScopeController: _signInScopeController,
+          child: switch (orientation) {
+            Orientation.portrait => const _SignInPagePortrait(),
+            Orientation.landscape => const _SignInPageLandscape(),
+          },
+        );
+      },
     );
   }
 
@@ -220,6 +190,148 @@ class _SignInViewState extends State<_SignInView> {
   }
 }
 
+class _SignInPagePortrait extends StatelessWidget {
+  const _SignInPagePortrait();
+
+  @override
+  Widget build(BuildContext context) {
+    _InheritSignInPageContainer container =
+        _InheritSignInPageContainer.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Log in"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ValidationTextField(
+              error: container.loginError,
+              controller: container.loginController,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ValidationTextField(
+              error: container.passwordError,
+              controller: container.passwordController,
+              obscureText: true,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const _SignInError(),
+                _SignInButton(
+                  signInValid: container.signInValid,
+                  signInScopeController: container.signInScopeController,
+                  loginController: container.loginController,
+                  passwordController: container.passwordController,
+                ),
+              ],
+            ),
+            const _SignUpLinkText(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _InheritSignInPageContainer extends InheritedWidget {
+  final ValueNotifier<String?> loginError;
+  final TextEditingController loginController;
+  final ValueNotifier<String?> passwordError;
+  final TextEditingController passwordController;
+  final ValueNotifier<bool> signInValid;
+  final SignInScopeController signInScopeController;
+
+  const _InheritSignInPageContainer({
+    required super.child,
+    required this.loginError,
+    required this.loginController,
+    required this.passwordError,
+    required this.passwordController,
+    required this.signInValid,
+    required this.signInScopeController,
+  });
+
+  static _InheritSignInPageContainer of(BuildContext context) =>
+      context.inhOf<_InheritSignInPageContainer>(listen: false);
+
+  @override
+  bool updateShouldNotify(_InheritSignInPageContainer oldWidget) => false;
+}
+
+class _SignInPageLandscape extends StatelessWidget {
+  const _SignInPageLandscape();
+
+  @override
+  Widget build(BuildContext context) {
+    final container = _InheritSignInPageContainer.of(context);
+    return Scaffold(
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(26),
+            color: Colors.white70,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(26.0),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 450),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Sign in",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ValidationTextField(
+                    error: container.loginError,
+                    controller: container.loginController,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  ValidationTextField(
+                    error: container.passwordError,
+                    controller: container.passwordController,
+                    obscureText: true,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const _SignInError(),
+                      _SignInButton(
+                        signInValid: container.signInValid,
+                        signInScopeController: container.signInScopeController,
+                        loginController: container.loginController,
+                        passwordController: container.passwordController,
+                      ),
+                    ],
+                  ),
+                  const _SignUpLinkText(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _SignUpLinkText extends StatelessWidget {
   const _SignUpLinkText({
     super.key,
@@ -241,8 +353,7 @@ class _SignUpLinkText extends StatelessWidget {
                 .bodyMedium
                 ?.copyWith(color: Colors.blue),
             recognizer: TapGestureRecognizer()
-              ..onTap =
-                  () => context.pushRoute(const SignUpRoute()),
+              ..onTap = () => context.pushRoute(const SignUpRoute()),
           ),
         ],
       ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 /// Widget, which renders error (if present, through [ValueNotifier])
 /// and working using [TextEditingController], notifies upper widgets about changes
 class ValidationTextField extends StatelessWidget {
-
   /// Public constructor
   const ValidationTextField({
     required ValueNotifier<String?> error,
@@ -24,16 +23,16 @@ class ValidationTextField extends StatelessWidget {
   final Widget? decorationLabel;
   @override
   Widget build(BuildContext context) => ListenableBuilder(
-        listenable: _error,
-        builder: (context, child) => TextField(
-          obscureText: _obscureText,
-          decoration: InputDecoration(
-            label: child,
-            errorText: _error.value,
-            //helperText: "",
-          ),
-          controller: _controller,
-        ),
-        child: decorationLabel,
-      );
+    listenable: _error,
+    builder: (context, child) => TextField(
+      obscureText: _obscureText,
+      decoration: InputDecoration(
+        label: child,
+        errorText: _error.value,
+        //helperText: "",
+      ),
+      controller: _controller,
+    ),
+    child: decorationLabel,
+  );
 }
