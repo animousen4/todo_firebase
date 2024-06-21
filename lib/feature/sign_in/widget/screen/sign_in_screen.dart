@@ -9,8 +9,12 @@ import 'package:todo_firebase/feature/overlay_loading/widget/overlay_loading.dar
 import 'package:todo_firebase/feature/routes/app_router.dart';
 import 'package:todo_firebase/feature/initialization/widget/dependencies_scope.dart';
 import 'package:todo_firebase/feature/sign_in/bloc/sign_in_bloc.dart';
+import 'package:todo_firebase/feature/sign_in/widget/components/data_landscape_container.dart';
 import 'package:todo_firebase/feature/sign_in/widget/sign_in_scope.dart';
 import 'package:todo_firebase/feature/sign_in/widget/validation_text_field.dart';
+
+part 'pages.dart';
+part 'pages_components.dart';
 
 /// Screen for user to sign in
 @RoutePage()
@@ -194,57 +198,6 @@ class _SignInViewState extends State<_SignInView> {
   }
 }
 
-class _SignInPagePortrait extends StatelessWidget {
-  const _SignInPagePortrait();
-
-  @override
-  Widget build(BuildContext context) {
-    _InheritSignInPageContainer container =
-        _InheritSignInPageContainer.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Log in"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ValidationTextField(
-              error: container.loginError,
-              controller: container.loginController,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            ValidationTextField(
-              error: container.passwordError,
-              controller: container.passwordController,
-              obscureText: true,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const _SignInError(),
-                _SignInButton(
-                  signInValid: container.signInValid,
-                  signInScopeController: container.signInScopeController,
-                  loginController: container.loginController,
-                  passwordController: container.passwordController,
-                ),
-              ],
-            ),
-            const _SignUpLinkText(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class _InheritSignInPageContainer extends InheritedWidget {
   final ValueNotifier<String?> loginError;
   final TextEditingController loginController;
@@ -268,150 +221,4 @@ class _InheritSignInPageContainer extends InheritedWidget {
 
   @override
   bool updateShouldNotify(_InheritSignInPageContainer oldWidget) => false;
-}
-
-class _SignInPageLandscape extends StatelessWidget {
-  const _SignInPageLandscape();
-
-  @override
-  Widget build(BuildContext context) {
-    final container = _InheritSignInPageContainer.of(context);
-    return Scaffold(
-      body: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(26),
-            color: Colors.white70,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(26.0),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 450),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Sign in",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ValidationTextField(
-                    error: container.loginError,
-                    controller: container.loginController,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ValidationTextField(
-                    error: container.passwordError,
-                    controller: container.passwordController,
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const _SignInError(),
-                      _SignInButton(
-                        signInValid: container.signInValid,
-                        signInScopeController: container.signInScopeController,
-                        loginController: container.loginController,
-                        passwordController: container.passwordController,
-                      ),
-                    ],
-                  ),
-                  const _SignUpLinkText(),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SignUpLinkText extends StatelessWidget {
-  const _SignUpLinkText({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: "Not registered yet? ",
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          TextSpan(
-            text: "Sign up",
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: Colors.blue),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => context.pushRoute(const SignUpRoute()),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _SignInError extends StatelessWidget {
-  const _SignInError();
-
-  @override
-  Widget build(BuildContext context) {
-    final state = SignInScope.of(context).state;
-    final error = state.validationError;
-    return error == null ? const SizedBox() : Text(error.message);
-  }
-}
-
-class _SignInButton extends StatelessWidget {
-  const _SignInButton({
-    required ValueNotifier<bool> signInValid,
-    required SignInScopeController signInScopeController,
-    required TextEditingController loginController,
-    required TextEditingController passwordController,
-  })  : _signInValid = signInValid,
-        _signInScopeController = signInScopeController,
-        _loginController = loginController,
-        _passwordController = passwordController;
-
-  final ValueNotifier<bool> _signInValid;
-  final SignInScopeController _signInScopeController;
-  final TextEditingController _loginController;
-  final TextEditingController _passwordController;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: _signInValid,
-      builder: (context, child) {
-        return FilledButton(
-          onPressed: _signInValid.value
-              ? () {
-                  _signInScopeController.defaultSignIn(
-                    DefaultAuthUserData(
-                      email: _loginController.text,
-                      password: _passwordController.text,
-                    ),
-                  );
-                }
-              : null,
-          child: child,
-        );
-      },
-      child: const Text("Sign In"),
-    );
-  }
 }

@@ -46,6 +46,5 @@ class _AdaptiveBuilderState extends State<AdaptiveBuilder> {
 
     _sortedChildren.sort((a, b) => a.aspectRatio.compareTo(b.aspectRatio));
 
-    print(_sortedChildren);
   }
 }
