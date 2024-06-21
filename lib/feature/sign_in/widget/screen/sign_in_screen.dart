@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/core/utils/build_context_extension.dart';
+import 'package:todo_firebase/feature/adaptive/adaptive_builder.dart';
+import 'package:todo_firebase/feature/adaptive/aspect_ratio_adapter.dart';
 import 'package:todo_firebase/feature/auth/data/model/default_sign_in_data.dart';
 import 'package:todo_firebase/feature/overlay_loading/widget/overlay_loading.dart';
 import 'package:todo_firebase/feature/routes/app_router.dart';
@@ -102,21 +104,23 @@ class _SignInViewState extends State<_SignInView> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        return _InheritSignInPageContainer(
-          loginController: _loginController,
-          loginError: _loginError,
-          passwordController: _passwordController,
-          passwordError: _passwordError,
-          signInValid: _signInValid,
-          signInScopeController: _signInScopeController,
-          child: switch (orientation) {
-            Orientation.portrait => const _SignInPagePortrait(),
-            Orientation.landscape => const _SignInPageLandscape(),
-          },
-        );
-      },
+    return _InheritSignInPageContainer(
+      loginController: _loginController,
+      loginError: _loginError,
+      passwordController: _passwordController,
+      passwordError: _passwordError,
+      signInValid: _signInValid,
+      signInScopeController: _signInScopeController,
+      child: AdaptiveBuilder(
+        children: [
+          PortraitAdapter(
+            builder: (context, constraints) => const _SignInPagePortrait(),
+          ),
+          LandscapeAdapter(
+            builder: (context, constraints) => const _SignInPageLandscape(),
+          ),
+        ],
+      ),
     );
   }
 
